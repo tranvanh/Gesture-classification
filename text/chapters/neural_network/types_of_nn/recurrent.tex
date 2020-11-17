@@ -1,0 +1,24 @@
+Recurrent Neural Network (RNN) distinguished by its memory, RNN takes input sequence with no predetermined size. Its past predictions influence currently generated output. Thus for the same input, RNN could produce different results depending on previous inputs in the sequence.[https://towardsdatascience.com/recurrent-neural-networks-d4642c9bc7ce] \newline
+
+SCHEMATIC\\
+
+Figure 1.7b shows the network for each time step, i.e., at time t, the input Xt goes into the network to produce output Yt, the next time step of the input is Xt+1 with additional input from the previous time step from the hidden state Ht. This way, the neural network looks at the current input and has the context from the previous inputs.
+With this structure, recurrent units hold the past values, referred to as memory. Making it possible to work with a context in data.
+[https://medium.com/x8-the-ai-community/understanding-recurrent-neural-networks-in-6-minutes-967ab51b94fe]
+
+The recurrent unit is calculated as follows:\\
+
+MATH\\
+
+f() being the activation function, W is the weight matrix, X is the input, and b is the vector of bias parameters. Unit at time step t=0 is initialized to (0,0,...0). The output Y is then calculated as:
+
+MATH\\
+
+g() also being an activation function, usually being softmax to ensure the output is in the desired class range. W is the weight matrix and b being a vector of biases determined during the learning process.
+
+Training RNNs uses a modified version of the backpropagation algorithm called backpropagation through time (BPTT), working by unrolling the RNN [5 M], calculating the losses across time steps, then updating the weights with the backpropagation algorithm. More on RNN in [12 M] by Liton et al.
+
+
+
+
+

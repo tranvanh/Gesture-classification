@@ -1,0 +1,21 @@
+
+Convolutional Neural network (CNN) is a variation of FNN primarily used for image classification, object recognition, and other two-dimensional inputs. [5 M]. CNN is usually consisting of the input layer followed by multiple hidden layers, typically several convolutional layers with standard pooling layers, and ending with the output layer.
+
+\setsecnumdepth{all}
+\subsubsection{Convolutional Layer}
+
+The convolutional layers' objective is to extract key features from the input image by passing a matrix known as a kernel over the input image abstracted into a matrix.  [https://www.mathworks.com/solutions/deep-learning/convolutional-neural-network.html]\newline
+
+IMAGE \\
+
+The convolution result can be of two types. One being the convolved feature is reduced in dimensionality compared to the input, valid padding, and the other in which the dimensionality is either increased or remains the same, same padding. latter. [https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53]
+
+\subsubsection{Pooling Layer}
+
+
+Similar to the previously mentioned convolutional layer, the pooling layer reduces the convolved feature's spatial size to decrease the computational power required for data processing.
+Furthermore, being useful by extracting dominant features, which are rotational and positional invariant, thus maintaining the process of effectively training the model. [https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53]
+
+There are two types of pooling: max pooling and average pooling. Max Pooling returns the maximum value from the portion of the image covered by the kernel. It performs as a noise suppressant, discarding the noisy activations altogether and performing de-noising and dimensionality reduction. Where average pooling returns the average of all the values from the same covered portion, performing dimensionality reduction as a noise suppressing mechanism. Hence, it is possible to note that max-pooling performs better. [https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53] \newline
+
+IMAGE
