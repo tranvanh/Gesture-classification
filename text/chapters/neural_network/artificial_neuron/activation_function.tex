@@ -1,18 +1,51 @@
 An artificial neuron's activation function defines that neuron's output value
- for given inputs, commonly being f: R->R \cite{leskovec2020mining}. A significant trait of many activation functions is their differentiability, allowing them to be used for Backpropagation, ANN algorithm for training weights. Having derivative not saturating or exploding, heads towards 0 or inf, is necessary for activation functions.
+for given inputs, commonly being f: R->R \cite{leskovec2020mining}. A significant trait of many activation functions is their differentiability, allowing them to be used for Backpropagation, ANN algorithm for training weights. Having derivative not saturating or exploding, heads towards 0 or inf, is necessary for activation functions.
 
 For such reasons, the usage of step function or any linear function is unsuitable for ANN.
-
+% Sigmoid Function ==========================================================================================================
 \setsecnumdepth{all}
 \subsubsection{Sigmoid Function}
-\input{chapters/neural_network/artificial_neuron/activation_function/sigmoid_function.tex}
-%=======================================================================================================================
+The sigmoid function is commonly used in ANN as an alternative to the step function. A popular choice of the sigmoid function is a logistic sigmoid. Its output value is in the range of 0 and 1.
+
+MATH
+
+One of the reasons being the simplicity of derivative calculation:
+
+MATH
+
+One of its disadvantages being the vanishing gradient. A problem where for a given very high or very low input values, there would be almost no change in its prediction. Possibly resulting in training complications or performance issues.\cite{7typesactivationfunctions}
+
+% Hyperbolic Tangent ==========================================================================================================
+
 \subsubsection{Hyperbolic Tangent}
-\input{chapters/neural_network/artificial_neuron/activation_function/hyperbolic_tangent.tex}
-%=======================================================================================================================
+
+Hyperbolic tangent is similar to logistic sigmoid function with a key difference in its output, ranging between -1 and 1.
+
+MATH
+
+It shares sigmoid's simple calculation of its derivative.
+
+MATH
+
+By being only moved and scaled version of the sigmoid function, hyperbolic tangent does share sigmoid's advantages and its disadvantages.\cite{leskovec2020mining}
+
+% Rectified Linear Unit ==========================================================================================================
+
 \subsubsection{Rectified Linear Unit}
-\input{chapters/neural_network/artificial_neuron/activation_function/relu.tex}
-%=======================================================================================================================
+
+The output of the rectified linear unit (ReLU) is defined as:
+
+[MATH]
+
+ReLU popularity is mainly for its computational efficiency.\cite{7typesactivationfunctions}
+
+ReLu's disadvantages appear when inputs approach zero or are negative. Causing the so-called dying ReLu problem, where the network is unable to learn. There are many variations of ReLu to this date, e.g., Leaky ReLU, Parametric ReLU, ELU, ... 
+% Softmax ==========================================================================================================
+
 \subsubsection{Softmax}
-\input{chapters/neural_network/artificial_neuron/activation_function/softmax.tex}
-%=======================================================================================================================
+
+Softmax separates itself from all the previously mentioned functions by its ability to handle multiple input values in the form of a vector x = (x1,x2,...,xn) and output for each xi defined as:
+
+MATH
+
+For output being normalized probability distribution, ensuring SUM MATH.\cite{lipton2015critical} It is being used as the last activation function of ANN to normalize the network's output into n probability groups.
