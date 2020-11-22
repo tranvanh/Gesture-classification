@@ -1,10 +1,17 @@
-Feed-forward network (FNN) has its data or input travel in one direction, oriented from the input layer to the output layer, without cycles.\cite{6typeann} FNN may or may not contain several hidden layers of various widths. By having no back-loops, FNN generally minimizes error in its prediction by using the backpropagation algorithm to update its weight values.\cite{mainTypesANN}
+{\color{red}Feed-forward network (FNN) first ANN to be invetned and also the simplest form of ANN. It's name comes from how the infromation flows through the network. Its data travels in one direction, oriented from the input layer to the output layer, without cycles.\cite{ffnbrilliant} 
+}
+FNN may or may not contain several hidden layers of various widths. By having no back-loops, FNN generally minimizes error in its prediction by using the backpropagation algorithm to update its weight values.\cite{mainTypesANN}
 
 GRAPH
 
 The input layer takes input data, vector x, producing y at the output layer. The process of training weights
  consists of minimizing the loss function L(y,y), y being the target output of input x.\cite{lipton2015critical}
 
-\subsubsection{Backpropagation}
-\input{chapters/neural_network/types_of_nn/backpropagation.tex}
 %=======================================================================================================================
+\subsubsection{Backpropagation}
+Backpropagation, short of backward propagation of errors, is a widely used algorithm in training FFN using gradient descent to update the weights. \cite{birlliantbackprop}
+
+MATH
+
+Its generalization is used for other ANNs. Providing a way to compute the gradient of the cost function,
+ real number value expressing prediction incorrectness.\cite{Goodfellow-et-al-2016}
