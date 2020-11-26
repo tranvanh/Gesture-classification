@@ -8,19 +8,23 @@ As previously mentioned RNN takes into consideration informations from previous 
 
 SCHEMATIC
 
-Figure 1.7b shows the network for each time step, i.e., at time t, the input Xt goes into the network to produce output Yt, the next time step of the input is Xt+1 with additional input from the previous time step from the hidden state Ht. This way, the neural network looks at the current input and has the context from the previous inputs.
+Figure 1.7b shows the network for each time step, i.e., at time $t$, the input $\vec{x_t}$ goes into the network to produce output $\hat{y}_t$, the next time step of the input is $x_{t+1}$ with additional input from the previous time step from the hidden state $h_{t}$. This way, the neural network looks at the current input and has the context from the previous inputs.
 With this structure, recurrent units hold the past values, referred to as memory. Making it possible to work with a context in data.
 \cite{rnnin6}
 
 The recurrent unit is calculated as follows:
 
-MATH
+\begin{equation}
+    {h_t = f(W_{x}x_t + W_{h}h_{t-1}+\vec{b_h})}
+\end{equation}
 
-f() being the activation function, W is the weight matrix, X is the input, and b is the vector of bias parameters. Unit at time step t=0 is initialized to (0,0,...0). The output Y is then calculated as:
+$f()$ being the activation function, $W_x,W_h$ are weight matrixes, $x_t$ is the input, and $\vec{b_h}$ is the vector of bias parameters. Unit at time step $t=0$ is initialized to $(0,0,...,0)$. The output $\hat{y_t}$ is then calculated as:
 
-MATH
+\begin{equation}
+    {\hat{y}_t = g(W_{y}h_t + \vec{b_y})}
+\end{equation}
 
-g() also being an activation function, usually being softmax to ensure the output is in the desired class range. W is the weight matrix and b being a vector of biases determined during the learning process.
+$g()$ also being an activation function, usually being softmax to ensure the output is in the desired class range. $W_y$ is the weight matrix and $\vec{b_y}$ being a vector of biases determined during the learning process.
 
 Training RNNs uses a modified version of the backpropagation algorithm called backpropagation through time (BPTT), working by unrolling the RNN \cite{Goodfellow-et-al-2016}, calculating the losses across time steps, then updating the weights with the backpropagation algorithm. More on RNN in \cite{lipton2015critical} by Liton et al.
 
