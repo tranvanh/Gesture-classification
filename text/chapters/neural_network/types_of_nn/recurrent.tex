@@ -1,15 +1,13 @@
 Recurrent Neural Network (RNN) is distinguished by its memory, taking input sequence with no predetermined size. Its past predictions influence currently generated output. Thus for the same input, RNN could produce different results depending on previous inputs in the sequence.\cite{rnnDSmedium}.
 
-{\color{red}
 RNNs features make it commonly used in fields such as speech recognition, image captioning, natural language processing, or language translation. Some of the popular being, for example, Siri, Google Translate or Google Voice search.\cite{ibmrnn}
 
 As previously mentioned, RNN takes into consideration information from previous inputs. Let us look at the idiom "feeling under the weather", where for it to make sense, words have to be in a specific order. RNN needs to account for each word's positions and use its information to predict the next word in the sequence. Each time step represents a single word. In our case, the third timestep represents "the". Its hidden state holds information of previous inputs, "feeling" and "under".\cite{ibmrnn}
-}
 
 SCHEMATIC
 
 Figure XX shows the network for each time step, i.e., at time $t$, the input $\vec{x_t}$ goes into the network to produce output $\hat{y}_t$, the next time step of the input is $x_{t+1}$ with additional input from the previous time step from the hidden state $h_{t}$. This way, the neural network looks at the current input and has the context from the previous inputs.
-With this structure, recurrent units hold the past values, referred to as memory. Making it possible to work with a context in data.
+With this structure, recurrent units hold the past values, referred to as memory. Making it possible to work with a context in the data.
 \cite{rnnin6}
 
 The recurrent unit is calculated as follows:
