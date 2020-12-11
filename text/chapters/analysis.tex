@@ -1,7 +1,13 @@
-As previously mentioned, the field of gesture recognition gave birth to several image processing devices yielding useful data. One of them being Microsoft Kinect, a device where the main intention was to interpret whole-body movement, making it lacking in required accuracy for hand gesture recognition. 
+
+Gestures are classified into static gestures and dynamic gestures. Group of static gestures consits of fixed gestures which are not relative to time, where group of dynamic gestures are time varying.
+
+Hand and body gesture recognition had followed a conventional scheme of extracting key features via one or multiple preprocessing sensors and applying machine learning techniques on them.\cite{avola}
+
+The field of gesture recognition gave birth to several image processing devices yielding useful data. One of them being Microsoft Kinect, a device where the main intention was to interpret whole-body movement, making it lacking in required accuracy for hand gesture recognition. 
 
 \section{Leap Motion Controller}
 %=======================================================================================================================
+
 Another option would be using a Leap Motion Controller (LMC), developed specifically to track hand movements and extract its features, such as positions of fingers, hand rotation, and others.
 
 LMC consists of two monochromatic IR cameras and three IR LEDs (emitters). 
@@ -24,11 +30,19 @@ The LMC's current API, Leap Motion Service, yields positions of extracted hand f
 	\label{fig:lmcScheme}
 \end{figure}
 
-
 Unfortunately, Leap Motion Controller has no official library for gesture recognition, limiting developers from utilizing the controller for its key features. Orion, Leap Motion tracking software build for virtual reality, used to have a gesture detector with its 3.0 version, but the detector is absent with the release of more accurate version 4.0.
 
-\section{Gesture Recognition}
+\section{Methods}
 %=======================================================================================================================
-Gestures are classified into static gestures and dynamic gestures. Group of static gestures consits of fixed gesture which are not realative to time, where group of dynamic gestures are time varying.
 
-Hand and body gesture recognition had followed a conventional scheme of extracting key features via one or multiple preprocessing sensors and applying machine learning techniques on them.\cite{avola}
+Gestures classification should be taken into account when choosing appropriate methods due to their time varying properties. As previously mentioned, gestures are classified into static and dynamic groups.
+
+\subsection{Static Gesture Recognition}
+
+Common methods for static gesture recognition are Support Vector Machines(SVM), ANN or pattern techniques.\cite{savaris}
+
+\subsection{Dynamic Gesture Recognition}
+
+\subsection{LSTM}
+Many of the proposed methods focuses either on static gesture recognition or dynamic gesture recognition, but very few of them are actually utilized for both types at the same time. 
+
