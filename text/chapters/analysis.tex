@@ -35,14 +35,16 @@ Unfortunately, Leap Motion Controller has no official library for gesture recogn
 \section{Methods}
 %=======================================================================================================================
 
-Gestures classification should be taken into account when choosing appropriate methods due to their time varying properties. As previously mentioned, gestures are classified into static and dynamic groups.
+Gestures classification should be taken into account when choosing appropriate methods due to their time-varying properties. As previously mentioned, gestures are classified into static and dynamic groups.
 
 \subsection{Static Gesture Recognition}
 
-Common methods for static gesture recognition are Support Vector Machines(SVM), ANN or pattern techniques.\cite{savaris}
+Common methods for static gesture recognition are Support Vector Machines(SVM), ANN, or pattern techniques.\cite{savaris}.
+Mapari and Kharat\cite{mapari} proposed a method to recognize American Sign Language (ASL) by extracting data from LMC and computing 48 features 
+(18 positional values, 15 distance values, and 15 angle values) for 4672 collected signs (146 users for 32 signs), eventually feeding them to an ANN using a Multilayer Perceptron (MLP).\cite{katiacnn} Hasan et al.\cite{hasanmlp} proposed a method to recognize six sets of static gestures base on shape analysis using MLP.
+Filho et al.\cite{filaml} compared the effectiveness between K-Nearest Neighbors, SVM, and Decision Trees over a dataset of 1200 samples (6 uses for 10 gestures). They normalized positions of the five fingertips and the four angles between adjacent fingers as features to discover that the Decision Tree has performed the best.\cite{katiacnn}
 
 \subsection{Dynamic Gesture Recognition}
 
 \subsection{LSTM}
-Many of the proposed methods focuses either on static gesture recognition or dynamic gesture recognition, but very few of them are actually utilized for both types at the same time. 
-
+Many of the proposed methods focus either on static gesture recognition or dynamic gesture recognition, but very few of them are actually utilized for both types at the same time. 
