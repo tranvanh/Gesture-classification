@@ -24,9 +24,31 @@ $f()$ being the activation function, $W_x,W_h$ are weight matrixes, $x_t$ is the
 
 $g()$ also being an activation function, usually being softmax to ensure the output is in the desired class range. $W_y$ is the weight matrix and $\vec{b_y}$ being a vector of biases determined during the learning process.
 
-Training RNNs uses a modified version of the backpropagation algorithm called backpropagation through time (BPTT), working by unrolling the RNN \cite{Goodfellow-et-al-2016}, calculating the losses across time steps, then updating the weights with the backpropagation algorithm. More on RNN in \cite{lipton2015critical} by Liton et al.
+Training RNNs uses a modified version of the backpropagation algorithm called backpropagation through time (BPTT), working by unrolling the RNN \cite{Goodfellow-et-al-2016}, calculating the losses across time steps, then updating the weights with the backpropagation algorithm. More on RNN in \cite{lipton2015critical} by Lipton et al.
 
 
+\subsubsection{Bidirection Recurrent Neural Networks}
 
+\textbf{Bidirection Recurrent Neural Networks (BRNN)} allows to train the network using all available input information in the past and future of specific time frame. Oppose to regular RNN, where its hidden state is determined only by the prior states. The idea behind BRNN is splitting the hidden state in to two, one being responsible for the positive time direction (forward states) and the other for the negative time direction (backward states). 
 
+BRNN's training generaly starts with processing forward and backward states before output neurons are passed, \textit{forward pass}. Following with \textit{backward pass}, where output neurons are processed first, and forward and backward states after. Weights are then updated after completing \textit{forward pass} and \textit{backward pass}.\cite{schusterbdrnn}
 
+IMAGE %TODO
+
+Both hidden states are updated identically as the hidden state in RNN.
+
+\begin{equation}
+    {h_t^{(0)} = f(W_{x}^{(0)}x_t + W_{h}^{(0)}h_{t-1}+\vec{b_{h^{(0)}}})}
+\end{equation}
+
+\begin{equation}
+    {h_t^{(1)} = f(W_{x}^{(1)}x_t + W_{h}^{(1)}h_{t-1}+\vec{b_{h^{(1)}}})}
+\end{equation}
+
+The output is then computed in combination of both hidden states.
+
+\begin{equation}
+    {\hat{y}_t = g(W_{y}^{(0)}h_t^{(0)} + W_{y}^{(1)}h_t^{(1)} + \vec{b_y})}
+\end{equation}
+
+All the activation functions and parameters remain the same as they were in RNN. 
