@@ -1,15 +1,15 @@
 
 
 \section{Gesture Categories}
-Gestures are categorised into static gestures and dynamic gestures. Group of static gestures consits of fixed gestures which are not relative to time, where group of dynamic gestures are time varying. These classes can be further subdivided into set of gestures distincted by their purpose.
+Gestures are categorized into static gestures and dynamic gestures. A Group of static gestures consists of fixed gestures, where they are not relative to time. A group of dynamic gestures, on the other hand, are time-varying. These classes can be further subdivided into a set of gestures distinct by their purpose.
 
 
 \begin{itemize}
 	\item Deictic gestures involve pointing to establish the identity or spatial location of an object within the context of the application domain. \cite{taxonomi}
-	\item Manipulative gestures mimic manipulation of a physical object, such as scaling, moving or rotating.
-	\item Gesticulation, commonly used along with the language group. These hand gestures are difficult to analyse.
+    \item Manipulative gestures mimic manipulation of a physical object, such as scaling, moving, or rotating.
+    \item Gesticulation is commonly used along with the language group. These hand gestures are difficult to analyse.
 	\item Language group of hand gestures form a grammatical structure for conversational style interfaces.
-	\item Semaphoric, also may be referred as communicative, hand gestures are group of hand gestures serving as a setof symbols/commands used to interact with machines. The group consists ofstatic hand gestures as well as dynamic hand gestures. 
+    \item Semaphoric hand gestures also may be referred to as communicative gestures, are a group of hand gestures serving as a set of symbols/commands used to interact with machines. The group consists of static hand gestures as well as dynamic hand gestures. 
 \end{itemize}
 
 
@@ -17,7 +17,7 @@ Gestures are categorised into static gestures and dynamic gestures. Group of sta
 Hand and body gesture recognition had followed a conventional scheme of extracting key features via one or multiple preprocessing sensors and applying machine learning techniques on them.\cite{avola} The field of gesture recognition gave birth to several image processing devices yielding useful data. 
 \subsection{Microsoft Kinect}
 %=======================================================================================================================
-One of them being Micorosoft Kinect, a device first released in 2010. Originaly developed for gaming but eventually finding more success in academics and commercial applications, such as robotics, medicine, and health care. Leading Microsoft to discontinue production of its Xbox version in 2018 and releasing Azure Kinect in March 2020, incorporating Microsoft Azure cloud computing funcitionalities.
+One of them being Micorosoft Kinect, a device first released in 2010. Originally developed for gaming but eventually finding more success in academics and commercial applications, such as robotics, medicine, and health care, it led Microsoft to discontinue production of its Xbox version in 2018 and release Azure Kinect in March 2020, incorporating Microsoft Azure cloud computing functionalities.
 
 \begin{figure}[ht]
 	\centering
@@ -26,9 +26,9 @@ One of them being Micorosoft Kinect, a device first released in 2010. Originaly 
 	\label{fig:azureKincet}
 \end{figure}
 
-Azure Kinect contains a depth sensor, spatial microphone array with a video camera, and orientation sensor as an all in-one small device with multiple modes, options, and software development kits.\cite{azurekinect}
+Azure Kinect contains a depth sensor, spatial microphone array with a video camera, and orientation sensor as a small all-in-one device with multiple modes, options, and software development kits.\cite{azurekinect}
 
-With all that said main purpose of the Kinect device overall is to interpret whole-body movement. For such it is lacking in required accuracy for hand gesture recognition. 
+With all that said, the primary purpose of the Kinect device overall is to interpret whole-body movement. For such, it lacks in required accuracy for hand gesture recognition. 
 
 \subsection{Leap Motion Controller}
 %=======================================================================================================================
@@ -40,7 +40,7 @@ LMC consists of two monochromatic IR cameras and three IR LEDs (emitters).
 \begin{figure}[ht]
 	\centering
     \includegraphics[width=8cm]{lmc_schematic.png}
-	\caption{Schematic View of Leap Motion Controller}
+	\caption{Schematic View of Leap Motion Controller \cite{LMCanalysis}}
 	\label{fig:lmcScheme}
 \end{figure}
 
@@ -51,7 +51,7 @@ The LMC's current API, Leap Motion Service, yields positions of extracted hand f
 \begin{figure}[ht]
 	\centering
     \includegraphics[width=8cm]{leap_axes.png}
-	\caption{Leap Motion Controller Axes}
+	\caption{Leap Motion Controller Axes \cite{tomasMultileap}}
 	\label{fig:lmcScheme}
 \end{figure}
 
@@ -61,7 +61,7 @@ Unfortunately, Leap Motion Controller has no official library for gesture recogn
 
 Ultraleap Stereo IR 170, formerly known as the Leap Motion Rigel, is the successor to the Leap Motion controller.
 
-The Stereo IR inherits Leap Motions key features, but improves with wider 170-degree field of view, more-powerful LED illuminators providing longer tracking range, and a higher framerate when used with USB 3.0.\cite{ultraleap}\cite{ultraleap2}
+The Stereo IR inherits Leap Motions key features but improves with a wider 170-degree field of view, more-powerful LED illuminators providing more extended tracking range, and a higher framerate when used with USB 3.0.\cite{ultraleap}\cite{ultraleap2}
 
 \begin{figure}[H]
 	\centering
@@ -80,32 +80,32 @@ Gestures classification should be taken into account when choosing appropriate m
 
 \subsection{Static Gesture Recognition}
 
-One of the commonly used method for static gesture recognition are \textit{Support Vector Machine} (SVM), an algorithm used for both regresseion and classification tasks alike. But overall, it is widely used in classifications. SVM's goal is to find a \textit{hyperplane} in N-dimension space, N being the number of features, that distictivly classifies data points.\cite{svmIntroToML} 
-\textit{Hyperplanes} are decision boundaries between data points and optimal \textit{hyperplane} is the one with maximal seperation, \textit{margin}, between classes.
+One of the commonly used methods for static gesture recognition is \textit{Support Vector Machine} (SVM), an algorithm used for both regression and classification tasks. But overall, it is widely used in classifications. SVM's goal is to find a \textit{hyperplane} in N-dimension space, N being the number of features, that distinctively classifies data points.\cite{svmIntroToML} 
+\textit{Hyperplanes} are decision boundaries between data points and optimal \textit{hyperplane} is the one with maximal separation, \textit{margin}, between classes.
 Vector Machines (SVM). , ANN, or pattern techniques.\cite{savaris}.
 
-Chen and Tseng \cite{chentseng} presented an SVM solution for multi-angle hand gesture recognition for rock paper sissors using images from webcamera. The trainning dataset consisted of 420 images and testing set of 120 images. 
-Datasets were collected from 5 different people for the right hand only and achieving 95\%. The classifier still managed to recognize left hand gestures with 90\% accuracy. 
+Chen and Tseng \cite{chentseng} presented an SVM solution for multi-angle hand gesture recognition for rock paper scissors using images from a web camera. The training dataset consisted of 420 images and a testing set of 120 images. 
+Datasets were collected from 5 different people for the right hand only and achieving 95\%. The classifier still managed to recognize left-hand gestures with 90\% accuracy. 
 
-Domino et al. \cite{dominokinect} utilized SVM with Microsoft Kinect sensors. Extracting hand features, finger tips and center of the hand, from depth map and feading the data into SVM. Achieving 99.5\% recognition rate on dataset provided by Ren et Al. \cite{dominokinect_data} The dataset consists of 10 different gestures performed by 10 different people repeatedly each 10 times, total of 1000 different depth maps.
+Domino et al. \cite{dominokinect} utilized SVM with Microsoft Kinect sensors. Extracting hand features, fingertips, and center of the hand, from the depth map and feeding the data into SVM. Achieving 99.5\% recognition rate on the dataset provided by Ren et Al. \cite{dominokinect_data} The dataset consists of 10 different gestures performed by ten different people repeatedly each ten times, a total of 1000 different depth maps.
 
-Mapari and Kharat\cite{mapari} on the other hand proposed a method to recognize American Sign Language (ASL) with an \textit{Feed-forward network} using \textit{Multilayer Perceptron (MLP)}, extracting data from LMC and computing 48 features (18 positional values, 15 distance values, and 15 angle values) for 4672 collected signs (146 users for 32 signs). The average classification accuracy is 90\%.
+Mapari and Kharat\cite{mapari} on the other hand, proposed a method to recognize American Sign Language (ASL) with an \textit{Feed-forward network} using \textit{Multilayer Perceptron (MLP)}, extracting data from LMC and computing 48 features (18 positional values, 15 distance values, and 15 angle values) for 4672 collected signs (146 users for 32 signs). The average classification accuracy is 90\%.
 
 \subsection{Dynamic Gesture Recognition}
 
 Katia et al. \cite{katiacnn} proposed a method classifying dynamic gestures acquired through LMC with a CNN.
-Adopting a modified version of ResNet-50 architecture, a 50 layers deep CNN, by removing the last fully connected layer and adding a new layer with as many neurons as the considered collection of gesture classes. 
-The acquired gesture information is converted into hand joints color images, where the variation of hand joint positions during the gesture are projected on a plane and temporal information is represented with color intensity of the projected points. Trained model achieved 91\% classification accuracy on the LMDHG dataset.\cite{lmdhg}
+Adopting a modified version of ResNet-50 architecture, a 50 layers deep CNN, removing the last fully connected layer and adding a new layer with as many neurons as the considered collection of gesture classes. 
+The acquired gesture information is converted into hand joints color images. The variation of hand joint positions during the gesture is projected on a plane, and temporal information is represented with the color intensity of the projected points. The trained model achieved 91\% classification accuracy on the LMDHG dataset.\cite{lmdhg}
 
-Yang L., Chen J. and Zhu W. \cite{bidirect_dynam} used two-layer Bidirectional RNN in combination with an LMC to classify dynamic hand gestures represeted by sets of feature vectors (finger tip distance, angle, height, the angle of adjacent fingertips and the coordinates of the palm). The proposed method has been tested on the American Sign Language (ASL) datasets with 360 samples and Handicraft‐Gesture dataset with 480 samples, achieving 90\% and 92\% accuracy.\cite{bidirect_dynam}
+Yang L., Chen J., and Zhu W. \cite{bidirect_dynam} used two-layer Bidirectional RNN in combination with an LMC to classify dynamic hand gestures represented by sets of feature vectors (fingertip distance, angle, height, the angle of adjacent fingertips and the coordinates of the palm). The proposed method has been tested on the American Sign Language (ASL) datasets with 360 samples and the Handicraft‐Gesture dataset with 480 samples, achieving 90\% and 92\% accuracy.\cite{bidirect_dynam}
 
-Ameur et al. \cite{ameur} presented a solution using SVM classifier used with LMC acquired data, (X,Y,Z) coordinates of fingertips and palm center. The experimental results show accuracy of 81\% on dataset containing 11 actions, performed by 10 different subjects, having in total 550 samples.
+Ameur et al. \cite{ameur} presented a solution using an SVM classifier used with LMC acquired data, (X, Y, Z) coordinates of fingertips and palm center. The experimental results show an accuracy of 81\% on a dataset containing 11 actions, performed by ten different subjects, having in total 550 samples.
 
 \subsection{Proposed LSTM solution}
 
 Many of the proposed methods focus either on static gesture recognition or dynamic gesture recognition, but very few of them are actually utilized for both types at the same time. 
 
-Avola D., Bernardi M. et al. proposed a method in \cite{avola} utilizing LSTM, specifically Deep LSTM (DLSTM), and LMC for the recognition of sign language and semaphoric hand gestures. It uses hand skeleton extracted by a LMC and takes into considerations angles formed by specific subset of hand joints. The presented method reached 96\% accuracy in its predictions.
+Avola D., Bernardi M. et al. proposed a method in \cite{avola} utilizing LSTM, specifically Deep LSTM (DLSTM), and LMC to recognize sign language and semaphoric hand gestures. It uses a hand skeleton extracted by an LMC and considers angles formed by a specific subset of hand joints. The presented method reached 96\% accuracy in its predictions.
 
 Consider each hand gesture to be represtend as set $X = \{x_0, x1, ..., x_{T-1}\}$ of feature vectors, in predetermined interval $\Theta$ size T, T being the number of time instances, in which features are extraxted by LMC. Deep LSTM(DLSTM) is applied to obtain series of output probability vectors $Y = \{y_0, y1, ..., y_{T-1}\}$. At last the gesture classification is performed by a \textit{softmax} layer using $n = |C|$, where C being the set of considered hand gestures.\cite{avola}
 
@@ -118,7 +118,7 @@ Consider each hand gesture to be represtend as set $X = \{x_0, x1, ..., x_{T-1}\
 
 \subsubsection{Feature Extraction}
 
-A hand gesture can be considered to be composed of deifferent poses, where each pose is characterized by particular angles. Each feature vector $x_t \in X$ consists of mostly of internal angles, finger segments, palm position and fingertip positions.
+A hand gesture can be considered to be composed of different poses, where particular angles characterize each pose. Each feature vector $x_t \in X$ consists mostly of internal angles, finger segments, palm position, and fingertip positions.
 
 \begin{figure}[ht]
 	\centering
@@ -136,22 +136,24 @@ As seen in Figure 2.6, each finger can be represented as set of segments:
 
 These set of segments are then used to calculate internal angles of considered finger:
 \begin{itemize}
-	\item internal angles $\omega_1, \omega_2, \omega_3, \omega_4$ between distal phalanges and intermediate phalnges. Internal angle $\omega_0$ of the thumb is calculated between distal phalanx and proximal phalanx.
+    \item internal angles $\omega_1, \omega_2, \omega_3, \omega_4$ between distal phalanges and intermediate phalanges. Internal angle $\omega_0$ of the thumb is calculated between distal phalanx and proximal phalanx.
 	
 	\begin{equation}
 		{\omega_{j \in \{0, ..., 4\}} = \frac{\overline{BC} \cdot \overline{CD}}{|\overline{BC}| \cdot |\overline{CD}|}}
 	\end{equation}
 
-	\item internal angles $\beta_1, \beta_2, \beta_3, \beta_4$ between intermediate phalanges and proximal phalnges. Internal angle $\beta_0$ of the thumb is calculated between proximal phalanx and metacarpal.
+    \item internal angles $\beta_1, \beta_2, \beta_3, \beta_4$ between intermediate phalanges and proximal phalanges. Internal angle $\beta_0$ of the thumb is calculated between proximal phalanx and metacarpal.
 	
 	\begin{equation}
 		{\beta_{j \in \{0, ..., 4\}} = \frac{\overline{AB} \cdot \overline{BC}}{|\overline{AB}| \cdot |\overline{BC}|}}
 	\end{equation}
 	
-	\item intra-finger angles $\gamma_1, \gamma_2, \gamma_3$ are angles between two neighboring fingers, where considered fingers are: the pointer finger between middle finger, the middle finger and the ring finger, and the ring finger with pinky finger. The infra-finger angles are used to handle special static gestures,  for example an open palm and a popculture "spock" greeting.
+    \item intra-finger angles $\gamma_1, \gamma_2, \gamma_3$ are angles between two neighboring fingers, where considered fingers are: the pointer finger between middle finger, the middle finger and the ring finger, and the ring finger with a pinky finger. The infra-finger angles are used to handle special static gestures,  for example, an open palm and a pop culture "Spock" greeting.
 \end{itemize}
 
-3D displacements of palm and fingertip positions serve to help with classification of dynamic hand gestures, where the movement is performed in 3D space.
+
+3D displacements of palm and fingertip positions serve to help classify dynamic hand gestures, where the movement is performed in 3D space.
+
 
 \begin{itemize}
 	\item palm central point coordinates $P_h = (u_5, v_5, z_5)$ help to track the hand transition in the 3D space.
@@ -166,7 +168,7 @@ All above features form the input vector $x_t$ passed to DLSTM at time $t$.
 
 \subsubsection{Sampling Process}
 
-One gesture can be performed differently by each person, and all collected frame sequences must be composed of same number of T samples. The proposed solution would collect data only in most significant T time instances, $t \in \Theta$ is considered significant if the joint angle and the palm central point coordinate $P_h$ differs substantionally between $t$ and $t+1$.
+One gesture can be performed differently by each person, and all collected frame sequences must be composed of the same number of T samples. The proposed solution would collect data only in most significant T time instances, $t \in \Theta$ is considered significant if the joint angle and the central palm point coordinate $P_h$ differs substantially between $t$ and $t+1$.
 
 To explain more specifically, let $f_{\omega_i}(t)$, $f_{\beta_i}(t)$, $f_{\gamma_j}(t)$ be functions representing values of $\omega_i$, $\beta_i$, $\gamma_j$ angles at time $t$, where $0 \leq i \leq 4$ and $1 \leq j \leq 3$. Coordinates of $P_h$ may be $\phi$ and coordinates at time $t$ may be represented as $f_{\phi}(t)$. Then the Savitzky-Golay filter \cite{savitzkty} is applied on each of the named functions, $f_g(t)$, $g \in G = \{\omega_i,\beta_i, \gamma_j, \phi\}$. Svaitzky-Golay is a digital filter used to smooth a set of digital data in order to increase the signal-to-noise ratio without distorting the signal itself. Local extremes of each $f_g(t)$ are to be indentified as significant time variations and all time instances $t$, associated with at least one of these local maximum and minimum of feature $g$, form a new set $\Theta*$, representing candidates of possible important time instances to be sampled. 
 
@@ -178,7 +180,7 @@ To explain more specifically, let $f_{\omega_i}(t)$, $f_{\beta_i}(t)$, $f_{\gamm
     \caption{Sampling example of feature $\omega_1$}
 \end{figure}
 
-Depending on the cardinality of newly acquired set $\Theta*$, the following cases must be considered:
+Depending on the cardinality of the newly acquired set $\Theta*$, the following cases must be considered:
 
 \begin{itemize}
 	\item $|\Theta*| < T$, the remaining samples $(|\Theta*|-T)$ are picked randomly from the original set $\Theta$

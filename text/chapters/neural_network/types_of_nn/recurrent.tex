@@ -1,4 +1,4 @@
-Recurrent Neural Network (RNN) is distinguished by its memory, taking input sequence with no predetermined size. Its past predictions influence currently generated output. Thus for the same input, RNN could produce different results depending on previous inputs in the sequence.\cite{rnnDSmedium}.
+\textbf{Recurrent Neural Network (RNN)} is distinguished by its memory, taking input sequence with no predetermined size. Its past predictions influence currently generated output. Thus for the same input, RNN could produce different results depending on previous inputs in the sequence.\cite{rnnDSmedium}.
 
 RNNs features make it commonly used in fields such as speech recognition, image captioning, natural language processing, or language translation. Some of the popular being, for example, Siri, Google Translate or Google Voice search.\cite{ibmrnn}
 
@@ -35,9 +35,10 @@ Training RNNs uses a modified version of the backpropagation algorithm called ba
 
 \subsubsection{Bidirection Recurrent Neural Networks}
 
-\textbf{Bidirection Recurrent Neural Networks (BRNN)} allows to train the network using all available input information in the past and future of specific time frame. Oppose to regular RNN, where its hidden state is determined only by the prior states. The idea behind BRNN is splitting the hidden state in to two, one being responsible for the positive time direction (forward states) and the other for the negative time direction (backward states). 
 
-BRNN's training generaly starts with processing forward and backward states before output neurons are passed, \textit{forward pass}. Following with \textit{backward pass}, where output neurons are processed first, and forward and backward states after. Weights are then updated after completing \textit{forward pass} and \textit{backward pass}.\cite{schusterbdrnn}
+\textbf{Bidirectional Recurrent Neural Networks (BRNN)} allow training the network using all available input information in the past and future of a specific time frame. Oppose to regular RNN, where its hidden state is determined only by the prior states. The idea behind BRNN is splitting the hidden state into two. One is responsible for the positive time direction (forward states) and the other for the negative time direction (backward states).
+
+BRNN’s training generally starts with processing \textit{forward}, and \textit{backward states} before output neurons are passed, \textit{forward pass}. Following with \textit{backward pass}, where output neurons are processed first, and forward and backward states after. Weights are then updated after completing forward pass and backward pass.\cite{schusterbdrnn}
 
 \begin{figure}[h]
 	\centering
