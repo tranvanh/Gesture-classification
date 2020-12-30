@@ -1,10 +1,20 @@
 
-Gestures are classified into static gestures and dynamic gestures. Group of static gestures consits of fixed gestures which are not relative to time, where group of dynamic gestures are time varying.
 
-Hand and body gesture recognition had followed a conventional scheme of extracting key features via one or multiple preprocessing sensors and applying machine learning techniques on them.\cite{avola}
+\section{Gesture Categories}
+Gestures are categorised into static gestures and dynamic gestures. Group of static gestures consits of fixed gestures which are not relative to time, where group of dynamic gestures are time varying. These classes can be further subdivided into set of gestures distincted by their purpose.
+
+
+\begin{itemize}
+	\item Deictic gestures involve pointing to establish the identity or spatial location of an object within the context of the application domain. \cite{taxonomi}
+	\item Manipulative gestures mimic manipulation of a physical object, such as scaling, moving or rotating.
+	\item Gesticulation, commonly used along with the language group. These hand gestures are difficult to analyse.
+	\item Language group of hand gestures form a grammatical structure for conversational style interfaces.
+	\item Semaphoric, also may be referred as communicative, hand gestures are group of hand gestures serving as a setof symbols/commands used to interact with machines. The group consists ofstatic hand gestures as well as dynamic hand gestures. 
+\end{itemize}
+
 
 \section{Tracking devices}
-The field of gesture recognition gave birth to several image processing devices yielding useful data. 
+Hand and body gesture recognition had followed a conventional scheme of extracting key features via one or multiple preprocessing sensors and applying machine learning techniques on them.\cite{avola} The field of gesture recognition gave birth to several image processing devices yielding useful data. 
 \subsection{Microsoft Kinect}
 %=======================================================================================================================
 One of them being Micorosoft Kinect, a device first released in 2010. Originaly developed for gaming but eventually finding more success in academics and commercial applications, such as robotics, medicine, and health care. Leading Microsoft to discontinue production of its Xbox version in 2018 and releasing Azure Kinect in March 2020, incorporating Microsoft Azure cloud computing funcitionalities.
@@ -27,7 +37,7 @@ Another option would be using a Leap Motion Controller (LMC), developed specific
 
 LMC consists of two monochromatic IR cameras and three IR LEDs (emitters). 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
     \includegraphics[width=8cm]{lmc_schematic.png}
 	\caption{Schematic View of Leap Motion Controller}
@@ -36,9 +46,9 @@ LMC consists of two monochromatic IR cameras and three IR LEDs (emitters).
 
 
 
-The LMC's current API, Leap Motion Service, yields positions of extracted hand features. All the positional data about the hand and its features are represented in the coordinate system relative to the LMC's center point, positioned at the middle IR LED.\cite{LMCanalysis} The x- and z-axes lie in the camera sensors plane, with the x-axis running along the camera baseline. The y-axis is vertical, with positive values increasing upwards (in contrast to the downward orientation of most computer graphics coordinate systems). The z-axis has positive values increasing toward the user.\cite{tomasMultileap}
+The LMC's current API, Leap Motion Service, yields positions of extracted hand features. All the positional data about the hand and its features are represented in the coordinate system relative to the LMC's center point, positioned at top of the controller.\cite{LMCanalysis} The x- and z-axes lie in the camera sensors plane, with the x-axis running along the camera baseline. The y-axis is vertical, with positive values increasing upwards (in contrast to the downward orientation of most computer graphics coordinate systems). The z-axis has positive values increasing toward the user.\cite{tomasMultileap}
 
-\begin{figure}[H]
+\begin{figure}[ht]
 	\centering
     \includegraphics[width=8cm]{leap_axes.png}
 	\caption{Leap Motion Controller Axes}
@@ -51,9 +61,9 @@ Unfortunately, Leap Motion Controller has no official library for gesture recogn
 
 Ultraleap Stereo IR 170, formerly known as the Leap Motion Rigel, is the successor to the Leap Motion controller.
 
-The Ultraleap inherits Leap Motions key features, but improves with wider 170-degree field of view, more-powerful LED illuminators providing longer tracking range, and a higher framerate when used with USB 3.0.\cite{ultraleap}\cite{ultraleap2}
+The Stereo IR inherits Leap Motions key features, but improves with wider 170-degree field of view, more-powerful LED illuminators providing longer tracking range, and a higher framerate when used with USB 3.0.\cite{ultraleap}\cite{ultraleap2}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
     \includegraphics[width=8cm]{ultraleap_pic.jpg}
 	\caption{Schematic View of Ultraleap Stereo IR 170 \cite{ultraleap}}
@@ -66,7 +76,7 @@ The Ultraleap inherits Leap Motions key features, but improves with wider 170-de
 }
 %=======================================================================================================================
 
-Gestures classification should be taken into account when choosing appropriate methods due to their time-varying properties. As previously mentioned, gestures are classified into static and dynamic groups.
+Gestures classification should be taken into account when choosing appropriate methods due to their time-varying properties. As previously mentioned, gestures are classified into static and dynamic groups. 
 
 \subsection{Static Gesture Recognition}
 
@@ -91,7 +101,87 @@ Yang L., Chen J. and Zhu W. \cite{bidirect_dynam} used two-layer Bidirectional R
 
 Ameur et al. \cite{ameur} presented a solution using SVM classifier used with LMC acquired data, (X,Y,Z) coordinates of fingertips and palm center. The experimental results show accuracy of 81\% on dataset containing 11 actions, performed by 10 different subjects, having in total 550 samples.
 
+\subsection{Proposed LSTM solution}
 
+Many of the proposed methods focus either on static gesture recognition or dynamic gesture recognition, but very few of them are actually utilized for both types at the same time. 
 
-% \subsection{LSTM}
-% Many of the proposed methods focus either on static gesture recognition or dynamic gesture recognition, but very few of them are actually utilized for both types at the same time. 
+Avola D., Bernardi M. et al. proposed a method in \cite{avola} utilizing LSTM, specifically Deep LSTM (DLSTM), and LMC for the recognition of sign language and semaphoric hand gestures. It uses hand skeleton extracted by a LMC and takes into considerations angles formed by specific subset of hand joints. The presented method reached 96\% accuracy in its predictions.
+
+Consider each hand gesture to be represtend as set $X = \{x_0, x1, ..., x_{T-1}\}$ of feature vectors, in predetermined interval $\Theta$ size T, T being the number of time instances, in which features are extraxted by LMC. Deep LSTM(DLSTM) is applied to obtain series of output probability vectors $Y = \{y_0, y1, ..., y_{T-1}\}$. At last the gesture classification is performed by a \textit{softmax} layer using $n = |C|$, where C being the set of considered hand gestures.\cite{avola}
+
+\begin{figure}[ht]
+	\centering
+    \includegraphics[width=13cm]{avola_structure.png}
+	\caption{Logical structure of the proposed method \cite{avola}}
+	\label{fig:lstm_gesture_structure}
+\end{figure}
+
+\subsubsection{Feature Extraction}
+
+A hand gesture can be considered to be composed of deifferent poses, where each pose is characterized by particular angles. Each feature vector $x_t \in X$ consists of mostly of internal angles, finger segments, palm position and fingertip positions.
+
+\begin{figure}[ht]
+	\centering
+    \includegraphics[width=9cm]{avola_angles.png}
+	\caption{Internal angles of hand joints \cite{avola}}
+	\label{fig:lstm_angles}
+\end{figure}
+
+As seen in Figure 2.6, each finger can be represented as set of segments:
+\begin{itemize}
+	\item $\overline{AB}$, proximal phalax, or metacarpal in case of thumb
+	\item $\overline{BC}$, intermediate phalanx, or proximal phalanx in case of thumb
+	\item $\overline{CD}$, distal phalanx
+\end{itemize}
+
+These set of segments are then used to calculate internal angles of considered finger:
+\begin{itemize}
+	\item internal angles $\omega_1, \omega_2, \omega_3, \omega_4$ between distal phalanges and intermediate phalnges. Internal angle $\omega_0$ of the thumb is calculated between distal phalanx and proximal phalanx.
+	
+	\begin{equation}
+		{\omega_{j \in \{0, ..., 4\}} = \frac{\overline{BC} \cdot \overline{CD}}{|\overline{BC}| \cdot |\overline{CD}|}}
+	\end{equation}
+
+	\item internal angles $\beta_1, \beta_2, \beta_3, \beta_4$ between intermediate phalanges and proximal phalnges. Internal angle $\beta_0$ of the thumb is calculated between proximal phalanx and metacarpal.
+	
+	\begin{equation}
+		{\beta_{j \in \{0, ..., 4\}} = \frac{\overline{AB} \cdot \overline{BC}}{|\overline{AB}| \cdot |\overline{BC}|}}
+	\end{equation}
+	
+	\item intra-finger angles $\gamma_1, \gamma_2, \gamma_3$ are angles between two neighboring fingers, where considered fingers are: the pointer finger between middle finger, the middle finger and the ring finger, and the ring finger with pinky finger. The infra-finger angles are used to handle special static gestures,  for example an open palm and a popculture "spock" greeting.
+\end{itemize}
+
+3D displacements of palm and fingertip positions serve to help with classification of dynamic hand gestures, where the movement is performed in 3D space.
+
+\begin{itemize}
+	\item palm central point coordinates $P_h = (u_5, v_5, z_5)$ help to track the hand transition in the 3D space.
+	\item finger tip positions $u_l, v_l, z_l$, $l \in {0, ..., 4}$ help to track the hand rotation in 3D space.
+\end{itemize}
+
+All above features form the input vector $x_t$ passed to DLSTM at time $t$.
+
+\begin{equation}
+	{x_t = \{\omega_0, ...,\omega_4, \beta_0, ..., \beta_4, u_0,v_0,z_0, ..., u_5,v_5,z_5, \gamma_1, \gamma_2, \gamma_3\}}
+\end{equation}
+
+\subsubsection{Sampling Process}
+
+One gesture can be performed differently by each person, and all collected frame sequences must be composed of same number of T samples. The proposed solution would collect data only in most significant T time instances, $t \in \Theta$ is considered significant if the joint angle and the palm central point coordinate $P_h$ differs substantionally between $t$ and $t+1$.
+
+To explain more specifically, let $f_{\omega_i}(t)$, $f_{\beta_i}(t)$, $f_{\gamma_j}(t)$ be functions representing values of $\omega_i$, $\beta_i$, $\gamma_j$ angles at time $t$, where $0 \leq i \leq 4$ and $1 \leq j \leq 3$. Coordinates of $P_h$ may be $\phi$ and coordinates at time $t$ may be represented as $f_{\phi}(t)$. Then the Savitzky-Golay filter \cite{savitzkty} is applied on each of the named functions, $f_g(t)$, $g \in G = \{\omega_i,\beta_i, \gamma_j, \phi\}$. Svaitzky-Golay is a digital filter used to smooth a set of digital data in order to increase the signal-to-noise ratio without distorting the signal itself. Local extremes of each $f_g(t)$ are to be indentified as significant time variations and all time instances $t$, associated with at least one of these local maximum and minimum of feature $g$, form a new set $\Theta*$, representing candidates of possible important time instances to be sampled. 
+
+\begin{figure}[h]
+	\centering
+    \subfloat[\centering Feature $\omega_1$]{{\includegraphics[width=6cm]{avola_sign.png}}}%
+    \qquad
+    \subfloat[\centering Feature $\omega_1$ after Savitzky-Golay filtering]{{\includegraphics[width=6cm]{avola_sign_smooth.png}}}%
+    \caption{Sampling example of feature $\omega_1$}
+\end{figure}
+
+Depending on the cardinality of newly acquired set $\Theta*$, the following cases must be considered:
+
+\begin{itemize}
+	\item $|\Theta*| < T$, the remaining samples $(|\Theta*|-T)$ are picked randomly from the original set $\Theta$
+	\item $|\Theta*| > T$, only some of significant time instances for each $g$ feature are picked to be sampled. Let $\Theta_g \subseteq \Theta*$ be a set of significant time instances for feature $g$. The number of instances $T_g$ to be sampled is chosen according to the ratio $|\Theta_g|:|\Theta*| = T_g:T$, where the sum $\sum_{g \in G}{T_g} = T$ must be preserved.\cite{avola}
+\end{itemize}
+

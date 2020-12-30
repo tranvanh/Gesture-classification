@@ -4,9 +4,15 @@ RNNs features make it commonly used in fields such as speech recognition, image 
 
 As previously mentioned, RNN takes into consideration information from previous inputs. Let us look at the idiom "feeling under the weather", where for it to make sense, words have to be in a specific order. RNN needs to account for each word's positions and use its information to predict the next word in the sequence. Each time step represents a single word. In our case, the third timestep represents "the". Its hidden state holds information of previous inputs, "feeling" and "under".\cite{ibmrnn}
 
-SCHEMATIC
+\begin{figure}[h]
+	\centering
+    \includegraphics[width=12cm]{rnn_u.png}
+	\caption{Unrolled structure of RNN \cite{matous}}
+	\label{fig:rnn}
+\end{figure}
 
-Figure XX shows the network for each time step, i.e., at time $t$, the input $\vec{x_t}$ goes into the network to produce output $\hat{y}_t$, the next time step of the input is $x_{t+1}$ with additional input from the previous time step from the hidden state $h_{t}$. This way, the neural network looks at the current input and has the context from the previous inputs.
+
+Figure 1.4 shows the network for each time step, i.e., at time $t$, the input $\vec{x_t}$ goes into the network to produce output $\hat{y}_t$, the next time step of the input is $x_{t+1}$ with additional input from the previous time step from the hidden state $h_{t}$. This way, the neural network looks at the current input and has the context from the previous inputs.
 With this structure, recurrent units hold the past values, referred to as memory. Making it possible to work with a context in the data.
 \cite{rnnin6}
 
@@ -33,7 +39,13 @@ Training RNNs uses a modified version of the backpropagation algorithm called ba
 
 BRNN's training generaly starts with processing forward and backward states before output neurons are passed, \textit{forward pass}. Following with \textit{backward pass}, where output neurons are processed first, and forward and backward states after. Weights are then updated after completing \textit{forward pass} and \textit{backward pass}.\cite{schusterbdrnn}
 
-IMAGE %TODO
+\begin{figure}[h]
+	\centering
+    \includegraphics[width=12cm]{rnn_bi.png}
+	\caption{Unrolled structure of BRNN \cite{matous}}
+	\label{fig:brnn}
+\end{figure}
+
 
 Both hidden states are updated identically as the hidden state in RNN.
 
