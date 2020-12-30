@@ -170,7 +170,7 @@ All above features form the input vector $x_t$ passed to DLSTM at time $t$.
 
 One gesture can be performed differently by each person, and all collected frame sequences must be composed of the same number of T samples. The proposed solution would collect data only in most significant T time instances, $t \in \Theta$ is considered significant if the joint angle and the central palm point coordinate $P_h$ differs substantially between $t$ and $t+1$.
 
-To explain more specifically, let $f_{\omega_i}(t)$, $f_{\beta_i}(t)$, $f_{\gamma_j}(t)$ be functions representing values of $\omega_i$, $\beta_i$, $\gamma_j$ angles at time $t$, where $0 \leq i \leq 4$ and $1 \leq j \leq 3$. Coordinates of $P_h$ may be $\phi$ and coordinates at time $t$ may be represented as $f_{\phi}(t)$. Then the Savitzky-Golay filter \cite{savitzkty} is applied on each of the named functions, $f_g(t)$, $g \in G = \{\omega_i,\beta_i, \gamma_j, \phi\}$. Svaitzky-Golay is a digital filter used to smooth a set of digital data in order to increase the signal-to-noise ratio without distorting the signal itself. Local extremes of each $f_g(t)$ are to be indentified as significant time variations and all time instances $t$, associated with at least one of these local maximum and minimum of feature $g$, form a new set $\Theta*$, representing candidates of possible important time instances to be sampled. 
+To explain more specifically, let $f_{\omega_i}(t)$, $f_{\beta_i}(t)$, $f_{\gamma_j}(t)$ be functions representing values of $\omega_i$, $\beta_i$, $\gamma_j$ angles at time $t$, where $0 \leq i \leq 4$ and $1 \leq j \leq 3$. Coordinates of $P_h$ may be $\phi$ and coordinates at time $t$ may be represented as $f_{\phi}(t)$. Then the Savitzky-Golay filter \cite{savitzkty} is applied on each of the named functions, $f_g(t)$, $g \in G = \{\omega_i,\beta_i, \gamma_j, \phi\}$. Svaitzky-Golay is a digital filter used to smooth a set of digital data in order to increase the signal-to-noise ratio without distorting the signal itself. Local extremes of each $f_g(t)$ are to be indentified as significant time variations and all time instances $t$, associated with at least one of these local maximum and minimum of feature $g$, form a new set $\Theta^*$, representing candidates of possible important time instances to be sampled. 
 
 \begin{figure}[h]
 	\centering
@@ -180,10 +180,10 @@ To explain more specifically, let $f_{\omega_i}(t)$, $f_{\beta_i}(t)$, $f_{\gamm
     \caption{Sampling example of feature $\omega_1$}
 \end{figure}
 
-Depending on the cardinality of the newly acquired set $\Theta*$, the following cases must be considered:
+Depending on the cardinality of the newly acquired set $\Theta^*$, the following cases must be considered:
 
 \begin{itemize}
-	\item $|\Theta*| < T$, the remaining samples $(|\Theta*|-T)$ are picked randomly from the original set $\Theta$
-	\item $|\Theta*| > T$, only some of significant time instances for each $g$ feature are picked to be sampled. Let $\Theta_g \subseteq \Theta*$ be a set of significant time instances for feature $g$. The number of instances $T_g$ to be sampled is chosen according to the ratio $|\Theta_g|:|\Theta*| = T_g:T$, where the sum $\sum_{g \in G}{T_g} = T$ must be preserved.\cite{avola}
+	\item $|\Theta^*| < T$, the remaining samples $(|\Theta^*|-T)$ are picked randomly from the original set $\Theta$
+	\item $|\Theta^*| > T$, only some of significant time instances for each $g$ feature are picked to be sampled. Let $\Theta_g \subseteq \Theta^*$ be a set of significant time instances for feature $g$. The number of instances $T_g$ to be sampled is chosen according to the ratio $|\Theta_g|:|\Theta^*| = T_g:T$, where the sum $\sum_{g \in G}{T_g} = T$ must be preserved.\cite{avola}
 \end{itemize}
 
