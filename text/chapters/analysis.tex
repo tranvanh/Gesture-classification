@@ -27,7 +27,7 @@ One of them being Micorosoft Kinect, a device first released in 2010. Originally
 
 Azure Kinect contains a depth sensor, spatial microphone array with a video camera, and orientation sensor as a small all-in-one device with multiple modes, options, and software development kits \cite{azurekinect}.
 
-With all that said, the primary purpose of the Kinect device overall is to interpret whole-body movement. For such, it lacks in required accuracy for hand gesture recognition. 
+With all that said, the primary purpose of the Kinect device overall is to interpret whole-body movement. For such, it lacks in required accuracy for hand gesture recognition, thus making it insufficient for our uses.
 
 \subsection{Leap Motion Controller}
 %=======================================================================================================================
@@ -163,6 +163,26 @@ All above features form the input vector $x_t$ passed to DLSTM at time $t$.
 	{x_t = \{\omega_0, ...,\omega_4, \beta_0, ..., \beta_4, u_0,v_0,z_0, ..., u_5,v_5,z_5, \gamma_1, \gamma_2, \gamma_3\}}
 \end{equation}
 
+\subsubsection{Optimal Number of Stacked LSTMs}
+
+Several tests were performed to find the optimal number of stacked LSTMs. The results showed that having 4 LSTM layers proved to achieve the best accuracy by using 800 \textit{epochs}, the number of times the learning algorithm goes through the complete training dataset. Although it was possible to get the same results with 5 or 6 stacked LSTM layers, only due to using 1600 and 1800 epochs, thus increasing the training time \cite{avola}. 
+
+\begin{figure}[ht]
+	\centering
+    \includegraphics[width=9cm]{DLSTM_800_epochs.png}
+	\caption{Model accuracy by using 800 epochs \cite{avola}}
+	\label{fig:DLSTM_800_epochs}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+    \includegraphics[width=9cm]{DLSTM_1600_epochs.png}
+	\caption{Model accuracy by using 1600 epochs for 5 LSTM layers and 1800 epochs for 6 LSTM layers \cite{avola}}
+	\label{fig:DLSTM_1600_epochs}
+\end{figure}
+
+The \textit{learning rate} was set to 0.0001 after large empirical tests. The learning rate determines how much the newly acquired information about the weights will influence their updating. If the learning rate is too low, it will require more time to converge towards the local minimum, while if the rate is too large, it may overstep the local minimum \cite{avola}.
+
 \subsubsection{Sampling Process}
 
 One gesture can be performed differently by each person, and all collected frame sequences must be composed of the same number of T samples. The proposed solution would collect data only in most significant T time instances, $t \in \Theta$ is considered significant if the joint angle and the central palm point coordinate $P_h$ differs substantially between $t$ and $t+1$.
@@ -183,4 +203,5 @@ Depending on the cardinality of the newly acquired set $\Theta^*$, the following
 	\item $|\Theta^*| < T$, the remaining samples $(|\Theta^*|-T)$ are picked randomly from the original set $\Theta$
 	\item $|\Theta^*| > T$, only some of significant time instances for each $g$ feature are picked to be sampled. Let $\Theta_g \subseteq \Theta^*$ be a set of significant time instances for feature $g$. The number of instances $T_g$ to be sampled is chosen according to the ratio $|\Theta_g|:|\Theta^*| = T_g:T$, where the sum $\sum_{g \in G}{T_g} = T$ must be preserved \cite{avola}.
 \end{itemize}
+
 

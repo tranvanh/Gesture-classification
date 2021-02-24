@@ -1,0 +1,19 @@
+As briefly mentioned in the Introduction chapter, our goal is to utilize Leap Motion controllers combined with the pre-trained ANN model. 
+
+We picked Python to be our primary language for training the ANN model, with the proposed DLSTM architecture by Avola D., Bernardi M. et al. \cite{avola}, along with the web-based interactive development environment Jupyter Notebook. One of the main reasons to pick Python was its wide range of libraries and scientific packages supporting machine learning tasks. Most importantly, Keras, a high-level deep learning API integrated with TensorFlow, enabling the user to create and train model structures in very few steps.
+
+\section{Dataset Description}
+
+Training and testing have been performed on a combination of two gathered datasets, ASL Dataset \cite{avola}, and SHREC 2017 dataset created in conjunction with \cite{shrec}.
+
+\subsection{SHREC 2017 Dataset}
+
+The SHREC dataset contains sequences of 14 dynamic hand gestures (grab, tap, expand, pinch, rotation clockwise, rotation counterclockwise, swipe right, swipe left, swipe up, swipe down, swipe X, swipe +, swipe V, shake). Each gesture was performed between 1 and 10 times by 28 participants in two ways, using one finger and the whole hand. All participants were right-handed. The length of sample gestures varies between 20 to 170 frames, making some samples too short. We solved this by using the padding technique to an acceptable value of $T=100$ and discarding samples where more than 50 frames have to be padded \cite{shrec}.
+
+\subsection{ASL Dataset}
+
+ASL Dataset has been created by Avola D., Bernardi M. et al. \cite{avola} as the result of lack of public datasets holding necessary information about hand joints.
+The dataset consists of 30 hand gestures, 18 static gestures (1, 2-V, 3, 4, 5, 6-W, 7, 8, 9, A, B, C, D, H, I, L, X, and Y), and 12 dynamic gestures (bathroom, blue, finish, green, hungry, milk,
+past, pig, store, and where). Gestures were collected from 20 different people. 13 were used to form the training set, while the remaining 7 formed a test set. Each person performed 30 hand gestures twice, once for each hand, and each gesture is composed of fixed 200 frames as oppose to frame varying SHREC dataset \cite{avola}. Small modifications had to be made since we wanted to utilize both datasets at the same time. We stripped ASL Dataset of its dynamic gestures and split frames of static gesture sample in half, acquiring 2 samples. Static gestures are, in theory, one frame stretched out through time. Therefore such modification should not have a negative impact on our trained model.
+
+
