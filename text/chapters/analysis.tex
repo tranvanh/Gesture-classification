@@ -1,20 +1,19 @@
 
-
 \section{Gesture Categories}
-Gestures are categorized into static gestures and dynamic gestures. A Group of static gestures consists of fixed gestures, where they are not relative to time. A group of dynamic gestures, on the other hand, are time-varying. These classes can be further subdivided into a set of gestures distinct by their purpose.
+Gestures are categorized into \textit{static gestures} and \textit{dynamic gestures}. A Group of static gestures consists of fixed gestures, where they are not relative to time. A group of dynamic gestures, on the other hand, are time-varying. These classes can be further subdivided into a set of gestures distinct by their purpose.
 
 
 \begin{itemize}
-	\item Deictic gestures involve pointing to establish the identity or spatial location of an object within the context of the application domain. \cite{taxonomi}
-    \item Manipulative gestures mimic manipulation of a physical object, such as scaling, moving, or rotating.
-    \item Gesticulation is commonly used along with the language group. These hand gestures are difficult to analyse.
-	\item Language group of hand gestures form a grammatical structure for conversational style interfaces.
-    \item Semaphoric hand gestures also may be referred to as communicative gestures, are a group of hand gestures serving as a set of symbols/commands used to interact with machines. The group consists of static hand gestures as well as dynamic hand gestures. 
+	\item \textbf{Deictic gestures} involve pointing to establish the identity or spatial location of an object within the context of the application domain \cite{taxonomi}.
+    \item \textbf{Manipulative gestures} mimic manipulation of a physical object, such as scaling, moving, or rotating.
+    \item \textbf{Gesticulation} is commonly used along with the language group. These hand gestures are difficult to analyse.
+	\item \textbf{Language group of hand gestures} form a grammatical structure for conversational style interfaces.
+    \item \textbf{Semaphoric hand gestures} also may be referred to as communicative gestures, are a group of hand gestures serving as a set of symbols/commands used to interact with machines. The group consists of static hand gestures as well as dynamic hand gestures. 
 \end{itemize}
 
 
 \section{Tracking devices}
-Hand and body gesture recognition had followed a conventional scheme of extracting key features via one or multiple preprocessing sensors and applying machine learning techniques on them.\cite{avola} The field of gesture recognition gave birth to several image processing devices yielding useful data. 
+Hand and body gesture recognition had followed a conventional scheme of extracting key features via one or multiple preprocessing sensors and applying machine learning techniques on them \cite{avola}. The field of gesture recognition gave birth to several image processing devices yielding useful data. 
 \subsection{Microsoft Kinect}
 %=======================================================================================================================
 One of them being Micorosoft Kinect, a device first released in 2010. Originally developed for gaming but eventually finding more success in academics and commercial applications, such as robotics, medicine, and health care, it led Microsoft to discontinue production of its Xbox version in 2018 and release Azure Kinect in March 2020, incorporating Microsoft Azure cloud computing functionalities.
@@ -26,7 +25,7 @@ One of them being Micorosoft Kinect, a device first released in 2010. Originally
 	\label{fig:azureKincet}
 \end{figure}
 
-Azure Kinect contains a depth sensor, spatial microphone array with a video camera, and orientation sensor as a small all-in-one device with multiple modes, options, and software development kits.\cite{azurekinect}
+Azure Kinect contains a depth sensor, spatial microphone array with a video camera, and orientation sensor as a small all-in-one device with multiple modes, options, and software development kits \cite{azurekinect}.
 
 With all that said, the primary purpose of the Kinect device overall is to interpret whole-body movement. For such, it lacks in required accuracy for hand gesture recognition. 
 
@@ -46,7 +45,7 @@ LMC consists of two monochromatic IR cameras and three IR LEDs (emitters).
 
 
 
-The LMC's current API, Leap Motion Service, yields positions of extracted hand features. All the positional data about the hand and its features are represented in the coordinate system relative to the LMC's center point, positioned at top of the controller.\cite{LMCanalysis} The x- and z-axes lie in the camera sensors plane, with the x-axis running along the camera baseline. The y-axis is vertical, with positive values increasing upwards (in contrast to the downward orientation of most computer graphics coordinate systems). The z-axis has positive values increasing toward the user.\cite{tomasMultileap}
+The LMC's current API, Leap Motion Service, yields positions of extracted hand features. All the positional data about the hand and its features are represented in the coordinate system relative to the LMC's center point, positioned at top of the controller \cite{LMCanalysis}. The x- and z-axes lie in the camera sensors plane, with the x-axis running along the camera baseline. The y-axis is vertical, with positive values increasing upwards (in contrast to the downward orientation of most computer graphics coordinate systems). The z-axis has positive values increasing toward the user \cite{tomasMultileap}.
 
 \begin{figure}[ht]
 	\centering
@@ -61,7 +60,7 @@ Unfortunately, Leap Motion Controller has no official library for gesture recogn
 
 Ultraleap Stereo IR 170, formerly known as the Leap Motion Rigel, is the successor to the Leap Motion controller.
 
-The Stereo IR inherits Leap Motions key features but improves with a wider 170-degree field of view, more-powerful LED illuminators providing more extended tracking range, and a higher framerate when used with USB 3.0.\cite{ultraleap}\cite{ultraleap2}
+The Stereo IR inherits Leap Motions key features but improves with a wider 170-degree field of view, more-powerful LED illuminators providing more extended tracking range, and a higher framerate when used with USB 3.0 \cite{ultraleap}, \cite{ultraleap2}.
 
 \begin{figure}[H]
 	\centering
@@ -76,28 +75,26 @@ The Stereo IR inherits Leap Motions key features but improves with a wider 170-d
 }
 %=======================================================================================================================
 
-Gestures classification should be taken into account when choosing appropriate methods due to their time-varying properties. As previously mentioned, gestures are classified into static and dynamic groups. 
+Gestures group classification should be taken into account when choosing appropriate methods due to their time-varying properties. As previously mentioned, gestures are classified into static and dynamic groups. 
 
 \subsection{Static Gesture Recognition}
 
-One of the commonly used methods for static gesture recognition is \textit{Support Vector Machine} (SVM), an algorithm used for both regression and classification tasks. But overall, it is widely used in classifications. SVM's goal is to find a \textit{hyperplane} in N-dimension space, N being the number of features, that distinctively classifies data points.\cite{svmIntroToML} 
-\textit{Hyperplanes} are decision boundaries between data points and optimal \textit{hyperplane} is the one with maximal separation, \textit{margin}, between classes.
-Vector Machines (SVM). , ANN, or pattern techniques.\cite{savaris}.
+One of the commonly used methods for static gesture recognition is \textit{Support Vector Machine} (SVM), an algorithm used for both regression and classification tasks. But overall, it is widely used in classifications. SVM's goal is to find a \textit{hyperplane} in N-dimension space, N being the number of features, that distinctively classifies data points \cite{svmIntroToML}. \textit{Hyperplanes} are decision boundaries between data points and optimal \textit{hyperplane} is the one with maximal separation, \textit{margin}, between classes \cite{savaris}.
 
 Chen and Tseng \cite{chentseng} presented an SVM solution for multi-angle hand gesture recognition for rock paper scissors using images from a web camera. The training dataset consisted of 420 images and a testing set of 120 images. 
 Datasets were collected from 5 different people for the right hand only and achieving 95\%. The classifier still managed to recognize left-hand gestures with 90\% accuracy. 
 
-Domino et al. \cite{dominokinect} utilized SVM with Microsoft Kinect sensors. Extracting hand features, fingertips, and center of the hand, from the depth map and feeding the data into SVM. Achieving 99.5\% recognition rate on the dataset provided by Ren et Al. \cite{dominokinect_data} The dataset consists of 10 different gestures performed by ten different people repeatedly each ten times, a total of 1000 different depth maps.
+Domino et al. \cite{dominokinect} utilized SVM with Microsoft Kinect sensors. Extracting hand features, fingertips, and center of the hand, from the depth map and feeding the data into SVM. Achieving 99.5\% recognition rate on the dataset provided by Ren et Al. \cite{dominokinect_data}. The dataset consists of 10 different gestures performed by ten different people repeatedly each ten times, a total of 1000 different depth maps.
 
-Mapari and Kharat\cite{mapari} on the other hand, proposed a method to recognize American Sign Language (ASL) with an \textit{Feed-forward network} using \textit{Multilayer Perceptron (MLP)}, extracting data from LMC and computing 48 features (18 positional values, 15 distance values, and 15 angle values) for 4672 collected signs (146 users for 32 signs). The average classification accuracy is 90\%.
+Mapari and Kharat \cite{mapari} on the other hand, proposed a method to recognize American Sign Language (ASL) with an \textit{Feed-forward network} using \textit{Multilayer Perceptron (MLP)}, extracting data from LMC and computing 48 features (18 positional values, 15 distance values, and 15 angle values) for 4672 collected signs (146 users for 32 signs). The average classification accuracy is 90\%.
 
 \subsection{Dynamic Gesture Recognition}
 
 Katia et al. \cite{katiacnn} proposed a method classifying dynamic gestures acquired through LMC with a CNN.
 Adopting a modified version of ResNet-50 architecture, a 50 layers deep CNN, removing the last fully connected layer and adding a new layer with as many neurons as the considered collection of gesture classes. 
-The acquired gesture information is converted into hand joints color images. The variation of hand joint positions during the gesture is projected on a plane, and temporal information is represented with the color intensity of the projected points. The trained model achieved 91\% classification accuracy on the LMDHG dataset.\cite{lmdhg}
+The acquired gesture information is converted into hand joints color images. The variation of hand joint positions during the gesture is projected on a plane, and temporal information is represented with the color intensity of the projected points. The trained model achieved 91\% classification accuracy on the LMDHG dataset \cite{lmdhg}.
 
-Yang L., Chen J., and Zhu W. \cite{bidirect_dynam} used two-layer Bidirectional RNN in combination with an LMC to classify dynamic hand gestures represented by sets of feature vectors (fingertip distance, angle, height, the angle of adjacent fingertips and the coordinates of the palm). The proposed method has been tested on the American Sign Language (ASL) datasets with 360 samples and the Handicraft‐Gesture dataset with 480 samples, achieving 90\% and 92\% accuracy.\cite{bidirect_dynam}
+Yang L., Chen J., and Zhu W. \cite{bidirect_dynam} used two-layer Bidirectional RNN in combination with an LMC to classify dynamic hand gestures represented by sets of feature vectors (fingertip distance, angle, height, the angle of adjacent fingertips and the coordinates of the palm). The proposed method has been tested on the American Sign Language (ASL) datasets with 360 samples and the Handicraft‐Gesture dataset with 480 samples, achieving 90\% and 92\% accuracy \cite{bidirect_dynam}.
 
 Ameur et al. \cite{ameur} presented a solution using an SVM classifier used with LMC acquired data, (X, Y, Z) coordinates of fingertips and palm center. The experimental results show an accuracy of 81\% on a dataset containing 11 actions, performed by ten different subjects, having in total 550 samples.
 
@@ -107,7 +104,7 @@ Many of the proposed methods focus either on static gesture recognition or dynam
 
 Avola D., Bernardi M. et al. proposed a method in \cite{avola} utilizing LSTM, specifically Deep LSTM (DLSTM), and LMC to recognize sign language and semaphoric hand gestures. It uses a hand skeleton extracted by an LMC and considers angles formed by a specific subset of hand joints. The presented method reached 96\% accuracy in its predictions.
 
-Consider each hand gesture to be represtend as set $X = \{x_0, x1, ..., x_{T-1}\}$ of feature vectors, in predetermined interval $\Theta$ size T, T being the number of time instances, in which features are extraxted by LMC. Deep LSTM(DLSTM) is applied to obtain series of output probability vectors $Y = \{y_0, y1, ..., y_{T-1}\}$. At last the gesture classification is performed by a \textit{softmax} layer using $n = |C|$, where C being the set of considered hand gestures.\cite{avola}
+Consider each hand gesture to be represtend as set $X = \{x_0, x1, ..., x_{T-1}\}$ of feature vectors, in predetermined interval $\Theta$ size T, T being the number of time instances, in which features are extraxted by LMC. DLSTM is applied to obtain series of output probability vectors $Y = \{y_0, y1, ..., y_{T-1}\}$. At last the gesture classification is performed by a \textit{softmax} layer using $n = |C|$, where C being the set of considered hand gestures \cite{avola}.
 
 \begin{figure}[ht]
 	\centering
@@ -184,6 +181,6 @@ Depending on the cardinality of the newly acquired set $\Theta^*$, the following
 
 \begin{itemize}
 	\item $|\Theta^*| < T$, the remaining samples $(|\Theta^*|-T)$ are picked randomly from the original set $\Theta$
-	\item $|\Theta^*| > T$, only some of significant time instances for each $g$ feature are picked to be sampled. Let $\Theta_g \subseteq \Theta^*$ be a set of significant time instances for feature $g$. The number of instances $T_g$ to be sampled is chosen according to the ratio $|\Theta_g|:|\Theta^*| = T_g:T$, where the sum $\sum_{g \in G}{T_g} = T$ must be preserved.\cite{avola}
+	\item $|\Theta^*| > T$, only some of significant time instances for each $g$ feature are picked to be sampled. Let $\Theta_g \subseteq \Theta^*$ be a set of significant time instances for feature $g$. The number of instances $T_g$ to be sampled is chosen according to the ratio $|\Theta_g|:|\Theta^*| = T_g:T$, where the sum $\sum_{g \in G}{T_g} = T$ must be preserved \cite{avola}.
 \end{itemize}
 
