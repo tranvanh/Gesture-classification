@@ -76,17 +76,6 @@ CMAKE_BINARY_DIR = /home/sran/baka/Gesture-classification/src/app/cmake-build-de
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/snap/clion/139/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -97,6 +86,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/snap/clion/139/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -131,17 +131,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test_cppflow
+# Target rules for targets named app_gestures
 
 # Build rule for target.
-test_cppflow: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_cppflow
-.PHONY : test_cppflow
+app_gestures: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app_gestures
+.PHONY : app_gestures
 
 # fast build rule for target.
-test_cppflow/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cppflow.dir/build.make CMakeFiles/test_cppflow.dir/build
-.PHONY : test_cppflow/fast
+app_gestures/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app_gestures.dir/build.make CMakeFiles/app_gestures.dir/build
+.PHONY : app_gestures/fast
 
 main.o: main.cpp.o
 
@@ -149,7 +149,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cppflow.dir/build.make CMakeFiles/test_cppflow.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app_gestures.dir/build.make CMakeFiles/app_gestures.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -158,7 +158,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cppflow.dir/build.make CMakeFiles/test_cppflow.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app_gestures.dir/build.make CMakeFiles/app_gestures.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -167,7 +167,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cppflow.dir/build.make CMakeFiles/test_cppflow.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app_gestures.dir/build.make CMakeFiles/app_gestures.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -178,7 +178,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... test_cppflow"
+	@echo "... app_gestures"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

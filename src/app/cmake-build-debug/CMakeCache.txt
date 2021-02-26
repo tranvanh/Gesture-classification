@@ -156,7 +156,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=test_cppflow
+CMAKE_PROJECT_NAME:STATIC=app_gestures
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -234,6 +234,12 @@ app_BINARY_DIR:STATIC=/home/sran/baka/Gesture-classification/src/app/cmake-build
 
 //Value Computed by CMake
 app_SOURCE_DIR:STATIC=/home/sran/baka/Gesture-classification/src/app
+
+//Value Computed by CMake
+app_gestures_BINARY_DIR:STATIC=/home/sran/baka/Gesture-classification/src/app/cmake-build-debug
+
+//Value Computed by CMake
+app_gestures_SOURCE_DIR:STATIC=/home/sran/baka/Gesture-classification/src/app
 
 //Value Computed by CMake
 test_cppflow_BINARY_DIR:STATIC=/home/sran/baka/Gesture-classification/src/app/cmake-build-debug

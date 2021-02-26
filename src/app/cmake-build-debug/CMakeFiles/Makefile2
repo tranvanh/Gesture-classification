@@ -73,7 +73,7 @@ CMAKE_BINARY_DIR = /home/sran/baka/Gesture-classification/src/app/cmake-build-de
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/test_cppflow.dir/all
+all: CMakeFiles/app_gestures.dir/all
 
 .PHONY : all
 
@@ -83,36 +83,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/test_cppflow.dir/clean
+clean: CMakeFiles/app_gestures.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/test_cppflow.dir
+# Target rules for target CMakeFiles/app_gestures.dir
 
 # All Build rule for target.
-CMakeFiles/test_cppflow.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cppflow.dir/build.make CMakeFiles/test_cppflow.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cppflow.dir/build.make CMakeFiles/test_cppflow.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/sran/baka/Gesture-classification/src/app/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target test_cppflow"
-.PHONY : CMakeFiles/test_cppflow.dir/all
+CMakeFiles/app_gestures.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app_gestures.dir/build.make CMakeFiles/app_gestures.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app_gestures.dir/build.make CMakeFiles/app_gestures.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/sran/baka/Gesture-classification/src/app/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target app_gestures"
+.PHONY : CMakeFiles/app_gestures.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/test_cppflow.dir/rule: cmake_check_build_system
+CMakeFiles/app_gestures.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/sran/baka/Gesture-classification/src/app/cmake-build-debug/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_cppflow.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/app_gestures.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/sran/baka/Gesture-classification/src/app/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/test_cppflow.dir/rule
+.PHONY : CMakeFiles/app_gestures.dir/rule
 
 # Convenience name for target.
-test_cppflow: CMakeFiles/test_cppflow.dir/rule
+app_gestures: CMakeFiles/app_gestures.dir/rule
 
-.PHONY : test_cppflow
+.PHONY : app_gestures
 
 # clean rule for target.
-CMakeFiles/test_cppflow.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cppflow.dir/build.make CMakeFiles/test_cppflow.dir/clean
-.PHONY : CMakeFiles/test_cppflow.dir/clean
+CMakeFiles/app_gestures.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app_gestures.dir/build.make CMakeFiles/app_gestures.dir/clean
+.PHONY : CMakeFiles/app_gestures.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
