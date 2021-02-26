@@ -1619,9 +1619,14 @@ int main() {
 //        std::cout << t1 << std::endl;
 //    }
 
-    auto input = cppflow::tensor(data_input,{200,31});
-    cout << input << endl;
-    cppflow::model model("../model");
+    auto input = cppflow::tensor(data_input,{1,200,31});
+    cppflow::model model("../gestures");
+
+//    auto op = model.get_operations();
+//    for (auto v : op) {
+//        std::cout << v << std::endl;
+//    }
+
     auto output = model(input);
 
     std::cout << output << std::endl;
