@@ -170,6 +170,33 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/app_gestures.dir/build.make CMakeFiles/app_gestures.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+model/CModelWrapper.o: model/CModelWrapper.cpp.o
+
+.PHONY : model/CModelWrapper.o
+
+# target to build an object file
+model/CModelWrapper.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app_gestures.dir/build.make CMakeFiles/app_gestures.dir/model/CModelWrapper.cpp.o
+.PHONY : model/CModelWrapper.cpp.o
+
+model/CModelWrapper.i: model/CModelWrapper.cpp.i
+
+.PHONY : model/CModelWrapper.i
+
+# target to preprocess a source file
+model/CModelWrapper.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app_gestures.dir/build.make CMakeFiles/app_gestures.dir/model/CModelWrapper.cpp.i
+.PHONY : model/CModelWrapper.cpp.i
+
+model/CModelWrapper.s: model/CModelWrapper.cpp.s
+
+.PHONY : model/CModelWrapper.s
+
+# target to generate assembly for a file
+model/CModelWrapper.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app_gestures.dir/build.make CMakeFiles/app_gestures.dir/model/CModelWrapper.cpp.s
+.PHONY : model/CModelWrapper.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -182,6 +209,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... model/CModelWrapper.o"
+	@echo "... model/CModelWrapper.i"
+	@echo "... model/CModelWrapper.s"
 .PHONY : help
 
 

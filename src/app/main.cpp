@@ -1,17 +1,13 @@
 #include <iostream>
 #include "include/cppflow/ops.h"
 #include "include/cppflow/model.h"
+#include "model/CModelWrapper.h"
 #include <vector>
 
 using namespace std;
 
 int main() {
 
-//    auto input = cppflow::fill({10, 5}, 1.0f);
-    float target = 1.0;
-    int64_t ndim = 2;
-    vector<float> _data(ndim, target);
-//    vector<vector<float>> data_input = {{0,1},{2,3}};
     vector<float> data_input = {9.70850986e-01, 9.70940637e-01, 9.46023480e-01, 9.51898438e-01,
                                 8.22819279e-01, 9.62321427e-01, 9.59429609e-01, 9.29404428e-01,
                                 9.53618328e-01, 6.37061186e-01, 5.05414320e-01, 5.38790197e-01,
@@ -1612,29 +1608,9 @@ int main() {
                                 5.84839686e-01, 5.24510423e-01, 6.91229539e-01, 4.08651971e-01,
                                 3.83404019e-01, 3.63003721e-01, 3.52197903e-01, 4.67319826e-01,
                                 5.36627373e-01, 3.56770153e-02, 3.28129684e-02};
-//    auto t1 = cppflow::tensor(data_input, {200,31});
-//    auto values = t1.shape();
 
-//    for (auto v : values) {
-//        std::cout << t1 << std::endl;
-//    }
 
-    auto input = cppflow::tensor(data_input,{1,200,31});
-    cppflow::model model("../gestures");
-
-//    auto op = model.get_operations();
-//    for (auto v : op) {
-//        std::cout << v << std::endl;
-//    }
-
-    auto output = model(input);
-
-    std::cout << output << std::endl;
-
-    auto values = output.get_data<float>();
-
-    for (auto v : values) {
-        std::cout << v << std::endl;
-    }
+    CModelWrapper model("../LSTM_model");
+    cout << "predicted gesture: " << model.preditct(data_input) << endl;
     return 0;
 }
