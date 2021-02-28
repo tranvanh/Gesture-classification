@@ -1610,7 +1610,7 @@ int main() {
                                 5.36627373e-01, 3.56770153e-02, 3.28129684e-02};
 
 
-    CModelWrapper model("../LSTM_model");
+    CModelWrapper model("../../../LSTM_model");
     cout << "predicted gesture: " << model.preditct(data_input) << endl;
     return 0;
 }
