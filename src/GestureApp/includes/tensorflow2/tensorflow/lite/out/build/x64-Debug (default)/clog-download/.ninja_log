@@ -1,0 +1,11 @@
+# ninja log v5
+0	727	636322790	clog-prefix/src/clog-stamp/clog-mkdir	99bd7725b6c7e4cd
+727	2502	636322792	clog-prefix/src/clog-stamp/clog-download	3f7ec62b8f51e3f2
+2502	2681	636322792	clog-prefix/src/clog-stamp/clog-update	e18a7a82f167624e
+2682	2866	636322792	clog-prefix/src/clog-stamp/clog-patch	1bee16044ed68790
+2866	3047	636322792	clog-prefix/src/clog-stamp/clog-configure	b01597d2e687a0a0
+3047	3236	636322793	clog-prefix/src/clog-stamp/clog-build	96b7ce1317eef13e
+3236	3420	636322793	clog-prefix/src/clog-stamp/clog-install	366ae32a2a2b319f
+3420	3618	636322793	clog-prefix/src/clog-stamp/clog-test	9d3ff376adf0e54a
+3618	3900	636322793	CMakeFiles/clog-complete	33776a7a46970a93
+3618	3900	636322793	clog-prefix/src/clog-stamp/clog-done	33776a7a46970a93

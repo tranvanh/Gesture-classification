@@ -1,0 +1,3 @@
+repository='external project URL'
+module='https://github.com/Maratyszcza/FP16/archive/3c54eacb74f6f5e39077300c5564156c424d77ba.zip'
+tag='SHA256=0d56bb92f649ec294dbccb13e04865e3c82933b6f6735d1d7145de45da700156'

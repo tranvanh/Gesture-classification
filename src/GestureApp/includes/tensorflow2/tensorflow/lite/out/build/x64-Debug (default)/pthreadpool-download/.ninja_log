@@ -1,0 +1,11 @@
+# ninja log v5
+0	729	636322810	pthreadpool-prefix/src/pthreadpool-stamp/pthreadpool-mkdir	cbe4a80e716b5489
+730	1799	636322811	pthreadpool-prefix/src/pthreadpool-stamp/pthreadpool-download	4783695e150a821a
+1799	1994	636322811	pthreadpool-prefix/src/pthreadpool-stamp/pthreadpool-update	526e64638cbec3e8
+1994	2179	636322811	pthreadpool-prefix/src/pthreadpool-stamp/pthreadpool-patch	35d05efadd9ffde6
+2179	2361	636322811	pthreadpool-prefix/src/pthreadpool-stamp/pthreadpool-configure	94aee59e93c206d2
+2361	2541	636322812	pthreadpool-prefix/src/pthreadpool-stamp/pthreadpool-build	c668490276666dbb
+2541	2726	636322812	pthreadpool-prefix/src/pthreadpool-stamp/pthreadpool-install	1ba998893afc23ef
+2726	2916	636322812	pthreadpool-prefix/src/pthreadpool-stamp/pthreadpool-test	24220e2077ddf8d7
+2916	3190	636322812	CMakeFiles/pthreadpool-complete	5f001f526683f26
+2916	3190	636322812	pthreadpool-prefix/src/pthreadpool-stamp/pthreadpool-done	5f001f526683f26

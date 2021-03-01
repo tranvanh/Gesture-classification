@@ -1,0 +1,11 @@
+# ninja log v5
+1	709	636322798	fp16-prefix/src/fp16-stamp/fp16-mkdir	a114d8e8fd97b039
+709	1979	636322799	fp16-prefix/src/fp16-stamp/fp16-download	b4b49e01d59a5644
+1979	2183	636322799	fp16-prefix/src/fp16-stamp/fp16-update	b7ef3917642f0e8d
+2183	2393	636322799	fp16-prefix/src/fp16-stamp/fp16-patch	29bec1981eea41fd
+2393	2584	636322799	fp16-prefix/src/fp16-stamp/fp16-configure	d7530837b00415fe
+2585	2785	636322800	fp16-prefix/src/fp16-stamp/fp16-build	c7bd08ec027a49ea
+2785	2972	636322800	fp16-prefix/src/fp16-stamp/fp16-install	7cd57f580d20fdbf
+2972	3155	636322800	fp16-prefix/src/fp16-stamp/fp16-test	b1afffa130ac47f7
+3155	3434	636322800	CMakeFiles/fp16-complete	ff7ef301ee4bc234
+3155	3434	636322800	fp16-prefix/src/fp16-stamp/fp16-done	ff7ef301ee4bc234

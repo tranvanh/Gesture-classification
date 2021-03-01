@@ -1,0 +1,309 @@
+{
+	"archive" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "/machine:x64",
+				"role" : "flags"
+			}
+		]
+	},
+	"artifacts" : 
+	[
+		{
+			"path" : "_deps/abseil-cpp-build/absl/time/absl_time_zone.lib"
+		}
+	],
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"absl_cc_library",
+			"target_compile_options",
+			"target_include_directories",
+			"target_sources"
+		],
+		"files" : 
+		[
+			"out/build/x64-Debug (default)/abseil-cpp/CMake/AbseilHelpers.cmake",
+			"out/build/x64-Debug (default)/abseil-cpp/absl/time/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 61,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 169,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 193,
+				"parent" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 188,
+				"parent" : 1
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 170,
+				"parent" : 1
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/W3"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/DNOMINMAX"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/DWIN32_LEAN_AND_MEAN"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/D_CRT_SECURE_NO_WARNINGS"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/D_SCL_SECURE_NO_WARNINGS"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/D_ENABLE_EXTENDED_ALIGNED_STORAGE"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/bigobj"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/wd4005"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/wd4068"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/wd4180"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/wd4244"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/wd4267"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/wd4503"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/wd4800"
+				},
+				{
+					"fragment" : "-std:c++14"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/abseil-cpp"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0,
+				2,
+				3,
+				5,
+				7,
+				9,
+				11,
+				12,
+				15
+			]
+		}
+	],
+	"folder" : 
+	{
+		"name" : "Abseil/internal"
+	},
+	"id" : "absl_time_zone::@b4524c795b0f97a08e67",
+	"name" : "absl_time_zone",
+	"nameOnDisk" : "absl_time_zone.lib",
+	"paths" : 
+	{
+		"build" : "_deps/abseil-cpp-build/absl/time",
+		"source" : "out/build/x64-Debug (default)/abseil-cpp/absl/time"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				2,
+				3,
+				5,
+				7,
+				9,
+				11,
+				12,
+				15
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				1,
+				4,
+				6,
+				8,
+				10,
+				13,
+				14,
+				16,
+				17
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 5,
+			"compileGroupIndex" : 0,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_fixed.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 5,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_fixed.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 5,
+			"compileGroupIndex" : 0,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_format.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 5,
+			"compileGroupIndex" : 0,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_if.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 5,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_if.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 5,
+			"compileGroupIndex" : 0,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_impl.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 5,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_impl.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 5,
+			"compileGroupIndex" : 0,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_info.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 5,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_info.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 5,
+			"compileGroupIndex" : 0,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_libc.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 5,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_libc.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 5,
+			"compileGroupIndex" : 0,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_lookup.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 5,
+			"compileGroupIndex" : 0,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_posix.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 5,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/time_zone_posix.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 5,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/tzfile.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 5,
+			"compileGroupIndex" : 0,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/src/zone_info_source.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 5,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/include/cctz/time_zone.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 5,
+			"path" : "out/build/x64-Debug (default)/abseil-cpp/absl/time/internal/cctz/include/cctz/zone_info_source.h",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

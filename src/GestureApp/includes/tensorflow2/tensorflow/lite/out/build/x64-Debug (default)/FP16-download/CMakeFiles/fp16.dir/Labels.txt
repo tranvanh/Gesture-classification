@@ -1,0 +1,14 @@
+# Target labels
+ fp16
+# Source files and their labels
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/FP16-download/CMakeFiles/fp16
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/FP16-download/CMakeFiles/fp16.rule
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/FP16-download/CMakeFiles/fp16-complete.rule
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/FP16-download/fp16-prefix/src/fp16-stamp/fp16-install.rule
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/FP16-download/fp16-prefix/src/fp16-stamp/fp16-mkdir.rule
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/FP16-download/fp16-prefix/src/fp16-stamp/fp16-download.rule
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/FP16-download/fp16-prefix/src/fp16-stamp/fp16-update.rule
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/FP16-download/fp16-prefix/src/fp16-stamp/fp16-patch.rule
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/FP16-download/fp16-prefix/src/fp16-stamp/fp16-configure.rule
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/FP16-download/fp16-prefix/src/fp16-stamp/fp16-build.rule
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/FP16-download/fp16-prefix/src/fp16-stamp/fp16-test.rule

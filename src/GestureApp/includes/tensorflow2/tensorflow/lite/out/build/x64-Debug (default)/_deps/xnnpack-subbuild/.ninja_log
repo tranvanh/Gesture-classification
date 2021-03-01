@@ -1,0 +1,11 @@
+# ninja log v5
+1	722	636322779	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/xnnpack-populate-stamp/xnnpack-populate-mkdir	9caab414cde5ce51
+722	8486	636322787	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/xnnpack-populate-stamp/xnnpack-populate-download	4af22e0c166fbd10
+8487	8728	0	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/xnnpack-populate-stamp/xnnpack-populate-update	a7ad0ba97218c69d
+8728	8920	636322788	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/xnnpack-populate-stamp/xnnpack-populate-patch	40a8b74cffcdd8d7
+8920	9100	636322788	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/xnnpack-populate-stamp/xnnpack-populate-configure	5d9ad303fe66863c
+9100	9292	636322788	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/xnnpack-populate-stamp/xnnpack-populate-build	b267c98d28de303d
+9292	9487	636322788	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/xnnpack-populate-stamp/xnnpack-populate-install	8c12f804916ae523
+9487	9680	636322788	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/xnnpack-populate-stamp/xnnpack-populate-test	d3af6147e77ebbe1
+9680	9976	636322789	CMakeFiles/xnnpack-populate-complete	3a4f5450db912317
+9680	9976	636322789	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/xnnpack-populate-stamp/xnnpack-populate-done	3a4f5450db912317

@@ -1,0 +1,4 @@
+# ninja log v5
+0	704	636322794	cpuinfo-prefix/src/cpuinfo-stamp/cpuinfo-mkdir	a8f6b865e136db37
+704	2524	636322796	cpuinfo-prefix/src/cpuinfo-stamp/cpuinfo-download	9c730e80e55d8e87
+2524	2712	636322796	cpuinfo-prefix/src/cpuinfo-stamp/cpuinfo-update	dab60b0830c13d3e

@@ -1,0 +1,11 @@
+# ninja log v5
+0	787	636322759	ruy-populate-prefix/src/ruy-populate-stamp/ruy-populate-mkdir	b23ea99b15ed1bcc
+787	14107	636322772	ruy-populate-prefix/src/ruy-populate-stamp/ruy-populate-download	60843b5358d61adc
+14107	19087	0	ruy-populate-prefix/src/ruy-populate-stamp/ruy-populate-update	58364b765adad8e1
+19087	19272	636322777	ruy-populate-prefix/src/ruy-populate-stamp/ruy-populate-patch	e219bcadaad75a80
+19272	19459	636322777	ruy-populate-prefix/src/ruy-populate-stamp/ruy-populate-configure	5acedb859bfa996e
+19460	19674	636322777	ruy-populate-prefix/src/ruy-populate-stamp/ruy-populate-build	807e75806e329475
+19674	19864	636322778	ruy-populate-prefix/src/ruy-populate-stamp/ruy-populate-install	7cc4ef133527bef
+19864	20064	636322778	ruy-populate-prefix/src/ruy-populate-stamp/ruy-populate-test	faa8a6c2e96f86bb
+20064	20341	636322778	CMakeFiles/ruy-populate-complete	7873ebe3a888eb2f
+20064	20341	636322778	ruy-populate-prefix/src/ruy-populate-stamp/ruy-populate-done	7873ebe3a888eb2f

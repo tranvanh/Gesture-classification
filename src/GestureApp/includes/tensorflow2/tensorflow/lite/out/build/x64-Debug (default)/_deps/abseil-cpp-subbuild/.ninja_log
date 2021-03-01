@@ -1,0 +1,19 @@
+# ninja log v5
+0	762	636322694	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-mkdir	dd8072bb6c280ce8
+762	5735	636322699	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-download	822a5e380d0fe44c
+5735	6007	0	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-update	30e1a115a82e72d6
+6007	6199	636322699	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-patch	374bec88cc0a886c
+6199	6391	636322700	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-configure	bb6f2123b5910104
+6392	6600	636322700	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-build	d40de59b87ea159f
+6600	6795	636322700	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-install	6371093d1c0586c8
+6795	6981	636322700	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-test	2a288e5da05625c
+6981	7272	636322700	CMakeFiles/abseil-cpp-populate-complete	e23e569f58b498b9
+6981	7272	636322700	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-done	e23e569f58b498b9
+0	254	0	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-update	30e1a115a82e72d6
+254	447	636322849	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-patch	374bec88cc0a886c
+447	642	636322849	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-configure	bb6f2123b5910104
+642	840	636322850	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-build	d40de59b87ea159f
+840	1053	636322850	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-install	6371093d1c0586c8
+1053	1259	636322850	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-test	2a288e5da05625c
+1259	1556	636322850	CMakeFiles/abseil-cpp-populate-complete	e23e569f58b498b9
+1259	1556	636322850	C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/GestureApp/includes/tensorflow2/tensorflow/lite/out/build/x64-Debug (default)/src/abseil-cpp-populate-stamp/abseil-cpp-populate-done	e23e569f58b498b9
