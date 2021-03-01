@@ -1,3 +1,0 @@
-/home/sran/baka/Gesture-classification/src/app/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/sran/baka/Gesture-classification/src/app/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/sran/baka/Gesture-classification/src/app/cmake-build-debug/CMakeFiles/app_gestures.dir

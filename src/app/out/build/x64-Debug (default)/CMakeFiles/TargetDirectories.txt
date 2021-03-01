@@ -1,4 +1,0 @@
-C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/app/out/build/x64-Debug (default)/CMakeFiles/edit_cache.dir
-C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/app/out/build/x64-Debug (default)/CMakeFiles/TENSORFLOW_LIB.dir
-C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/app/out/build/x64-Debug (default)/CMakeFiles/app_gestures.dir
-C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/app/out/build/x64-Debug (default)/CMakeFiles/rebuild_cache.dir
