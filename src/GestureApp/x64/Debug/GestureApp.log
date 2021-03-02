@@ -1,4 +1,4 @@
-﻿  Model.cpp
+﻿  geastureLeap.cpp
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\includes\tensorflow2\tensorflow\c\c_api.h(953,68): warning C4190: 'TF_NewWhile' has C-linkage specified, but returns UDT 'TF_WhileParams' which is incompatible with C
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\includes\tensorflow2\tensorflow\c\c_api.h(909): message : see declaration of 'TF_WhileParams'
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\includes\cppflow\tensor.h(133,83): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
@@ -433,17 +433,17 @@ C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\inclu
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\includes\cppflow\raw_ops.h(27341,137): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\includes\cppflow\raw_ops.h(27347,155): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\includes\cppflow\model.h(154,53): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\model\Model.h(24,39): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\GestureLeap\DataProcessing\dataNormalizationr.h(24,39): warning C4305: 'initializing': truncation from 'double' to '_Ty'
           with
           [
               _Ty=float
           ]
-C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\model\Model.h(32,51): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\GestureLeap\DataProcessing\dataNormalizationr.h(32,51): warning C4305: 'initializing': truncation from 'double' to '_Ty'
           with
           [
               _Ty=float
           ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.28.29333\include\algorithm(3433,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\include\algorithm(3433,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\includes\cppflow\raw_ops.h(546): message : see reference to function template instantiation '_OutIt std::transform<std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,std::back_insert_iterator<std::vector<int,std::allocator<int>>>,cppflow::anonymous_iterator::<lambda_e1842c5ab8af8c457e97e822dcdcd593>>(const _InIt,const _InIt,_OutIt,_Fn)' being compiled
           with
           [

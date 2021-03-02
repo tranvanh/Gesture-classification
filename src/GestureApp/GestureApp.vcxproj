@@ -148,9 +148,15 @@ xcopy /y $(SolutionDir)includes\multileap\*.dll "$(OutDir)"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GestureApp.cpp" />
+    <ClCompile Include="GestureLeap\DataProcessing\dataNormalization.cpp" />
+    <ClCompile Include="GestureLeap\DataProcessing\hoppingWindow.cpp" />
+    <ClCompile Include="GestureLeap\geastureLeap.cpp" />
     <ClCompile Include="model\Model.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GestureLeap\DataProcessing\dataNormalizationr.h" />
+    <ClInclude Include="GestureLeap\DataProcessing\hoppingWindow.h" />
+    <ClInclude Include="GestureLeap\geastureLeap.h" />
     <ClInclude Include="model\Model.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
