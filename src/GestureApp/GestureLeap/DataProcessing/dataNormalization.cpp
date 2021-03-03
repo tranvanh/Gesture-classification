@@ -7,8 +7,8 @@ void DataNormalization::min_max_scaler(const std::vector<std::vector<double>> in
 		for (int k = 0; k < this->num_feature; ++k, ++ix)
 			output[ix] = float(input[i][k] - min_scaler[k]) / (max_scaler[k] - min_scaler[k]);
 
-	max_scaler = std::vector<double>(31, INT_MIN);
-	min_scaler = std::vector<double>(31, INT_MAX);
+	//max_scaler = std::vector<double>(31, INT_MIN);
+	//min_scaler = std::vector<double>(31, INT_MAX);
 }
 
 
@@ -41,45 +41,50 @@ void DataNormalization::calculate_features(std::vector<double>& output, const LE
 {
 	LEAP_HAND hand = frame.pHands[0];
 
-	VECT CD_thumb = lineFromPoint(hand.thumb.distal.next_joint, hand.thumb.distal.prev_joint);
-	VECT CD_index = lineFromPoint(hand.index.distal.next_joint, hand.index.distal.prev_joint);
-	VECT CD_middle = lineFromPoint(hand.middle.distal.next_joint, hand.middle.distal.prev_joint);
-	VECT CD_ring = lineFromPoint(hand.ring.distal.next_joint, hand.ring.distal.prev_joint);
-	VECT CD_pinky = lineFromPoint(hand.pinky.distal.next_joint, hand.pinky.distal.prev_joint);
+	VECT CD_thumb = lineFromPoint(hand.thumb.distal.prev_joint, hand.thumb.distal.next_joint);
+	VECT CD_index = lineFromPoint(hand.index.distal.prev_joint, hand.index.distal.next_joint);
+	VECT CD_middle = lineFromPoint(hand.middle.distal.prev_joint, hand.middle.distal.next_joint);
+	VECT CD_ring = lineFromPoint(hand.ring.distal.prev_joint, hand.ring.distal.next_joint);
+	VECT CD_pinky = lineFromPoint(hand.pinky.distal.prev_joint, hand.pinky.distal.next_joint);
 
+	VECT CB_thumb = lineFromPoint(hand.thumb.distal.prev_joint, hand.thumb.intermediate.prev_joint);
+	VECT CB_index = lineFromPoint(hand.index.distal.prev_joint, hand.index.intermediate.prev_joint);
+	VECT CB_middle = lineFromPoint(hand.middle.distal.prev_joint, hand.middle.intermediate.prev_joint);
+	VECT CB_ring = lineFromPoint(hand.ring.distal.prev_joint, hand.ring.intermediate.prev_joint);
+	VECT CB_pinky = lineFromPoint(hand.pinky.distal.prev_joint, hand.pinky.intermediate.prev_joint);
 
-	VECT BC_thumb = lineFromPoint(hand.thumb.proximal.next_joint, hand.thumb.proximal.prev_joint);
-	VECT BC_index = lineFromPoint(hand.index.intermediate.next_joint, hand.index.intermediate.prev_joint);
-	VECT BC_middle = lineFromPoint(hand.middle.intermediate.next_joint, hand.middle.intermediate.prev_joint);
-	VECT BC_ring = lineFromPoint(hand.ring.intermediate.next_joint, hand.ring.intermediate.prev_joint);
-	VECT BC_pinky = lineFromPoint(hand.pinky.intermediate.next_joint, hand.pinky.intermediate.prev_joint);
+	VECT BC_thumb = lineFromPoint(hand.thumb.intermediate.prev_joint, hand.thumb.intermediate.next_joint);
+	VECT BC_index = lineFromPoint(hand.index.intermediate.prev_joint, hand.index.intermediate.next_joint);
+	VECT BC_middle = lineFromPoint(hand.middle.intermediate.prev_joint, hand.middle.intermediate.next_joint);
+	VECT BC_ring = lineFromPoint(hand.ring.intermediate.prev_joint, hand.ring.intermediate.next_joint);
+	VECT BC_pinky = lineFromPoint(hand.pinky.intermediate.prev_joint, hand.pinky.intermediate.next_joint);
 
-	VECT AB_thumb = lineFromPoint(hand.thumb.proximal.prev_joint, hand.thumb.metacarpal.prev_joint);
-	VECT AB_index = lineFromPoint(hand.index.proximal.next_joint, hand.index.proximal.prev_joint);
-	VECT AB_middle = lineFromPoint(hand.middle.proximal.next_joint, hand.middle.proximal.prev_joint);
-	VECT AB_ring = lineFromPoint(hand.ring.proximal.next_joint, hand.ring.proximal.prev_joint);
-	VECT AB_pinky = lineFromPoint(hand.pinky.proximal.next_joint, hand.pinky.proximal.prev_joint);
+	VECT BA_thumb = lineFromPoint(hand.thumb.intermediate.prev_joint, hand.thumb.proximal.prev_joint);
+	VECT BA_index = lineFromPoint(hand.index.intermediate.prev_joint, hand.index.proximal.prev_joint);
+	VECT BA_middle = lineFromPoint(hand.middle.intermediate.prev_joint, hand.middle.proximal.prev_joint);
+	VECT BA_ring = lineFromPoint(hand.ring.intermediate.prev_joint, hand.ring.proximal.prev_joint);
+	VECT BA_pinky = lineFromPoint(hand.pinky.intermediate.prev_joint, hand.pinky.proximal.prev_joint);
 
-	VECT thumb = lineFromPoint(hand.thumb.distal.next_joint, hand.thumb.metacarpal.prev_joint);
-	VECT index = lineFromPoint(hand.index.distal.next_joint, hand.index.proximal.prev_joint);
-	VECT middle = lineFromPoint(hand.middle.distal.next_joint, hand.middle.proximal.prev_joint);
-	VECT ring = lineFromPoint(hand.ring.distal.next_joint, hand.ring.proximal.prev_joint);
-	VECT pinky = lineFromPoint(hand.pinky.distal.next_joint, hand.pinky.proximal.prev_joint);
+	VECT thumb = lineFromPoint(hand.thumb.proximal.prev_joint, hand.thumb.distal.next_joint);
+	VECT index = lineFromPoint(hand.index.proximal.prev_joint, hand.index.distal.next_joint);
+	VECT middle = lineFromPoint(hand.middle.proximal.prev_joint, hand.middle.distal.next_joint);
+	VECT ring = lineFromPoint(hand.ring.proximal.prev_joint, hand.ring.distal.next_joint);
+	VECT pinky = lineFromPoint(hand.pinky.proximal.prev_joint, hand.pinky.distal.next_joint);
 
 
 	output = {
 
-		internalAngle(CD_thumb, BC_thumb),
-		internalAngle(CD_index, BC_index),
-		internalAngle(CD_middle, BC_middle),
-		internalAngle(CD_ring, BC_ring),
-		internalAngle(CD_pinky, BC_pinky),
+		internalAngle(CD_thumb, CB_thumb),
+		internalAngle(CD_index, CB_index),
+		internalAngle(CD_middle, CB_middle),
+		internalAngle(CD_ring, CB_ring),
+		internalAngle(CD_pinky, CB_pinky),
 
-		internalAngle(BC_thumb, AB_thumb),
-		internalAngle(BC_index, AB_index),
-		internalAngle(BC_middle, AB_middle),
-		internalAngle(BC_ring, AB_ring),
-		internalAngle(BC_pinky, AB_pinky),
+		internalAngle(BC_thumb, BA_thumb),
+		internalAngle(BC_index, BA_index),
+		internalAngle(BC_middle, BA_middle),
+		internalAngle(BC_ring, BA_ring),
+		internalAngle(BC_pinky, BA_pinky),
 
 		hand.thumb.distal.next_joint.x,
 		hand.index.distal.next_joint.x,
@@ -107,7 +112,7 @@ void DataNormalization::calculate_features(std::vector<double>& output, const LE
 		internalAngle(ring, middle),
 		internalAngle(middle, index)
 	};
-	fitScaler(output);
+	//fitScaler(output);
 }
 
 
