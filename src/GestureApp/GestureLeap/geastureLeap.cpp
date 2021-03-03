@@ -8,7 +8,9 @@ void GestureLeap::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned devic
 		return;
 	}
 
-	window.AddFrame(frame);
+	LEAP_TRACKING_EVENT newFram = *frame;
+
+	window.AddFrame(newFram);
 	if (window.isFull())
 	{
 		auto window_data = window.getWindow();

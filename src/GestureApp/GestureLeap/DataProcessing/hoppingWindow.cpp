@@ -1,6 +1,6 @@
 #include "hoppingWindow.h"
 
-void HoppingWindow::AddFrame(const LEAP_TRACKING_EVENT* frame) {
+void HoppingWindow::AddFrame(const LEAP_TRACKING_EVENT& frame) {
 
 	if (this->window.size() == num_timeStep) {
 		this->window.pop_front();
@@ -14,4 +14,4 @@ void HoppingWindow::flush() { window.clear(); }
 
 bool HoppingWindow::isFull() { return window.size() == num_timeStep; }
 
-const std::list<const LEAP_TRACKING_EVENT*>& HoppingWindow::getWindow() { return this->window; }
+const std::list<LEAP_TRACKING_EVENT>& HoppingWindow::getWindow() { return this->window; }
