@@ -116,18 +116,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>"$(SolutionDir)/includes/multileap";"$(SolutionDir)/includes/cppflow";"$(SolutionDir)/includes/tensorflow2";</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"$(SolutionDir)/../includes/multileap";"$(SolutionDir)/../includes/cppflow";"$(SolutionDir)/../includes/tensorflow2";</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>"$(SolutionDir)/includes/multileap";"$(SolutionDir)/includes/cppflow";"$(SolutionDir)/includes/tensorflow2";</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>"$(SolutionDir)/../includes/multileap";"$(SolutionDir)/../includes/cppflow";"$(SolutionDir)/../includes/tensorflow2";</AdditionalLibraryDirectories>
       <AdditionalDependencies>MultiLeapLibrary.lib;tensorflow.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y $(SolutionDir)includes\tensorflow2\*.dll "$(OutDir)"
-xcopy /y $(SolutionDir)includes\multileap\*.dll "$(OutDir)"</Command>
+      <Command>xcopy /y $(SolutionDir)\..\includes\tensorflow2\*.dll "$(OutDir)"
+xcopy /y $(SolutionDir)\..\includes\multileap\*.dll "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

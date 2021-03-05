@@ -1,8 +1,8 @@
 #include <iostream>
 #include "MultiLeap.h"
 
-#include "includes/cppflow/ops.h"
-#include "includes/cppflow/model.h"
+#include "../includes/cppflow/ops.h"
+#include "../includes/cppflow/model.h"
 #include <vector>
 #include "model/Model.h"
 #include "GestureLeap/geastureLeap.h"

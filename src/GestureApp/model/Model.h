@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "../includes/cppflow/ops.h"
-#include "../includes/cppflow/model.h"
+#include "../../includes/cppflow/ops.h"
+#include "../../includes/cppflow/model.h"
 
 class Model
 {
