@@ -8,13 +8,13 @@ void GestureLeap::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned devic
 		return;
 	}
 
-	LEAP_TRACKING_EVENT newFram = *frame;
+	LEAP_HAND hand = frame->pHands[0];
 
-	window.AddFrame(newFram);
+	window.AddFrame(hand);
 	if (window.isFull())
 	{
 		auto window_data = window.getWindow();
-		std::vector<float> normalized_data(model.getNumFeatures() * model.getTimeStep());
+		std::vector<double> normalized_data(model.getNumFeatures() * model.getTimeStep());
 		dataNormalization.scale(window.getWindow(), normalized_data);
 		int res = model.predict(normalized_data);
 		printf("predicted Gesture: %d\n", res);

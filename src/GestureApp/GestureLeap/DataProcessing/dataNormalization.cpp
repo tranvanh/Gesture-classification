@@ -1,14 +1,11 @@
 #include "dataNormalizationr.h"
 
-void DataNormalization::min_max_scaler(const std::vector<std::vector<double>> input, std::vector<float>& output)
+void DataNormalization::min_max_scaler(const std::vector<std::vector<double>> input, std::vector<double>& output)
 {
 	int ix = 0;
 	for (int i = 0; i < this->timeStep; ++i)
 		for (int k = 0; k < this->num_feature; ++k, ++ix)
-			output[ix] = float(input[i][k] - min_scaler[k]) / (max_scaler[k] - min_scaler[k]);
-
-	//max_scaler = std::vector<double>(31, INT_MIN);
-	//min_scaler = std::vector<double>(31, INT_MAX);
+			output[ix] = double(input[i][k] - min_scaler[k]) / (max_scaler[k] - min_scaler[k]);
 }
 
 
@@ -37,10 +34,8 @@ void DataNormalization::fitScaler(const std::vector<double>& data)
 	}
 }
 
-void DataNormalization::calculate_features(std::vector<double>& output, const LEAP_TRACKING_EVENT& frame)
+void DataNormalization::calculate_features(std::vector<double>& output, const LEAP_HAND& hand)
 {
-	LEAP_HAND hand = frame.pHands[0];
-
 	VECT CD_thumb = lineFromPoint(hand.thumb.distal.prev_joint, hand.thumb.distal.next_joint);
 	VECT CD_index = lineFromPoint(hand.index.distal.prev_joint, hand.index.distal.next_joint);
 	VECT CD_middle = lineFromPoint(hand.middle.distal.prev_joint, hand.middle.distal.next_joint);
@@ -87,42 +82,43 @@ void DataNormalization::calculate_features(std::vector<double>& output, const LE
 		internalAngle(BC_pinky, BA_pinky),
 
 		hand.thumb.distal.next_joint.x,
-		hand.index.distal.next_joint.x,
-		hand.middle.distal.next_joint.x,
-		hand.ring.distal.next_joint.x,
-		hand.pinky.distal.next_joint.x,
-		hand.palm.position.x,
-
 		hand.thumb.distal.next_joint.y,
-		hand.index.distal.next_joint.y,
-		hand.middle.distal.next_joint.y,
-		hand.ring.distal.next_joint.y,
-		hand.pinky.distal.next_joint.y,
-		hand.palm.position.y,
-
-
 		hand.thumb.distal.next_joint.z,
+
+		hand.index.distal.next_joint.x,
+		hand.index.distal.next_joint.y,
 		hand.index.distal.next_joint.z,
+
+		hand.middle.distal.next_joint.x,
+		hand.middle.distal.next_joint.y,
 		hand.middle.distal.next_joint.z,
+
+		hand.ring.distal.next_joint.x,
+		hand.ring.distal.next_joint.y,
 		hand.ring.distal.next_joint.z,
+
+		hand.pinky.distal.next_joint.x,
+		hand.pinky.distal.next_joint.y,
 		hand.pinky.distal.next_joint.z,
+
+		hand.palm.position.x,
+		hand.palm.position.y,
 		hand.palm.position.z,
 
 		internalAngle(pinky, ring),
 		internalAngle(ring, middle),
 		internalAngle(middle, index)
 	};
-	//fitScaler(output);
 }
 
 
 
-void DataNormalization::scale(const std::list<LEAP_TRACKING_EVENT>& window, std::vector<float>& normalized_data)
+void DataNormalization::scale(const std::list<LEAP_HAND>& window, std::vector<double>& normalized_data)
 {
 	std::vector<std::vector<double>> dataFrame(this->timeStep);
 	int i = 0;
-	for (auto frame = window.cbegin(); frame != window.cend(); ++frame, ++i) {
-		calculate_features(dataFrame[i], *frame);
+	for (auto hand = window.cbegin(); hand != window.cend(); ++hand, ++i) {
+		calculate_features(dataFrame[i], *hand);
 	}
 
 	min_max_scaler(dataFrame, normalized_data);

@@ -10,12 +10,12 @@
 class DataNormalization {
 public:
 	DataNormalization(const int& t, const int& f) :timeStep(t), num_feature(f) {};
-	void scale(const std::list<LEAP_TRACKING_EVENT>& window, std::vector<float>& normalized_data);
+	void scale(const std::list<LEAP_HAND>& window, std::vector<double>& normalized_data);
 private:
 	struct VECT {
-		float x;
-		float y;
-		float z;
+		double x;
+		double y;
+		double z;
 	};
 
 	int timeStep;
@@ -37,8 +37,8 @@ private:
 		-5.15626526e+01, -3.59300079e+01, -1.05577988e+02, -5.57399712e+01,
 		-5.52091370e+01, -4.97175941e+01, -3.99056091e+01, -3.35596466e+01,
 		4.14714928e+01, 1.00000000e-05, 2.10000000e-05 };
-	void min_max_scaler(const std::vector<std::vector<double>> input, std::vector<float>& output);
-	void calculate_features(std::vector<double>& output, const LEAP_TRACKING_EVENT& frame);
+	void min_max_scaler(const std::vector<std::vector<double>> input, std::vector<double>& output);
+	void calculate_features(std::vector<double>& output, const LEAP_HAND& hand);
 
 	VECT lineFromPoint(const LEAP_VECTOR& a, const LEAP_VECTOR& b);
 	double internalAngle(const VECT& a, const VECT& b);

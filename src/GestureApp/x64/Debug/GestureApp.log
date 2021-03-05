@@ -443,15 +443,6 @@ C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\includes\cppflow
               _Fn=cppflow::anonymous_iterator::<lambda_e1842c5ab8af8c457e97e822dcdcd593>
           ]
   dataNormalization.cpp
-C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\GestureLeap\DataProcessing\dataNormalization.cpp(8,52): warning C4244: '=': conversion from '_Ty' to '_Ty', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-          and
-          [
-              _Ty=float
-          ]
   hoppingWindow.cpp
   geastureLeap.cpp
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\includes\tensorflow2\tensorflow\c\c_api.h(953,68): warning C4190: 'TF_NewWhile' has C-linkage specified, but returns UDT 'TF_WhileParams' which is incompatible with C

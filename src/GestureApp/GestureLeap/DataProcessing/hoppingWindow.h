@@ -6,11 +6,11 @@ class HoppingWindow
 {
 public:
 	HoppingWindow(const int& t) :num_timeStep(t) {}
-	void AddFrame(const LEAP_TRACKING_EVENT& frame);
+	void AddFrame(const LEAP_HAND& frame);
 	void flush();
 	bool isFull();
-	const std::list<LEAP_TRACKING_EVENT>& getWindow();
+	const std::list<LEAP_HAND>& getWindow();
 private:
 	int num_timeStep;
-	std::list<LEAP_TRACKING_EVENT>  window;
+	std::list<LEAP_HAND>  window;
 };
