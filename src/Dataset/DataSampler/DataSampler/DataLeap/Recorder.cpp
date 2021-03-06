@@ -11,8 +11,30 @@ void Recorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId
 	window.push_back(frame->pHands[0]);
 	if (window.size() == timestep)
 	{
-		std::vector<double> normalized_data(num_features * timestep);
-		dataNormalization.scale(window, normalized_data);
+		std::vector<std::vector<double>> dataFrame(timestep);
+		dataNormalization.scale(window, dataFrame);
+		writeDown(dataFrame);
 	}
-	
+}
+
+void Recorder::writeDown(const std::vector<std::vector<double>>& data)
+{
+	std::string name = "DataCollection/1_" + std::to_string(count)+ ".txt";
+	std::ofstream writer(name, std::ios::app);
+	if (!writer)
+	{
+		std::cout << "Error Opening File" << std::endl;
+		return;
+	}
+	for (int i = 0; i < timestep; ++i) {
+		for (int k = 0; k < num_features; ++k)
+		{
+			writer << data[i][k] << " ";
+		}
+		writer << std::endl;
+	}
+	writer.close();
+	std::cout << "WRITTEN " << count << std::endl;
+	window.clear();
+	++count;
 }

@@ -10,7 +10,7 @@
 class DataNormalization {
 public:
 	DataNormalization(const int& t, const int& f) :timeStep(t), num_feature(f) {};
-	void scale(const std::list<LEAP_HAND>& window, std::vector<double>& normalized_data);
+	void scale(const std::list<LEAP_HAND>& window, std::vector<std::vector<double>>& dataFrame);
 private:
 	struct VECT {
 		double x;

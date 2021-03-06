@@ -96,9 +96,8 @@ void DataNormalization::calculate_features(std::vector<double>& output, const LE
 
 
 
-void DataNormalization::scale(const std::list<LEAP_HAND>& window, std::vector<double>& normalized_data)
+void DataNormalization::scale(const std::list<LEAP_HAND>& window, std::vector<std::vector<double>>& dataFrame)
 {
-	std::vector<std::vector<double>> dataFrame(this->timeStep);
 	int i = 0;
 	for (auto hand = window.cbegin(); hand != window.cend(); ++hand, ++i) {
 		calculate_features(dataFrame[i], *hand);
