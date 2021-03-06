@@ -19,7 +19,7 @@ void Recorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId
 
 void Recorder::writeDown(const std::vector<std::vector<double>>& data)
 {
-	std::string name = "DataCollection/1_" + std::to_string(count)+ ".txt";
+	std::string name = "DataCollection/"+ gestureType +"/" + std::to_string(count)+ ".txt";
 	std::ofstream writer(name, std::ios::app);
 	if (!writer)
 	{

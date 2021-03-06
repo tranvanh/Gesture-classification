@@ -10,7 +10,7 @@
 class Recorder {
 public:
 	/** Callback for when the connection opens. */
-	Recorder(const int &t, const int &f) : dataNormalization(t,f), timestep(t), num_features(f), count(0){}
+	Recorder(const int& t, const int& f) : dataNormalization(t, f), timestep(t), num_features(f), count(30), gestureType("6") {}
 	/** Callback for when a frame of tracking data is available. */
 	void OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId);
 
@@ -21,6 +21,6 @@ private:
 	int timestep;
 	int num_features;
 	int count;
-
+	std::string gestureType;
 };
 
