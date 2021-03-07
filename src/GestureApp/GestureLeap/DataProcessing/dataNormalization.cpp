@@ -1,13 +1,9 @@
 #include "dataNormalizationr.h"
 
-void DataNormalization::min_max_scaler(const std::vector<std::vector<double>> input, std::vector<double>& output)
+double DataNormalization::min_max_scaler(const double& input, const int& k)
 {
-	int ix = 0;
-	for (int i = 0; i < this->timeStep; ++i)
-		for (int k = 0; k < this->num_feature; ++k, ++ix)
-			output[ix] = double(input[i][k] - min_scaler[k]) / (max_scaler[k] - min_scaler[k]);
+	return double(input - min_scaler[k]) / (max_scaler[k] - min_scaler[k]);
 }
-
 
 double DataNormalization::internalAngle(const VECT& a, const VECT& b)
 {
@@ -16,7 +12,7 @@ double DataNormalization::internalAngle(const VECT& a, const VECT& b)
 	return acos(numerator / denominator) * 180.0 / PI;
 }
 
-DataNormalization::VECT DataNormalization::lineFromPoint(const LEAP_VECTOR &a, const LEAP_VECTOR &b)
+DataNormalization::VECT DataNormalization::lineFromPoint(const LEAP_VECTOR& a, const LEAP_VECTOR& b)
 {
 	VECT res;
 	res.x = b.x - a.x;
@@ -25,16 +21,7 @@ DataNormalization::VECT DataNormalization::lineFromPoint(const LEAP_VECTOR &a, c
 	return res;
 }
 
-void DataNormalization::fitScaler(const std::vector<double>& data)
-{
-	for (int i = 0; i < 31; ++i)
-	{
-		max_scaler[i] = max_scaler[i] > data[i] ? max_scaler[i] : data[i];
-		min_scaler[i] = min_scaler[i] < data[i] ? min_scaler[i] : data[i];
-	}
-}
-
-void DataNormalization::calculate_features(std::vector<double>& output, const LEAP_HAND& hand)
+void DataNormalization::calculate_features(std::vector<double>& output, const LEAP_HAND& hand, int& i)
 {
 	VECT CD_thumb = lineFromPoint(hand.thumb.distal.prev_joint, hand.thumb.distal.next_joint);
 	VECT CD_index = lineFromPoint(hand.index.distal.prev_joint, hand.index.distal.next_joint);
@@ -66,60 +53,54 @@ void DataNormalization::calculate_features(std::vector<double>& output, const LE
 	VECT ring = lineFromPoint(hand.ring.proximal.prev_joint, hand.ring.distal.next_joint);
 	VECT pinky = lineFromPoint(hand.pinky.proximal.prev_joint, hand.pinky.distal.next_joint);
 
+	output[i++] = min_max_scaler(internalAngle(CD_thumb, CB_thumb), 0);
+	output[i++] = min_max_scaler(internalAngle(CD_index, CB_index), 1);
+	output[i++] = min_max_scaler(internalAngle(CD_middle, CB_middle), 2);
+	output[i++] = min_max_scaler(internalAngle(CD_ring, CB_ring), 3);
+	output[i++] = min_max_scaler(internalAngle(CD_pinky, CB_pinky), 4);
 
-	output = {
+	output[i++] = min_max_scaler(internalAngle(BC_thumb, BA_thumb), 5);
+	output[i++] = min_max_scaler(internalAngle(BC_index, BA_index), 6);
+	output[i++] = min_max_scaler(internalAngle(BC_middle, BA_middle), 7);
+	output[i++] = min_max_scaler(internalAngle(BC_ring, BA_ring), 8);
+	output[i++] = min_max_scaler(internalAngle(BC_pinky, BA_pinky), 9);
 
-		internalAngle(CD_thumb, CB_thumb),
-		internalAngle(CD_index, CB_index),
-		internalAngle(CD_middle, CB_middle),
-		internalAngle(CD_ring, CB_ring),
-		internalAngle(CD_pinky, CB_pinky),
+	output[i++] = min_max_scaler(hand.thumb.distal.next_joint.x, 10);
+	output[i++] = min_max_scaler(hand.thumb.distal.next_joint.y, 11);
+	output[i++] = min_max_scaler(hand.thumb.distal.next_joint.z, 12);
 
-		internalAngle(BC_thumb, BA_thumb),
-		internalAngle(BC_index, BA_index),
-		internalAngle(BC_middle, BA_middle),
-		internalAngle(BC_ring, BA_ring),
-		internalAngle(BC_pinky, BA_pinky),
+	output[i++] = min_max_scaler(hand.index.distal.next_joint.x, 13);
+	output[i++] = min_max_scaler(hand.index.distal.next_joint.y, 14);
+	output[i++] = min_max_scaler(hand.index.distal.next_joint.z, 15);
 
-		hand.thumb.distal.next_joint.x,
-		hand.thumb.distal.next_joint.y,
-		hand.thumb.distal.next_joint.z,
+	output[i++] = min_max_scaler(hand.middle.distal.next_joint.x, 16);
+	output[i++] = min_max_scaler(hand.middle.distal.next_joint.y, 17);
+	output[i++] = min_max_scaler(hand.middle.distal.next_joint.z, 18);
 
-		hand.index.distal.next_joint.x,
-		hand.index.distal.next_joint.y,
-		hand.index.distal.next_joint.z,
+	output[i++] = min_max_scaler(hand.ring.distal.next_joint.x, 19);
+	output[i++] = min_max_scaler(hand.ring.distal.next_joint.y, 20);
+	output[i++] = min_max_scaler(hand.ring.distal.next_joint.z, 21);
 
-		hand.middle.distal.next_joint.x,
-		hand.middle.distal.next_joint.y,
-		hand.middle.distal.next_joint.z,
+	output[i++] = min_max_scaler(hand.pinky.distal.next_joint.x, 22);
+	output[i++] = min_max_scaler(hand.pinky.distal.next_joint.y, 23);
+	output[i++] = min_max_scaler(hand.pinky.distal.next_joint.z, 24);
 
-		hand.ring.distal.next_joint.x,
-		hand.ring.distal.next_joint.y,
-		hand.ring.distal.next_joint.z,
+	output[i++] = min_max_scaler(hand.palm.position.x, 25);
+	output[i++] = min_max_scaler(hand.palm.position.y, 26);
+	output[i++] = min_max_scaler(hand.palm.position.z, 27);
 
-		hand.pinky.distal.next_joint.x,
-		hand.pinky.distal.next_joint.y,
-		hand.pinky.distal.next_joint.z,
+	output[i++] = min_max_scaler(internalAngle(pinky, ring), 28);
+	output[i++] = min_max_scaler(internalAngle(ring, middle), 29);
+	output[i++] = min_max_scaler(internalAngle(middle, index), 30);
 
-		hand.palm.position.x,
-		hand.palm.position.y,
-		hand.palm.position.z,
-
-		internalAngle(pinky, ring),
-		internalAngle(ring, middle),
-		internalAngle(middle, index)
-	};
 }
-
 
 
 void DataNormalization::scale(const std::list<LEAP_HAND>& window, std::vector<double>& normalized_data)
 {
-	std::vector<std::vector<double>> dataFrame(this->timeStep);
 	int i = 0;
-	for (auto hand = window.cbegin(); hand != window.cend(); ++hand, ++i) {
-		calculate_features(dataFrame[i], *hand);
+	for (auto hand = window.cbegin(); hand != window.cend(); ++hand) {
+		calculate_features(normalized_data, *hand, i);
 	}
 
-	min_max_scaler(dataFrame, normalized_data);
 }

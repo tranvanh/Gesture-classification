@@ -34,11 +34,10 @@ private:
 		8.67906e+01, -3.13954e+02, -4.57886e+02,  8.58241e+01,
 	   -3.02162e+02, -4.42757e+02,  1.03148e+02, -2.82183e+02,
 		1.86895e-01,  6.48663e-02,  1.07620e-01 };
-	void min_max_scaler(const std::vector<std::vector<double>> input, std::vector<double>& output);
-	void calculate_features(std::vector<double>& output, const LEAP_HAND& hand);
+	double min_max_scaler(const double& input, const int& k);
+	void calculate_features(std::vector<double>& output, const LEAP_HAND& hand, int& i);
 
 	VECT lineFromPoint(const LEAP_VECTOR& a, const LEAP_VECTOR& b);
 	double internalAngle(const VECT& a, const VECT& b);
-	void fitScaler(const std::vector<double>& data);
 
 };
