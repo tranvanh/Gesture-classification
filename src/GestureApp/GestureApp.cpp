@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
 	std::cout << "Starting communication." << std::endl;
 
 
-	static GestureLeap leap(200,31);
+	static GestureLeap leap(100,31);
 	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId) { leap.OnFrame(frame, deviceId); };
 
 	if (!MultiLeap::Init(&OnConnect, &OnConnectionLost,
