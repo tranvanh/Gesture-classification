@@ -14,4 +14,6 @@ void HoppingWindow::flush() { window.clear(); }
 
 bool HoppingWindow::isFull() { return window.size() == num_timeStep; }
 
+bool HoppingWindow::isEmpty() { return window.empty(); }
+
 const std::list<LEAP_HAND>& HoppingWindow::getWindow() { return this->window; }

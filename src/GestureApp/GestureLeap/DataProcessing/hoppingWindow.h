@@ -9,6 +9,7 @@ public:
 	void AddFrame(const LEAP_HAND& frame);
 	void flush();
 	bool isFull();
+	bool isEmpty();
 	const std::list<LEAP_HAND>& getWindow();
 private:
 	int num_timeStep;
