@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
 	std::cout << "Starting communication." << std::endl;
 
 
-	static Recorder recorder(100, 31, 0, "7");
+	static Recorder recorder(100, 31, 0, "6");
 	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId) { recorder.OnFrame(frame, deviceId); };
 
 	if (!MultiLeap::Init(&OnConnect, &OnConnectionLost,
@@ -202,7 +202,7 @@ int main(int argc, char** argv) {
 			int index = 0;
 			std::string gestureType = "";
 			std::cin >> index >> gestureType;
-			std::cout << "reinit Recorder" << std::endl;
+			std::cout << "reinit Recorder: file index[" << index << "] gesture type[" << gestureType << "]" << std::endl;
 			recorder.reinitRecording(index, gestureType);
 			break;
 		}

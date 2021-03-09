@@ -16,10 +16,10 @@ void GestureLeap::processWindow() {
 			printf("predicted Gesture: %d PINCH\n", res);
 			break;
 		case 7:
-			printf("predicted Gesture: %d RIGHT\n", res);
+			printf("predicted Gesture: %d LEFT\n", res);
 			break;
 		case 8:
-			printf("predicted Gesture: %d LEFT\n", res);
+			printf("predicted Gesture: %d RIGHT\n", res);
 			break;
 		case 9:
 			printf("predicted Gesture: %d UP\n", res);
