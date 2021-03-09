@@ -1,9 +1,39 @@
 #include "Recorder.h"
 
+void Recorder::startRecording() { recording = true; }
+void Recorder::openRecording() {
+	recording = true;
+	continuous = true;
+}
+
+void Recorder::pauseRecording(){
+	recording = false;
+	continuous = false;
+	window.clear();
+}
+
+void Recorder::reinitRecording(const int& i, const std::string gt)
+{
+	if (recording)
+	{
+		std::cout << "---> Ongoing recording, pause your recording first: p" << std::endl;
+		return;
+	}
+	count = i;
+	gestureType = gt;
+}
 
 /** Callback for when a frame of tracking data is available. */
 void Recorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId) {
+	if (!recording)
+	{
+		window.clear();
+		return;
+	}
+
 	if (frame->nHands == 0) {
+		if (!window.empty())
+			processData(true);
 		window.clear();
 		return;
 	}
@@ -11,15 +41,20 @@ void Recorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId
 	window.push_back(frame->pHands[0]);
 	if (window.size() == timestep)
 	{
-		std::vector<std::vector<double>> dataFrame(timestep);
-		dataNormalization.scale(window, dataFrame);
-		writeDown(dataFrame);
+		processData(false);
 	}
 }
 
-void Recorder::writeDown(const std::vector<std::vector<double>>& data)
+void Recorder::processData(bool notFull)
 {
-	std::string name = "DataCollection/"+ gestureType +"/" + std::to_string(count)+ ".txt";
+	std::vector<std::vector<double>> dataFrame(timestep, std::vector<double>(num_features, 0));
+	dataNormalization.scale(window, dataFrame);
+	writeDown(dataFrame, notFull);
+}
+
+void Recorder::writeDown(const std::vector<std::vector<double>>& data, bool notFull)
+{
+	std::string name = "DataCollection/" + gestureType + "/" + std::to_string(count) + ".txt";
 	std::ofstream writer(name, std::ios::app);
 	if (!writer)
 	{
@@ -34,7 +69,12 @@ void Recorder::writeDown(const std::vector<std::vector<double>>& data)
 		writer << std::endl;
 	}
 	writer.close();
-	std::cout << "WRITTEN " << count << std::endl;
+	if (notFull)
+		std::cout << "WRITTEN " << count << " FILLED" << std::endl;
+	else
+		std::cout << "WRITTEN " << count << std::endl;
 	window.clear();
 	++count;
+	if (!continuous)
+		recording = false;
 }

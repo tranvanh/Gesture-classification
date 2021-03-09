@@ -7,21 +7,29 @@ void GestureLeap::processWindow() {
 	dataNormalization.scale(window.getWindow(), normalized_data);
 	int res = model.predict(normalized_data);
 
-	if (res > 5)
+	if (res > 5 && !dynamicGesture)
 	{
 		dynamicGesture = true;
 		switch (res)
 		{
 		case 6:
 			printf("predicted Gesture: %d PINCH\n", res);
+			break;
 		case 7:
 			printf("predicted Gesture: %d RIGHT\n", res);
+			break;
 		case 8:
 			printf("predicted Gesture: %d LEFT\n", res);
+			break;
 		case 9:
 			printf("predicted Gesture: %d UP\n", res);
+			break;
 		case 10:
 			printf("predicted Gesture: %d DOWN\n", res);
+			break;
+		default:
+			break;
+
 		}
 	}
 	
@@ -43,7 +51,6 @@ void GestureLeap::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned devic
 
 		if (!window.isEmpty())
 			processWindow();
-
 		window.flush();
 		return;
 	}
