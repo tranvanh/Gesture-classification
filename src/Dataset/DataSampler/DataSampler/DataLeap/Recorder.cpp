@@ -1,6 +1,8 @@
 #include "Recorder.h"
 
 void Recorder::startRecording() { recording = true; }
+void Recorder::startDynamicRecording(const int &t) { recording = true; timestep = t; dynamicRecording = true; }
+
 void Recorder::openRecording() {
 	recording = true;
 	continuous = true;
@@ -30,7 +32,7 @@ void Recorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId
 		window.clear();
 		return;
 	}
-
+	std::cout << window.size() << std::endl;
 	if (frame->nHands == 0) {
 		if (!window.empty())
 			processData(true);
@@ -47,7 +49,11 @@ void Recorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId
 
 void Recorder::processData(bool notFull)
 {
-	std::vector<std::vector<double>> dataFrame(timestep, std::vector<double>(num_features, 0));
+	if(dynamicRecording)
+		window = dataNormalization.selectSignificantFrames(window, timestep);
+
+	timestep = timestepBackup;
+	std::vector<std::vector<double>> dataFrame(timestepBackup, std::vector<double>(num_features, 0));
 	dataNormalization.scale(window, dataFrame);
 	writeDown(dataFrame, notFull);
 }

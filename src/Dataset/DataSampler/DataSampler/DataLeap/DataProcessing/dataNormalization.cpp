@@ -93,9 +93,110 @@ void DataNormalization::calculate_features(std::vector<double>& output, const LE
 		internalAngle(middle, index)
 	};
 }
+double DataNormalization::distancePoints(const LEAP_HAND& a, const LEAP_HAND& b)
+{
+	double x = (double)b.palm.position.x - a.palm.position.x;
+	double y = (double)b.palm.position.y - a.palm.position.y;
+	double z = (double)b.palm.position.z - a.palm.position.z;
+	return sqrt(x * x + y * y + z * z);
+}
+void DataNormalization::calculate_palmDistance(const std::vector<LEAP_HAND>& input, std::vector<DISTANCE>& output)
+{
+	for (int i = 0; i < input.size() - 1; ++i)
+	{
+		output[i].id_left = i;
+		output[i].id_right = i + 1;
+
+		output[i].dist = distancePoints(input[i], input[i + 1]);
+	}
+}
+
+void DataNormalization::sortSignificant(std::vector<DISTANCE>& input)
+{
+	struct compare
+	{
+		bool operator ()(const DISTANCE& left, const DISTANCE& right)const
+		{
+			return left.dist > right.dist;
+		}
+	};
+	std::sort(input.begin(), input.end(), compare());
+}
+std::list<LEAP_HAND>  DataNormalization::selectSignificantFrames(const std::list<LEAP_HAND>& window, const int& recordSize)
+{
+	std::vector<LEAP_HAND> workingWindow(recordSize);
+	std::vector<DISTANCE> distances(recordSize - 1);
+	std::set<int> saved;
+	std::list<LEAP_HAND> output;
 
 
+	int ix = 0;
+	for (const auto& i : window) {
+		workingWindow[ix++] = i;
+	}
 
+	calculate_palmDistance(workingWindow, distances);
+	sortSignificant(distances);
+
+	for (int i = 0; i < distances.size(); ++i)
+	{
+		if (saved.size() == timeStep)
+			break;
+
+		if (saved.size() > timeStep)
+			throw "result window size bigger than timeStep";
+
+
+		if (saved.find(distances[i].id_left) == saved.end() && saved.find(distances[i].id_right) == saved.end()
+			&& saved.size() < timeStep - 1) // left right not included and enough space for both
+		{
+			saved.insert(distances[i].id_left);
+
+			saved.insert(distances[i].id_right);
+		}
+		else if (saved.find(distances[i].id_left) == saved.end() && saved.find(distances[i].id_right) == saved.end()
+			&& saved.size() < timeStep) // left right not included and enough space for only one
+		{
+			if (distances[i].id_right == recordSize - 1)
+			{// right edge
+				saved.insert(distances[i].id_left);
+			}
+			else if (distances[i].id_left == 0)
+			{// left edge
+				saved.insert(distances[i].id_right);
+			}
+			else
+			{
+				double dist_left = distancePoints(workingWindow[distances[i].id_left - 1], workingWindow[distances[i].id_left]);
+				double dist_right = distancePoints(workingWindow[distances[i].id_right], workingWindow[distances[i].id_right + 1]);
+				if (dist_left > dist_right)
+				{
+					saved.insert(distances[i].id_left);
+				}
+				else
+				{
+					saved.insert(distances[i].id_right);
+				}
+			}
+		}
+		else if (saved.find(distances[i].id_left) != saved.end() && saved.find(distances[i].id_right) == saved.end()
+			&& saved.size() < timeStep) // left not included and enough space
+		{
+			saved.insert(distances[i].id_left);
+		}
+		else if (saved.find(distances[i].id_left) == saved.end() && saved.find(distances[i].id_right) != saved.end()
+			&& saved.size() < timeStep) // right not included and enough space
+		{
+			saved.insert(distances[i].id_right);
+		}
+	}
+
+	for (const auto& i : saved)
+		output.push_back(workingWindow[i]);
+
+
+	return output;
+}
 void DataNormalization::scale(const std::list<LEAP_HAND>& window, std::vector<std::vector<double>>& dataFrame)
 {
 	int i = 0;

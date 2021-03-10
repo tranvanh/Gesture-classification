@@ -6,6 +6,12 @@
 
 #include <functional>
 
+#define DYNAMIC_TIMESTEP 120
+
+#define TIMESTEP 100
+#define NUM_FEATURES 31
+#define COUNT 0
+#define GESTURE_TYPE "6"
 
 /** Callback for when the connection opens. */
 static void OnConnect() {
@@ -88,7 +94,7 @@ int main(int argc, char** argv) {
 	std::cout << "Starting communication." << std::endl;
 
 
-	static Recorder recorder(100, 31, 0, "6");
+	static Recorder recorder(TIMESTEP, NUM_FEATURES, COUNT, GESTURE_TYPE);
 	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId) { recorder.OnFrame(frame, deviceId); };
 
 	if (!MultiLeap::Init(&OnConnect, &OnConnectionLost,
@@ -195,6 +201,12 @@ int main(int argc, char** argv) {
 		{
 			std::cout << "open Recording" << std::endl;
 			recorder.openRecording();
+			break;
+		}
+		case 'h':
+		{
+			std::cout << "start dynamic Recording" << std::endl;
+			recorder.startDynamicRecording(DYNAMIC_TIMESTEP);
 			break;
 		}
 		case 'x':
