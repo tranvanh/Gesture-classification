@@ -8,7 +8,8 @@
 #include "GestureLeap/geastureLeap.h"
 
 #include <functional>
-
+#define TIMESTEP 60
+#define NUM_FEATURES 31
 
 /** Callback for when the connection opens. */
 static void OnConnect() {
@@ -91,7 +92,7 @@ int main(int argc, char** argv) {
 	std::cout << "Starting communication." << std::endl;
 
 
-	static GestureLeap leap(100,31);
+	static GestureLeap leap(TIMESTEP,NUM_FEATURES);
 	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId) { leap.OnFrame(frame, deviceId); };
 
 	if (!MultiLeap::Init(&OnConnect, &OnConnectionLost,

@@ -6,9 +6,9 @@
 
 #include <functional>
 
-#define DYNAMIC_TIMESTEP 120
+#define DYNAMIC_TIMESTEP 90
 
-#define TIMESTEP 100
+#define TIMESTEP 60
 #define NUM_FEATURES 31
 #define COUNT 0
 #define GESTURE_TYPE "6"

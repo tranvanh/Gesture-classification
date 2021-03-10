@@ -49,11 +49,16 @@ void Recorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId
 
 void Recorder::processData(bool notFull)
 {
-	if(dynamicRecording)
-		window = dataNormalization.selectSignificantFrames(window, timestep);
+	if (dynamicRecording)
+	{
+		if (window.size() % 2)
+			window.pop_back();
+		window = dataNormalization.selectSignificantFrames(window, window.size());
+	}
 
 	timestep = timestepBackup;
-	std::vector<std::vector<double>> dataFrame(timestepBackup, std::vector<double>(num_features, 0));
+	dynamicRecording = false;
+	std::vector<std::vector<double>> dataFrame(timestepBackup, std::vector<double>(num_features, 0.0));
 	dataNormalization.scale(window, dataFrame);
 	writeDown(dataFrame, notFull);
 }
