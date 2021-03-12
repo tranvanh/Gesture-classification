@@ -1,19 +1,42 @@
-As briefly mentioned in the Introduction chapter, our goal is to utilize Leap Motion controllers combined with the pre-trained ANN model. 
 
-We picked Python to be our primary language for training the ANN model, with the proposed DLSTM architecture by Avola D., Bernardi M. et al. \cite{avola}, along with the web-based interactive development environment Jupyter Notebook. One of the main reasons to pick Python was its wide range of libraries and scientific packages supporting machine learning tasks. Most importantly, Keras, a high-level deep learning API integrated with TensorFlow, enabling the user to create and train model structures in very few steps.
+As briefly mentioned in the Introduction chapter, our goal is to utilize Leap Motion controllers combined with the pre-trained ANN model. In the following chapters we will explore datasets used for our training and the obstacles that came along with them. Then we will disscuss the model training itself and its results. At last we will deploy the trained model for real time recognition in C++ environment.
+
 
 \section{Dataset Description}
 
-Training and testing have been performed on a combination of two gathered datasets, ASL Dataset \cite{avola}, and SHREC 2017 dataset created in conjunction with \cite{shrec}.
+Among many publicly available datasets for gesture recognition, are only few containing necessary skeletal information similar to those yield by Leap Motion controllers. We have selected ASL Dataset and SHREC 2017 Dataset created in conjunction with \cite{avola} and \cite{shrec} respectively, often used as a benchmark measurement for trained model accuracy.
 
 \subsection{SHREC 2017 Dataset}
 
-The SHREC dataset contains sequences of 14 dynamic hand gestures (grab, tap, expand, pinch, rotation clockwise, rotation counterclockwise, swipe right, swipe left, swipe up, swipe down, swipe X, swipe +, swipe V, shake). Each gesture was performed between 1 and 10 times by 28 participants in two ways, using one finger and the whole hand. All participants were right-handed. The length of sample gestures varies between 20 to 170 frames, making some samples too short. We solved this by using the padding technique to an acceptable value of $T=100$ and discarding samples where more than 50 frames have to be padded \cite{shrec}.
+The SHREC dataset contains sequences of 14 dynamic hand gestures. Each gesture was performed between 1 and 10 times by 28 participants in two ways, using one finger and the whole hand. All participants were right-handed. The length of sample gestures varies between 20 to 170 frames, making some samples too short. We solved this by using the padding technique to an acceptable value of $T=100$ \cite{shrec}.
 
 \subsection{ASL Dataset}
 
-ASL Dataset has been created by Avola D., Bernardi M. et al. \cite{avola} as the result of lack of public datasets holding necessary information about hand joints.
-The dataset consists of 30 hand gestures, 18 static gestures (1, 2-V, 3, 4, 5, 6-W, 7, 8, 9, A, B, C, D, H, I, L, X, and Y), and 12 dynamic gestures (bathroom, blue, finish, green, hungry, milk,
-past, pig, store, and where). Gestures were collected from 20 different people. 13 were used to form the training set, while the remaining 7 formed a test set. Each person performed 30 hand gestures twice, once for each hand, and each gesture is composed of fixed 200 frames as oppose to frame varying SHREC dataset \cite{avola}. Small modifications had to be made since we wanted to utilize both datasets at the same time. We stripped ASL Dataset of its dynamic gestures and split frames of static gesture sample in half, acquiring 2 samples. Static gestures are, in theory, one frame stretched out through time. Therefore such modification should not have a negative impact on our trained model.
+ASL Dataset consists of 30 hand gestures, 18 static gestures and 12 dynamic gestures. Gestures were collected from 20 different people. 13 were used to form the training set, while the remaining 7 formed a test set. Each person performed 30 hand gestures twice, once for each hand, and each gesture is composed of fixed 200 frames as oppose to frame varying SHREC dataset \cite{avola}. Unfortunately after further inspection of the ASL dataset, we have discovered possible misslabling of features. Specificaly taking a look at internal angles of gesture for number 1, we can see that 1 requires the ring finger to straighten out instead of the index finger. The same can be said about gesture of number 2, where it appears to have the ring finger and middle finger straight out instead of the index finger and middle finger, it is unclear whether there are other misslabling among the features. The misslabeling in itself is not an obstacle for training, because the features are independend from each other and the ANN can still learn on them, but issue will raise in real time classification, where raw data must be preprocessed identicaly as the training data. We decided not to use ASL Dataset for our purposes but only to benchmark model architecture.
+
+\subsection{Handicrafted Dataset}
+
+By not using ASL Dataset we have lost a set of static gestures. Also we want to be able to provide the training with our own sets of gestures and not to be bound only to those publicly available. For such purposes we had created a simple interactive data sampler in form of a console application.
+
+The sampler saves each sample in .txt format, one line by timestep, frame yield by LMC, each line containing set of features. Features were selected and computed as previsouly described in chapter 2.3.3.1. The order of features in a line $x_t$, at time $t$ is as follows.
+
+\begin{equation}
+	{x_t = \{\omega_0, ...,\omega_4, \beta_0, ..., \beta_4, u_0,v_0,z_0, ..., u_5,v_5,z_5, \gamma_1, \gamma_2, \gamma_3\}}
+\end{equation}
 
 
+
+All samples contain same number of timesteps, specified at the beginning by the user. 
+
+The recording is initiated by a key command but the data collection does not start until the user's hand is not in LMC's field of view. If the hand falls out of LMC's view the recording and the data collection stops, features of missing timesteps are set as zeroes. The sampling can be subdivided into 3 types:
+
+\begin{itemize}
+	\item \textbf{Single recording}, records and saves single sample. Next recording must be initiated by the user.
+    \item \textbf{Open recording}, records and saves samples continuously. We recommend to use only for static gestures. It is best to have full control over recording a dynamic gesture, its beginning and its end, along with its most significant sequences.
+    \item \textbf{Recording significant frames}, records and saves single sample. Next recording must be initiated by the user. The number of collected frames is greater than the required number of timesteps. Collected frames are then ordered by most significant to least significant and selected untill newly filtered set does not match required number of timesteps. The significance is represented as euclidean distances of palm positions between $t$ and $t+1$. This method is recommended for sampling dynamic gestures. By this we attempt to capture the most important part of a dynamic gesture, its movement. Unfortunately we are limited to dynamic gestures with whole hand movement. If the sampling is met with more delicate dynamic gestures performed only by fingers, it won't be able to underline the motion.
+\end{itemize}
+
+
+\section{Model Training}
+
+We picked Python to be our primary language for training the ANN model, with the proposed DLSTM architecture by Avola D., Bernardi M. et al. \cite{avola}, along with the web-based interactive development environment Jupyter Notebook. One of the main reasons to pick Python was its wide range of libraries and scientific packages supporting machine learning tasks. Most importantly, Keras, a high-level deep learning API integrated with TensorFlow, enabling the user to create and train model structures in very few steps.
