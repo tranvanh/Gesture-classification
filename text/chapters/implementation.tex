@@ -1,10 +1,10 @@
 
-As briefly mentioned in the Introduction chapter, our goal is to utilize Leap Motion controllers combined with the pre-trained ANN model. In the following chapters we will explore datasets used for our training and the obstacles that came along with them. Then we will disscuss the model training itself and its results. At last we will deploy the trained model for real time recognition in C++ environment.
+As briefly mentioned in the Introduction chapter, our goal is to utilize Leap Motion controllers combined with the pre-trained ANN model. In the following chapters, we will explore datasets used for our training and the obstacles that came along with them. Then we will discuss the model training itself and its results. At last, we will deploy the trained model for real-time recognition in a C++ environment.
 
 
 \section{Dataset Description}
 
-Among many publicly available datasets for gesture recognition, are only few containing necessary skeletal information similar to those yield by Leap Motion controllers. We have selected ASL Dataset and SHREC 2017 Dataset created in conjunction with \cite{avola} and \cite{shrec} respectively, often used as a benchmark measurement for trained model accuracy.
+Among many publicly available datasets for gesture recognition are only a few containing necessary skeletal information similar to those yield by Leap Motion controllers. We have selected ASL Dataset and SHREC 2017 Dataset created in conjunction with \cite{avola} and \cite{shrec} respectively, often used as benchmark measurement for trained model accuracy.
 
 \subsection{SHREC 2017 Dataset}
 
@@ -12,13 +12,17 @@ The SHREC dataset contains sequences of 14 dynamic hand gestures. Each gesture w
 
 \subsection{ASL Dataset}
 
-ASL Dataset consists of 30 hand gestures, 18 static gestures and 12 dynamic gestures. Gestures were collected from 20 different people. 13 were used to form the training set, while the remaining 7 formed a test set. Each person performed 30 hand gestures twice, once for each hand, and each gesture is composed of fixed 200 frames as oppose to frame varying SHREC dataset \cite{avola}. Unfortunately after further inspection of the ASL dataset, we have discovered possible misslabling of features. Specificaly taking a look at internal angles of gesture for number 1, we can see that 1 requires the ring finger to straighten out instead of the index finger. The same can be said about gesture of number 2, where it appears to have the ring finger and middle finger straight out instead of the index finger and middle finger, it is unclear whether there are other misslabling among the features. The misslabeling in itself is not an obstacle for training, because the features are independend from each other and the ANN can still learn on them, but issue will raise in real time classification, where raw data must be preprocessed identicaly as the training data. We decided not to use ASL Dataset for our purposes but only to benchmark model architecture.
+ASL Dataset consists of 30 hand gestures, 18 static gestures, and 12 dynamic gestures. Gestures were collected from 20 different people. 13 were used to form the training set, while the remaining 7 formed a test set. Each person performed 30 hand gestures twice, once for each hand, and each gesture is composed of fixed 200 frames as oppose to frame varying SHREC dataset \cite{avola}. 
+
+Unfortunately, after further inspection of the ASL dataset, we have discovered possible mislabeling of features. Specifically, taking a look at internal angles of gesture for number 1, we can see that 1 requires the ring finger to straighten out instead of the index finger. The same can be said about the gesture of number 2, where it appears to have the ring finger and middle finger straight out instead of the index finger and middle finger. It is unclear whether there are other mislabeling among the features. The mislabeling in itself is not an obstacle for training because the features are independent of each other, and the ANN can still learn on them, but the issue will arise in real-time classification, where raw data must be preprocessed identically as the training data. We decided not to use ASL Dataset for our purposes but only to benchmark model architecture.
+
 
 \subsection{Handicrafted Dataset}
 
-By not using ASL Dataset we have lost a set of static gestures. Also we want to be able to provide the training with our own sets of gestures and not to be bound only to those publicly available. For such purposes we had created a simple interactive data sampler in form of a console application.
+By not using ASL Dataset we have lost a set of static gestures. Also, we want to have the ability to provide the training with our own sets of gestures and not to be bound only to those publicly available. For such purposes, we had created a simple interactive data sampler in the form of a console application.
 
-The sampler saves each sample in .txt format, one line by timestep, frame yield by LMC, each line containing set of features. Features were selected and computed as previsouly described in chapter 2.3.3.1. The order of features in a line $x_t$, at time $t$ is as follows.
+The sampler saves each sample in .txt format, one line by timestep $T$, frame yield by LMC, each line containing a set of features. Features were selected and computed as previously described in chapter 2.3.3.1. The order of features in a line $x_t$, at time $t$ is as follows.
+
 
 \begin{equation}
 	{x_t = \{\omega_0, ...,\omega_4, \beta_0, ..., \beta_4, u_0,v_0,z_0, ..., u_5,v_5,z_5, \gamma_1, \gamma_2, \gamma_3\}}
@@ -26,17 +30,70 @@ The sampler saves each sample in .txt format, one line by timestep, frame yield 
 
 
 
-All samples contain same number of timesteps, specified at the beginning by the user. 
+All samples contain the same number of timesteps, specified at the beginning by the user. 
 
-The recording is initiated by a key command but the data collection does not start until the user's hand is not in LMC's field of view. If the hand falls out of LMC's view the recording and the data collection stops, features of missing timesteps are set as zeroes. The sampling can be subdivided into 3 types:
+The recording is initiated by key command, but the data collection does not start until the user's hand is in LMC's field of view. Data collection stops once the set of collected frames $\Theta$ matches $T$, or if the hand falls out of LMC's view. Features of missing timesteps are then set as zeroes. The sampling can be subdivided into 3 types:
 
-\begin{itemize}
-	\item \textbf{Single recording}, records and saves single sample. Next recording must be initiated by the user.
-    \item \textbf{Open recording}, records and saves samples continuously. We recommend to use only for static gestures. It is best to have full control over recording a dynamic gesture, its beginning and its end, along with its most significant sequences.
-    \item \textbf{Recording significant frames}, records and saves single sample. Next recording must be initiated by the user. The number of collected frames is greater than the required number of timesteps. Collected frames are then ordered by most significant to least significant and selected untill newly filtered set does not match required number of timesteps. The significance is represented as euclidean distances of palm positions between $t$ and $t+1$. This method is recommended for sampling dynamic gestures. By this we attempt to capture the most important part of a dynamic gesture, its movement. Unfortunately we are limited to dynamic gestures with whole hand movement. If the sampling is met with more delicate dynamic gestures performed only by fingers, it won't be able to underline the motion.
-\end{itemize}
+\begin{enumerate}
+	\item \textbf{Single recording} records and saves a single sample. The next recording must be initiated by the user.
+    \item \textbf{Open recording} records and saves samples continuously. We recommend using the method only for static gestures. It is best to have full control over recording a dynamic gesture, its beginning, and its end, along with its most significant sequence.
+    \item \textbf{Recording significant frames} records and saves a single sample. The next recording must be initiated by the user. The number of collected frames $\Theta^*$ is greater than the required number of timesteps $|\Theta^*| > T$. The last frame is excluded if $|\Theta^*|$ is not even. We will then calculate a \textit{significance} of between $x_t$ and $x_{t+1}$.
+    The \textit{significance} of an interval is calculated as euclidean distances of palm positions $P$ between $x_t$ and $x_{t+1}$.
+
+    \begin{equation}
+        {s_{(t, t+1)} = d(P_{t}, P_{t+1})}
+    \end{equation}
+
+    \begin{equation}
+        {S = \{s_{(0, 1)}, ...,s_{(t, t+1)}\}}
+    \end{equation}
+
+    Frames are then selected into $\Theta$ by most significant to least significant till $|\Theta| = T$. The following cases must be considered:
+    \begin{itemize}
+        \item $|\Theta| + 2 \leq T \land x_t$ and $x_{t+1} \notin \Theta$, both frames $x_t$ and $x_{t+1}$ are to be added to $\Theta$.
+        \item $|\Theta| + 1 = T \land x_t$ and $x_{t+1} \notin \Theta$, both $x_t$ and $x_{t+1}$ are possible candidates for $\Theta$ but only one can be added due to the size $|\Theta|$ which would reach the limit after addition of one. In order to decide which to pick we will compare the significance $s_{(t-1, t)}$ and $s_{(t+1, t+2)}$, and pick greater of the two.
+        
+        It is possible that $x_t$ is the first frame of $\Theta^*$, in which case we will pick $x_{t+1}$ to be included in $\Theta$. On the other hand, if $x_{t+1}$ is the last frame of $\Theta^*$, we will pick $x_t$.
+        
+        \item $x_{t} \notin \Theta \land x_{t+1} \in \Theta$, frame $x_t$ is picked
+        \item $x_{t} \in \Theta \land x_{t+1} \notin \Theta$, frame $x_{t+1}$ is picked
+    \end{itemize}
+    
+    The method is recommended for sampling dynamic gestures. We attempt to capture the most important part of a dynamic gesture, its movement. Unfortunately, we are limited to dynamic gestures with whole hand movement. If the sampling is met with more delicate dynamic gestures performed only by fingers, it won't be able to underline the motion.
+\end{enumerate}
 
 
 \section{Model Training}
 
-We picked Python to be our primary language for training the ANN model, with the proposed DLSTM architecture by Avola D., Bernardi M. et al. \cite{avola}, along with the web-based interactive development environment Jupyter Notebook. One of the main reasons to pick Python was its wide range of libraries and scientific packages supporting machine learning tasks. Most importantly, Keras, a high-level deep learning API integrated with TensorFlow, enabling the user to create and train model structures in very few steps.
+We selected Python to be our primary language for training the ANN mode along with the web-based interactive development environment Jupyter Notebook. One of the main reasons to pick Python over other available languages was its wide range of libraries and scientific packages supporting machine learning tasks. Most importantly, Keras, a high-level deep learning API integrated with TensorFlow, enabling the user to create and train model structures in very few steps.
+
+SHREC Dataset and ASL Dataset were used to benchmark the model. For the purpose of real-time recognition, we trained the model on our handicrafted dataset consisting of numbers between 1 to 5 and simple dynamic gestures swipe left and right, where each gesture had 150 to 600 samples, 60 frames per sample, recorded in various angles and positions and speeds. 
+
+Each dataset was then split into 80\% for the training set and 20\% for the testing set, where 10\% of the training set was used for validation. Each feature was then normalized via min-max scaler formula:
+
+\begin{equation}
+    { x' = \frac{x - Min(X)}{Max(X)-Min(X)}\;\;\; x \in X}
+\end{equation}
+
+\subsection{DLSTM architecture}
+
+At first, we followed the proposed architecture of 4 layers stacked LSTM by Avola D., Bernardi M. et al. \cite{avola}. We trained the model using 800 epochs and 0.0001 learning rate, which were proved to be optimal hyperparameters as described in chapter 2.3.3.2.
+
+Benchmarking the model on SHREC Dataset and ASL Dataset resulted in similar accuracies as in \cite{avola}. Our handicrafted dataset had also achieved high results.
+
+Unfortunately, despite achieving high accuracies on all datasets, the model itself did not perform well in a real-time environment. More specifically, the 4 layered LSTM architecture struggled with dynamic gestures. The model did not learn the gesture in relation to the movement but rather on its most occurring position in the recorded sequence, which in the case of swipe right was the palm's final position. The model successfully classified test samples because all gestures swipe right contained some frames where the palm position was on the right. Once we presented the model in a real-time environment with an open palm on the right, without the swipe movement, it classifies such gesture as swipe right, which is an undesired behavior. 
+
+It is unclear whether the model would perform better with more stacked LSTM layers or not, but we concluded that the architecture was not suitable for our purposes. 
+
+\subsection{Two-Layered Bidirectional LSTM architecture}
+
+After an unsuccessful attempt to utilize DLSTM, we turned over to two-layered bidirectional LSTM architecture proposed in \cite{bidirect_dynam}. The proposed architecture was meant and trained on dynamic gestures only, not knowing if it is suitable for static gestures. On the other hand, static gestures can be treated as a special type of dynamic gesture, having one frame stretched out to the desired number of timesteps. Not to mention our dataset was constructed in a way where static gestures have a slight difference in coordinates between $t$ and $t+1$, making it possible to look at the static gesture as a very slow type of dynamic gesture.
+
+Benchmarking the model on SHREC Dataset and ASL Dataset resulted in similar high accuracies as DLSTM architecture. Our handicrafted dataset had also achieved promising results.
+
+The two-layered bidirectional LSTM architecture was successful in learning dynamic gestures base on its characteristic movement. It was also successful in classifying static gestures.
+
+\section{Real time recognition}
+
+Once the model is trained, we save it in .tf format and import it in a C++ environment using Cppflow API created by Sergio Izquierdo. \cite{cppflow}.
+
