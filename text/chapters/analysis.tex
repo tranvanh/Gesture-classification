@@ -13,7 +13,8 @@ Gestures are categorized into \textit{static gestures} and \textit{dynamic gestu
 
 
 \section{Tracking devices}
-Hand and body gesture recognition had followed a conventional scheme of extracting key features via one or multiple preprocessing sensors and applying machine learning techniques on them \cite{avola}. The field of gesture recognition gave birth to several image processing devices yielding useful data. 
+Hand and body gesture recognition had followed a conventional scheme of extracting key features via one or multiple preprocessing sensors and applying machine learning techniques on them \cite{avola}. The field of gesture recognition gave birth to several image processing devices yielding useful data.
+We will only cover optical devices, but there are also controllers in the form of a stick with buttons, like HTC Vive, or others in the form of gloves, sending tracking information to the computer.
 \subsection{Microsoft Kinect}
 %=======================================================================================================================
 One of them being Micorosoft Kinect, a device first released in 2010. Originally developed for gaming but eventually finding more success in academics and commercial applications, such as robotics, medicine, and health care, it led Microsoft to discontinue production of its Xbox version in 2018 and release Azure Kinect in March 2020, incorporating Microsoft Azure cloud computing functionalities.
@@ -54,8 +55,6 @@ The LMC's current API, Leap Motion Service, yields positions of extracted hand f
 	\label{fig:lmcScheme}
 \end{figure}
 
-Unfortunately, Leap Motion Controller has no official library for gesture recognition, limiting developers from utilizing the controller for its key features. Leap Motion provided tracking software built for virtual reality, used to have a gesture detector with its 3.0 version, but the detector is absent with the release of more accurate version 4.0.
-
 \subsection{Ultraleap Stereo IR 170}
 
 Ultraleap Stereo IR 170, formerly known as the Leap Motion Rigel, is the successor to the Leap Motion controller.
@@ -69,6 +68,7 @@ The Stereo IR inherits Leap Motions key features but improves with a wider 170-d
 	\label{fig:lmcScheme}
 \end{figure}
 
+Unfortunately, Leap Motion Controller, as well as Ultraleap Stereo IR 170, has no official library for gesture recognition, limiting developers from utilizing the controller for its key features. Leap Motion provided tracking software built for virtual reality, used to have a gesture detector with its 3.0 version, but the detector is absent with the release of more accurate version 4.0.
 
 
 \section{Gesture Recognition Methods
@@ -94,15 +94,17 @@ Katia et al. \cite{katiacnn} proposed a method classifying dynamic gestures acqu
 Adopting a modified version of ResNet-50 architecture, a 50 layers deep CNN, removing the last fully connected layer and adding a new layer with as many neurons as the considered collection of gesture classes. 
 The acquired gesture information is converted into hand joints color images. The variation of hand joint positions during the gesture is projected on a plane, and temporal information is represented with the color intensity of the projected points. The trained model achieved 91\% classification accuracy on the LMDHG dataset \cite{lmdhg}.
 
-Yang L., Chen J., and Zhu W. \cite{bidirect_dynam} used two-layer Bidirectional RNN in combination with an LMC to classify dynamic hand gestures represented by sets of feature vectors (fingertip distance, angle, height, the angle of adjacent fingertips and the coordinates of the palm). The proposed method has been tested on the American Sign Language (ASL) datasets with 360 samples and the Handicraft‐Gesture dataset with 480 samples, achieving 90\% and 92\% accuracy \cite{bidirect_dynam}.
-
 Ameur et al. \cite{ameur} presented a solution using an SVM classifier used with LMC acquired data, (X, Y, Z) coordinates of fingertips and palm center. The experimental results show an accuracy of 81\% on a dataset containing 11 actions, performed by ten different subjects, having in total 550 samples.
+
+Yang L., Chen J., and Zhu W. \cite{bidirect_dynam} used two-layer Bidirectional RNN in combination with an LMC to classify dynamic hand gestures represented by sets of feature vectors (fingertip distance, angle, height, the angle of adjacent fingertips and the coordinates of the palm). The proposed method has been tested on the American Sign Language (ASL) datasets with 360 samples and the Handicraft‐Gesture dataset with 480 samples, achieving 90\% and 92\% accuracy \cite{bidirect_dynam}.
 
 \subsection{Proposed LSTM solution}
 
 Many of the proposed methods focus either on static gesture recognition or dynamic gesture recognition, but very few of them are actually utilized for both types at the same time. 
 
 Avola D., Bernardi M. et al. proposed a method in \cite{avola} utilizing LSTM, specifically Deep LSTM (DLSTM), and LMC to recognize sign language and semaphoric hand gestures. It uses a hand skeleton extracted by an LMC and considers angles formed by a specific subset of hand joints. The presented method reached 96\% accuracy in its predictions.
+
+The LMC was used only to collect data for training. The method was not tested in real-time environment, it is yet to be explored whether it will.
 
 Consider each hand gesture to be represtend as set $X = \{x_0, x1, ..., x_{T-1}\}$ of feature vectors, in predetermined interval $\Theta$ size T, T being the number of time instances, in which features are extraxted by LMC. DLSTM is applied to obtain series of output probability vectors $Y = \{y_0, y1, ..., y_{T-1}\}$. At last the gesture classification is performed by a \textit{softmax} layer using $n = |C|$, where C being the set of considered hand gestures \cite{avola}.
 

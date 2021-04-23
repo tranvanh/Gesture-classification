@@ -1,0 +1,68 @@
+
+In 2018, developers from UltraLeap had released an experimental build for Leap Motion tracking software, which provided data from all connected LMCs at once. Despite having this feature, the provided tracking information for the same hand was different from each sensor due to different points of origin. This problem was solved by MultiLeap library created by Tomáš Nováček et al. in \cite{tomasMultileap}, which transforms the data from all sensors in a way that all have the same point of origin.
+
+\section{Alignment of the tracking data}
+
+To create tracking data alignment, we must first determine the position of LMCs, which can be achieved by data sampling or by accurate calculations of sensor's positions and rotations.
+
+\subsection{Data sampling}
+
+The MultiLeap library allows a user to sample data using a semi-automatic sampling process, which does not require the user to focus too much on the data acquisition itself.
+
+The sampling is enabled manually, but data are sampled automatically per every Leap Motion frame, approximately 60 times per second. Each sample consists of 20 points from the hand – the points represent the center of each finger joint. Hands will then align automatically, but it is up to the user, performing the calibration, to cover enough space of the tracking area. Most importantly, it is best to have diverse data for more accurate alignment \cite{tomasMultileap}.
+
+Considering the tracking data, where the hand is completely still, it will not have the necessary diversity in its samples. The deviation between collected tracking data is too insignificant. If we were to move the hand across the tracking area, having it rotated in various ways in various positions, the deviation of rotations and positions will be more evident, and the calculation of the alignment more precise \cite{tomasMultileap}.
+
+Another option for calibration is a fully manual setting, which was already provided by Leap Motion Unity module, allowing a user to set the position and rotation of sensors n the Unity environment. Values need to be calculated accurately for the alignment to have any use. The main advantage of this approach is having the possibility of tracking different parts of the space with the sensors, for example, LMCs being back to each other.
+
+The combined approach is also possible. First, making a rough calibration manually and eventually improved by the semi-automatic.
+
+\subsection{Kabsch algorithm}
+
+Kabsch algorithm \cite{kabsch} also known as Procrustes superimposition, was used to determine the rotation of sensors by calculating optimal rotation matrix minimizing the root mean squared deviation between two paired sets of points. The LMC sensor, which was connected first, serves as a reference sensor and one of the considered sets. The second set of points consists of the tracking information from any other sensor. The algorithm is repeated for each connected sensor, excluding the reference sensor.
+
+The goal of the Kabsch algorithm is to compute the optimal translation rotation of P onto Q, where P and Q are sets of pair points that minimize the distance between the two sets. Both P and Q are represented as $N \times 3$ matrix. Each row consists of coordinates of every point.
+
+\begin{equation}
+    \begin{pmatrix}
+        x_1 & y_1 & z_1\\
+        x_2 & y_2 & z_2\\
+        \vdots & \vdots & \vdots\\
+        x_N & y_N & z_N
+    \end{pmatrix}
+\end{equation}
+
+Coordinates of the first point are in the first row, the second point in the second row, and the $N$th point in the $N$th row.
+
+The algorithm has two main steps, computing the optimal translation, computation of the optimal matrix.
+
+The optimal translation can be easily found by being the offset between the averages of two sets of points. As for optimal rotation, we must first calculate the mean center of the points by subtracting the coordinates of the respective centroid from the point coordinates. The centroid $C_P$ for $P$ is computed as follows:
+
+\begin{equation}
+    {C_P = {\frac{\sum_{i=1}^{N}P_i}{N}}}
+\end{equation}
+
+The mean-center calculation of all points in P:
+
+\begin{equation}
+    {P_i = P_i - C_P}
+\end{equation}
+
+Then, the $3\times3$ cross-variance matrix between the points must be calculated as follows in matrix notation:
+
+\begin{equation}
+    {H = P^T Q}
+\end{equation}
+
+At last, we will extract the rotation from the covariance matrix using polar decomposition. The extraction can be done in more iterations, resulting in more accurate rotation calculation but requiring higher computation time in return.
+
+\section{Data fusion}
+
+By this time, we have Leap Motion hands for every sensor, performing data fusion will the Unity project show only one pair of hands. Data fusion is done in the post-processing stage of the Leap Motion frame cycle. In other words, right before the Leap Motion, hands are rendered into the scene. Once the fusion algorithm is enabled, the Leap Motion hands of each sensor are disabled and only hands created by the algorithm, virtual hands, are enabled. Virtual hands are shown if at least one sensor detects a hand.
+
+If more sensors detect the hand, the fusion algorithm is used. In most cases, not all sensors detect the hands properly. One of the yield information provided by MultiLeap library is a \textit{confidence}, a float value ranging from 0.3 to 1, which denotes the confidence level of the tracking data corresponding Leap Motion frame. The purpose of confidence level is to give more weight to tracking data from the sensor, which detects the hand better, making the tracking more accurate even if two out of three sensors would send inaccurate tracking data. The confidence level is of value 0.3 when the palm normal is in a 90\textdegree and 1 when in 0\textdegree or 180\textdegree angle to Y-axis. MultiLeap does not use the confidence of 0 because even with the occlusion of fingers and hand, the tracking data still carries some information about the hand. After few experiments, the value 0.3 was determined to be the most suitable confidence level for minimal tracking data when the palm normal is in 90\textdegree angle to the Y-axis of the sensor. The confidence is calculated by the following function, which transfers the angle, in radians, between the palm normal and the sensor's normal to the corresponding confidence level.
+
+\begin{equation}
+    {confidence = (0.283699 \cdot angle^2)-(0.891268 \cdot angle)+1}
+\end{equation}
+
