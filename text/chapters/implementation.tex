@@ -104,19 +104,22 @@ The optimal dropout rate was selected through number of experiments using dropou
     \caption{Train accuracies compared to validation accuracies through the course of learning}
 \end{figure}
 
+We performed the search for optimal dropout rate across different depths of the network, more precisely 1 to 5 layered bidirectional LSTM networks. The dropout value appeared to hold the same characteristics for different number of stacked layers.
+
 \subsubsection{Optimal number of stacked layers}
 
-We had also examined bidirectional LSTM architectures with different number of layers, specifically 1 to 5 layers. The additional testing of the network's depth was to find out whether using different number of layers than proposed in \cite{bidirect_dynam} would make any improvements in overall prediction performance.
+We had also examined bidirectional LSTM architectures with different number of layers, specifically 1 to 5 layers. While search for optimal dropout rate, we had performed the experiment across different depths of the network, more precisely 1 to 5 layered bidirectional LSTM networks. The dropout value appeared to have held the same characteristics for different number of stacked layers.
+
+The additional testing of the network's depth was to find out whether using different number of layers than proposed in \cite{bidirect_dynam} would make any improvements in overall prediction performance.
+
+In order to find the optimal depth of the network, we have adopted $k$-fold Cross-validation. Cross-validation is often used to evaluate performance of machine learning models on limited datasets. The entire data set is randomly split into $k$ folds, in our case we used $k=5$ and $k=10$, then train the model using $k-1$ folds and hold the remaining fold to measure the model's accuracy. We will repeating this process for each fold and then calculate the average performance across all folds.
 
 
+% We have also tested the number of required stacked layers
 
+% Benchmarking the model on SHREC Dataset and ASL Dataset resulted in similar high accuracies as DLSTM architecture. Our handicrafted dataset had also achieved promising results.
 
-
-We have also tested the number of required stacked layers
-
-Benchmarking the model on SHREC Dataset and ASL Dataset resulted in similar high accuracies as DLSTM architecture. Our handicrafted dataset had also achieved promising results.
-
-The two-layered bidirectional LSTM architecture was successful in learning dynamic gestures base on its characteristic movement. It was also successful in classifying static gestures, both in real-time recognition.
+% The two-layered bidirectional LSTM architecture was successful in learning dynamic gestures base on its characteristic movement. It was also successful in classifying static gestures, both in real-time recognition.
 
 \section{Real-time recognition}
 
