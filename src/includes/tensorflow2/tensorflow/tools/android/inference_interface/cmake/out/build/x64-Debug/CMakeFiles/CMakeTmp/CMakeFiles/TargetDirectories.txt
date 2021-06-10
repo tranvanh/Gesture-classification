@@ -1,0 +1,3 @@
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/includes/tensorflow2/tensorflow/tools/android/inference_interface/cmake/out/build/x64-Debug/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_d6968.dir
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/includes/tensorflow2/tensorflow/tools/android/inference_interface/cmake/out/build/x64-Debug/CMakeFiles/CMakeTmp/CMakeFiles/edit_cache.dir
+C:/Users/tranv/source/repos/tranvanh/Gesture-classification/src/includes/tensorflow2/tensorflow/tools/android/inference_interface/cmake/out/build/x64-Debug/CMakeFiles/CMakeTmp/CMakeFiles/rebuild_cache.dir

@@ -21,6 +21,13 @@
 % \usepackage{amssymb} %additional math symbols
 
 \usepackage{dirtree} %directory tree visualisation
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{float}
+\graphicspath{ {./assets/} }
 % % list of acronyms
 % \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
 % \iflanguage{czech}{\renewcommand*{\acronymname}{Seznam pou{\v z}it{\' y}ch zkratek}}{}
@@ -50,17 +57,31 @@
 %========================================================================================================
 \begin{document}
 %========================================================================================================
-	
+\setsecnumdepth{part}
+\chapter{Introduction}\label{ch:introduction}
+\input{chapters/introduction.tex}\newpage\cleardoublepage
+	%========================================================================================================
+	\setsecnumdepth{part}
 	\chapter{Introduction}\label{ch:introduction}
 	\input{chapters/introduction.tex}\newpage\cleardoublepage
-  %========================================================================================================
-  \chapter{Neural Networks}\label{ch:introduction}
-  \input{chapters/neural_network.tex}\newpage\cleardoublepage
-  %========================================================================================================
 
-
-\cite{svgspec}
-
+	%========================================================================================================
+	\setsecnumdepth{all}
+	\chapter{Neural Networks}\label{ch:neural_network}
+	\input{chapters/neural_network.tex}\newpage\cleardoublepage
+	%========================================================================================================
+	\setsecnumdepth{all}
+	\chapter{Gesture Recognition}\label{ch:gesture_recognition}
+	\input{chapters/analysis.tex}\newpage\cleardoublepage
+	%========================================================================================================
+	\setsecnumdepth{all}
+	\chapter{MultiLeap Library}\label{ch:multileap}
+	\input{chapters/multileap.tex}\newpage\cleardoublepage
+	%========================================================================================================
+	\setsecnumdepth{all}
+	\chapter{Implementation}\label{ch:implementation}
+	\input{chapters/implementation.tex}\newpage\cleardoublepage
+	
 \bibliographystyle{iso690}
 \bibliography{mybibliographyfile}
 

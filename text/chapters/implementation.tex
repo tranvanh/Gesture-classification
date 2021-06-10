@@ -67,7 +67,7 @@ The recording is initiated by key command, but the data collection does not star
 
 We selected Python to be our primary language for training the ANN mode along with the web-based interactive development environment Jupyter Notebook. One of the main reasons to pick Python over other available languages was its wide range of libraries and scientific packages supporting machine learning tasks. Most importantly, Keras, a high-level deep learning API integrated with TensorFlow, enabling the user to create and train model structures in very few steps.
 
-SHREC Dataset and ASL Dataset were used to benchmark the model. For the purpose of real-time recognition, we trained the model on our handicrafted dataset consisting of numbers between 1 to 5 and simple dynamic gestures swipe left and right, where each gesture had 150 to 600 samples, 60 frames per sample, recorded in various angles, positions and speeds. 
+SHREC Dataset and ASL Dataset were used to benchmark the model. For the purpose of real-time recognition, we trained the model on our handicrafted dataset consisting of numbers between 1 to 5 and simple dynamic gestures swipe left and right, where each gesture had 150 to 600 samples, 90 frames per sample, recorded in various angles, positions and speeds. 
 
 Each dataset was then split into 80\% for the training set and 20\% for the testing set, where 10\% of the training set was used for validation. Each feature was then normalized via min-max scaler formula:
 
@@ -87,7 +87,18 @@ It is unclear whether the model would perform better with more stacked LSTM laye
 
 \subsection{Two-Layered Bidirectional LSTM architecture}
 
+After an unsuccessful attempt to utilize DLSTM, we turned over to bidirectional architecture. Although bidirectional architures have great ability to capture deep information between sequences, they are prone to overfit. 
+
+In order to avoid the problem of overfitting, we used dropout regulazation. 
+A technique which during training randomly drops out number of neurons in layers, thus ignoring their connections in the network. This creates a new smaller network 
+
+
 After an unsuccessful attempt to utilize DLSTM, we turned over to two-layered bidirectional LSTM architecture proposed in \cite{bidirect_dynam}. The proposed architecture was meant and trained on dynamic gestures only, not knowing how it will perform on static gestures. On the other hand, static gestures can be treated as a special type of dynamic gesture, having one frame stretched out to the desired number of timesteps. Not to mention our dataset was constructed in a way where static gestures have a slight difference in coordinates between $t$ and $t+1$, making it possible to look at the static gesture as a very slow type of dynamic gesture.
+
+In order to avoid the problem of overfitting, we used dropout regulazation. 
+A technique which during training randomly drops out number of neurons in layers, thus ignoring their connections in the network. This creates a new smaller network and in essence simulates model ensembling without creating multiple networks.
+
+
 
 Benchmarking the model on SHREC Dataset and ASL Dataset resulted in similar high accuracies as DLSTM architecture. Our handicrafted dataset had also achieved promising results.
 
