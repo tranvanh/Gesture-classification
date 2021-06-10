@@ -8,7 +8,7 @@ Among many publicly available datasets for gesture recognition are only a few co
 
 \subsection{SHREC 2017 Dataset}
 
-The SHREC dataset contains sequences of 14 dynamic hand gestures. Each gesture was performed between 1 and 10 times by 28 participants in two ways, using one finger and the whole hand. All participants were right-handed. The length of sample gestures varies between 20 to 170 frames, making some samples too short. We solved this by using the padding technique to an acceptable value of $T=100$ \cite{shrec}.
+The SHREC dataset contains sequences of 14 dynamic hand gestures. Each gesture was performed between 1 and 10 times by 28 participants in two ways, using one finger and the whole hand. All participants were right-handed. The length of sample gestures varies between 20 to 170 frames, making some samples too short. The variation of frames makes it too incosistent for our usage in real-time deployment and for such unsuitable.
 
 \subsection{ASL Dataset}
 
@@ -79,7 +79,7 @@ Each dataset was then split into 80\% for the training set and 20\% for the test
 
 At first, we followed the proposed architecture of 4 layers stacked LSTM by Avola D., Bernardi M. et al. \cite{avola}. We trained the model using 800 epochs and 0.0001 learning rate, which were proved to be optimal hyperparameters as described in chapter 2.3.3.2.
 
-Benchmarking the model on SHREC Dataset and ASL Dataset resulted in similar accuracies as in \cite{avola}. Our handicrafted dataset had also achieved high results.
+Benchmarking the model on ASL Dataset resulted in similar accuracies as in \cite{avola}. Our handicrafted dataset had also achieved high results.
 
 Despite achieving high accuracies on all datasets, the model itself did not perform well in a real-time environment. More specifically, the 4 layered LSTM architecture struggled with dynamic gestures. The model did not learn the gesture in relation to the movement but rather on its most occurring position in the recorded sequence, which in the case of swipe right was the palm's final position. The model successfully classified test samples because all gestures swipe right contained some frames where the palm position was on the right. Once we presented the model in a real-time environment with an open palm on the right, without the swipe movement, it classifies such gesture as swipe right, which is an undesired behavior. 
 
@@ -87,18 +87,32 @@ It is unclear whether the model would perform better with more stacked LSTM laye
 
 \subsection{Two-Layered Bidirectional LSTM architecture}
 
-After an unsuccessful attempt to utilize DLSTM, we turned over to bidirectional architecture. Although bidirectional architures have great ability to capture deep information between sequences, they are prone to overfit. 
-
-In order to avoid the problem of overfitting, we used dropout regulazation. 
-A technique which during training randomly drops out number of neurons in layers, thus ignoring their connections in the network. This creates a new smaller network 
-
-
 After an unsuccessful attempt to utilize DLSTM, we turned over to two-layered bidirectional LSTM architecture proposed in \cite{bidirect_dynam}. The proposed architecture was meant and trained on dynamic gestures only, not knowing how it will perform on static gestures. On the other hand, static gestures can be treated as a special type of dynamic gesture, having one frame stretched out to the desired number of timesteps. Not to mention our dataset was constructed in a way where static gestures have a slight difference in coordinates between $t$ and $t+1$, making it possible to look at the static gesture as a very slow type of dynamic gesture.
+
+\subsubsection{Selection of the Optimal Dropout Rate}
 
 In order to avoid the problem of overfitting, we used dropout regulazation. 
 A technique which during training randomly drops out number of neurons in layers, thus ignoring their connections in the network. This creates a new smaller network and in essence simulates model ensembling without creating multiple networks.
 
+The optimal dropout rate was selected through number of experiments using dropout values in range of $0.0$ to $0.9$. As seen below, not using dropout regulation caused visible difference between train and validation accuracies through the course of training. The difference stayed poor almost the same up to the value of 0.4, which showed improved results, but not necessarly optimal. The difference was most promising when using dropout values of 0.5 and 0.6, where 0.6 performed better. However the performance gets worse from 0.7 and on. The overall results indicate that optimal dropout value is between 0.5 and 0.6. The value 0.6 is satisfactory enough for our uses.
 
+\begin{figure}[h]
+	\centering
+    \subfloat[\centering No dropout regularisation applied]{{\includegraphics[width=6cm]{dropout_0.png}}}%
+    \qquad
+    \subfloat[\centering Dropout rate = $0.6$]{{\includegraphics[width=6cm]{dropout_6.png}}}%
+    \caption{Train accuracies compared to validation accuracies through the course of learning}
+\end{figure}
+
+\subsubsection{Optimal number of stacked layers}
+
+We had also examined bidirectional LSTM architectures with different number of layers, specifically 1 to 5 layers. The additional testing of the network's depth was to find out whether using different number of layers than proposed in \cite{bidirect_dynam} would make any improvements in overall prediction performance.
+
+
+
+
+
+We have also tested the number of required stacked layers
 
 Benchmarking the model on SHREC Dataset and ASL Dataset resulted in similar high accuracies as DLSTM architecture. Our handicrafted dataset had also achieved promising results.
 
