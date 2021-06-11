@@ -9,7 +9,11 @@ To create tracking data alignment, we must first determine the position of LMCs,
 
 The MultiLeap library allows a user to sample data using a semi-automatic sampling process, which does not require the user to focus too much on the data acquisition itself.
 
-The sampling is enabled manually, but data are sampled automatically per every Leap Motion frame, approximately 60 times per second. Each sample consists of 20 points from the hand – the points represent the center of each finger joint. Hands will then align automatically, but it is up to the user, performing the calibration, to cover enough space of the tracking area. Most importantly, it is best to have diverse data for more accurate alignment \cite{tomasMultileap}.
+The sampling is enabled manually, but data are sampled automatically per every Leap Motion frame, approximately 60 times per second. Each sample consists of 20 points from the hand – the points represent the center of each finger joint. 
+The general idea of automatical sampling is to calibrate sensors using data from already calibrated devices. First, one sensor, is marked as calibrated. The first marked sensor is either the first connected sensor or one selected by a user. Uncalibrated sensors starts acquiring samples if the presented hand is in their field of view and at the same time in the field of view of any calibrated sensor. The sample consits of uncalibrated sensor's original data and fused data from all calibrated, to which is the hand visible. Once the sensor collects enough samples it begins to compute the optimal translation and rotation of the device. The sensor is then marked as calibrated. The process is repeated until all sensors are calibrated.
+
+
+Hands will then align automatically, but it is up to the user, performing the calibration, to cover enough space of the tracking area. Most importantly, it is best to have diverse data for more accurate alignment \cite{tomasMultileap}.
 
 Considering the tracking data, where the hand is completely still, it will not have the necessary diversity in its samples. The deviation between collected tracking data is too insignificant. If we were to move the hand across the tracking area, having it rotated in various ways in various positions, the deviation of rotations and positions will be more evident, and the calculation of the alignment more precise \cite{tomasMultileap}.
 
