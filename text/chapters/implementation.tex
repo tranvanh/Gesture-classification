@@ -91,10 +91,10 @@ After an unsuccessful attempt to utilize DLSTM, we turned over to two-layered bi
 
 \subsubsection{Selection of the Optimal Dropout Rate}
 
-In order to avoid the problem of overfitting, we used dropout regulazation. 
-A technique which during training randomly drops out number of neurons in layers, thus ignoring their connections in the network. This creates a new smaller network and in essence simulates model ensembling without creating multiple networks.
+To avoid the problem of overfitting, we used dropout regularization. 
+A technique that, during training, randomly drops out a number of neurons in layers, thus ignoring their connections in the network. This creates a new smaller network and, in essence, simulates model ensembling without creating multiple networks.
 
-The optimal dropout rate was selected through number of experiments using dropout values in range of $0.0$ to $0.9$. As seen below, not using dropout regulation caused visible difference between train and validation accuracies through the course of training. The difference stayed poor almost the same up to the value of 0.4, which showed improved results, but not necessarly optimal. The difference was most promising when using dropout values of 0.5 and 0.6, where 0.6 performed better. However the performance gets worse from 0.7 and on. The overall results indicate that optimal dropout value is between 0.5 and 0.6. The value 0.6 is satisfactory enough for our uses.
+The optimal dropout rate was selected through several experiments using dropout values in a range of 0.0 to 0.9. As seen below, not using dropout regulation caused a visible difference between train and validation accuracies through the course of training. The difference stayed poor, almost the same up to the value of 0.4, which showed improved results but not necessarily optimal. The difference was most promising when using dropout values of 0.5 and 0.6, where 0.6 performed better. However, the performance gets worse from 0.7 and on. The overall results indicate that the optimal dropout value is between 0.5 and 0.6. The value of 0.6 is satisfactory enough for our uses.
 
 \begin{figure}[h]
 	\centering
@@ -104,15 +104,15 @@ The optimal dropout rate was selected through number of experiments using dropou
     \caption{Train accuracies compared to validation accuracies through the course of learning}
 \end{figure}
 
-We performed the search for optimal dropout rate across different depths of the network, more precisely 1 to 5 layered bidirectional LSTM networks. The dropout value appeared to hold the same characteristics for different number of stacked layers.
+We performed the search for optimal dropout rate across different network depths, more precisely 1 to 5 layered bidirectional LSTM networks. The dropout value appeared to hold the same characteristics for a different number of stacked layers.
 
 \subsubsection{Optimal number of stacked layers}
 
-We had also examined bidirectional LSTM architectures with different number of layers, specifically 1 to 5 layers. While search for optimal dropout rate, we had performed the experiment across different depths of the network, more precisely 1 to 5 layered bidirectional LSTM networks. The dropout value appeared to have held the same characteristics for different number of stacked layers.
+We also examined bidirectional LSTM architectures with different layers, specifically 1 to 5 layers. While searching for optimal dropout rate, we had performed the experiment across different depths of the network, more precisely 1 to 5 layered bidirectional LSTM networks. The dropout value appeared to have held the same characteristics for the different number of stacked layers.
 
-The additional testing of the network's depth was to find out whether using different number of layers than proposed in \cite{bidirect_dynam} would make any improvements in overall prediction performance.
+The additional testing of the network's depth was to find out whether using a different number of layers than proposed in \cite{bidirect_dynam} would make any improvements in overall prediction performance.
 
-In order to find the optimal depth of the network, we have adopted $k$-fold Cross-validation. Cross-validation is often used to evaluate performance of machine learning models on limited datasets. The entire data set is split randomly into $k$ folds, in our case $k=5$ and $k=10$, then train the model using $k-1$ folds and hold the remaining fold to measure the model's accuracy. We will be repeating this process for each fold and then calculate the average performance across all folds.
+To find the optimal depth of the network, we have adopted $k$-fold Cross-validation. Cross-validation is often used to evaluate the performance of machine learning models on limited datasets. The entire data set is split randomly into $k$ folds, in our case $k=5$ and $k=10$, then train the model using $k-1$ folds and hold the remaining fold to measure the model's accuracy. We will be repeating this process for each fold and then calculate the average performance across all folds.
 
 
 % We have also tested the number of required stacked layers
