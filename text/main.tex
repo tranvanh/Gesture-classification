@@ -10,7 +10,7 @@
 % english thesis in English language
 % hidelinks remove colour boxes around hyperlinks
 
-\documentclass[thesis=B,english]{FITthesis}[2019/12/23]
+\documentclass[thesis=B,english]{FITthesis}[2020/10/23]
 
 %\usepackage[utf8]{inputenc} % LaTeX source encoded as UTF-8
 % \usepackage[latin2]{inputenc} % LaTeX source encoded as ISO-8859-2
@@ -27,6 +27,8 @@
 \usepackage{graphicx}
 \usepackage{subfig}
 \usepackage{float}
+\usepackage{nameref}
+
 \graphicspath{ {./assets/} }
 % % list of acronyms
 % \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
@@ -77,6 +79,9 @@
 	\setsecnumdepth{all}
 	\chapter{Implementation}\label{ch:implementation}
 	\input{chapters/implementation.tex}\newpage\cleardoublepage
+	\setsecnumdepth{all}
+	\chapter{Experiments}\label{ch:experiments}
+	\input{chapters/experiments.tex}\newpage\cleardoublepage
 	
 \bibliographystyle{iso690}
 \bibliography{mybibliographyfile}
