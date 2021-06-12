@@ -12,7 +12,7 @@ As previously mentioned, RNN takes into consideration information from previous 
 \end{figure}
 
 
-Figure 1.4 shows the network for each timestep, i.e., at time $t$, the input $\vec{x_t}$ goes into the network to produce output $\hat{y}_t$, the next timestep of the input is $x_{t+1}$ with additional input from the previous time step from the hidden state $h_{t}$. This way, the neural network looks at the current input and has the context from the previous inputs.
+Figure \ref{fig:rnn} shows the network for each timestep, i.e., at time $t$, the input $\vec{x_t}$ goes into the network to produce output $\hat{y}_t$, the next timestep of the input is $x_{t+1}$ with additional input from the previous time step from the hidden state $h_{t}$. This way, the neural network looks at the current input and has the context from the previous inputs.
 With this structure, recurrent units hold the past values, referred to as memory. Making it possible to work with a context in the data \cite{rnnin6}.
 
 The recurrent unit is calculated as follows:

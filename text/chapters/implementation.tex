@@ -21,7 +21,7 @@ After further inspection of the ASL dataset, we have discovered possible mislabe
 
 By not using ASL Dataset we have lost a set of static gestures. Also, we want to have the ability to provide the training with our own sets of gestures and not to be bound only to those publicly available. For such purposes, we had created a simple interactive data sampler in the form of a console application.
 
-The sampler saves each sample in .txt format, one line by timestep $T$, frame yield by LMC, each line containing a set of features. Features were selected and computed as previously described in chapter 2.3.3.1. The order of features in a line $x_t$, at time $t$ is as follows.
+The sampler saves each sample in .txt format, one line by timestep $T$, frame yield by LMC, each line containing a set of features. Features were selected and computed as previously described in section \ref{sec:feature_extraction}. The order of features in a line $x_t$, at time $t$ is as follows.
 
 
 \begin{equation}
@@ -64,6 +64,7 @@ The recording is initiated by key command, but the data collection does not star
 
 
 \section{Model Training}
+\label{sec:model_training}
 
 We selected Python to be our primary language for training the ANN mode along with the web-based interactive development environment Jupyter Notebook. One of the main reasons to pick Python over other available languages was its wide range of libraries and scientific packages supporting machine learning tasks. Most importantly, Keras, a high-level deep learning API integrated with TensorFlow, enabling the user to create and train model structures in very few steps.
 
@@ -77,7 +78,7 @@ Each dataset was then split into 80\% for the training set and 20\% for the test
 
 \subsection{DLSTM architecture}
 
-At first, we followed the proposed architecture of 4 layers stacked LSTM by Avola D., Bernardi M. et al. \cite{avola}. We trained the model using 800 epochs and 0.0001 learning rate, which were proved to be optimal hyperparameters as described in chapter 2.3.3.2.
+At first, we followed the proposed architecture of 4 layers stacked LSTM by Avola D., Bernardi M. et al. \cite{avola}. We trained the model using 800 epochs and 0.0001 learning rate, which were proved to be optimal hyperparameters as described in section \ref{sec:dlstm_params}
 
 Benchmarking the model on ASL Dataset resulted in similar accuracies as in \cite{avola}. Our handicrafted dataset had also achieved high results.
 
@@ -93,6 +94,8 @@ After an unsuccessful attempt to utilize DLSTM, we turned over to two-layered bi
 
 To avoid the problem of overfitting, we used dropout regularization. 
 A technique that, during training, randomly drops out a number of neurons in layers, thus ignoring their connections in the network. This creates a new smaller network and, in essence, simulates model ensembling without creating multiple networks.
+
+We used ASL Dataset for its variety in samples and possible more complexity over our own handicrafted dataset. Despite its mislabeling of features, it still serves well for model benchmarking and validation.
 
 The optimal dropout rate was selected through several experiments using dropout values in a range of 0.0 to 0.9. As seen below, not using dropout regulation caused a visible difference between train and validation accuracies through the course of training. The difference stayed poor, almost the same up to the value of 0.4, which showed improved results but not necessarily optimal. The difference was most promising when using dropout values of 0.5 and 0.6, where 0.6 performed better. However, the performance gets worse from 0.7 and on. The overall results indicate that the optimal dropout value is between 0.5 and 0.6. The value of 0.6 is satisfactory enough for our uses.
 
@@ -114,6 +117,28 @@ The additional testing of the network's depth was to find out whether using a di
 
 To find the optimal depth of the network, we have adopted $k$-fold Cross-validation. Cross-validation is often used to evaluate the performance of machine learning models on limited datasets. The entire data set is split randomly into $k$ folds, in our case $k=5$ and $k=10$, then train the model using $k-1$ folds and hold the remaining fold to measure the model's accuracy. We will be repeating this process for each fold and then calculate the average performance across all folds.
 
+\begin{table}[ht]
+    \centering
+    \caption{Average recognition accuracies across different depths of bidirectional lstm architectures using 5-fold and 10-fold}
+    \begin{tabular}{ |p{3cm}| p{3cm} |p{3cm}|} 
+        \hline
+        \hfil \textit{Number of layers}
+        & \hfil \textit{5-fold (\%)}
+         & \hfil \textit{10-fold (\%)} \\
+        \hline\hline
+        \hfil 1 				& \hfil 2,8				& \hfil 2,38	\\
+        \hline
+        \hfil 2 				& \hfil 5,82				& \hfil 5,00 	\\
+        \hline
+        \hfil 3 				& \hfil 3,12				& \hfil 3,02	\\
+        \hline
+        \hfil 4 				& \hfil 6,40				& \hfil 6,22	\\
+        \hline
+        \hfil 5 				& \hfil 9,30				& \hfil 9,12	\\
+        \hline
+    \end{tabular}
+    \label{tab:HT_results_table}
+\end{table}
 
 % We have also tested the number of required stacked layers
 
@@ -123,13 +148,13 @@ To find the optimal depth of the network, we have adopted $k$-fold Cross-validat
 
 \section{Real-time recognition}
 
-The application for real-time recognition is in the form of a simple console application, supporting multiple LMCs using MultiLeap library and with key commands for LMC calibration. When a hand gesture is presented, the application prints out the prediction, which is considered a valid prediction if the value passes the threshold of 90\% accuracy.  
+The application for real-time recognition is in the form of a simple console application, supporting multiple LMCs using MultiLeap \cite{tomasMultileap} library described in chapter \ref{ch:multileap} and with key commands for LMC calibration. When a hand gesture is presented, the application prints out the prediction, which is considered a valid prediction if the value passes the threshold of 90\% accuracy.  
 
 For real-time recognition, we chose C++ as our primary language since C++ and C\# are widely used programming languages in graphic engines such as Unity, PhyreEngine, or Unreal, which opens the possibility of integrating our application into graphic engines in future works.
 
 \subsection{Cppflow 2}
 
-Our application uses the trained model from chapter 3.2 and deploys it in C++ environment. More specifically, we exported the model in .tf file format and imported it into C++ using CppFlow 2.
+Our application uses the trained model from section \ref{sec:model_training} and deploys it in C++ environment. More specifically, we exported the model in .tf file format and imported it into C++ using CppFlow 2.
 
 Cppflow 2 is an API created by Sergio Izquierdo, allowing the user to run TensorFlow in C++ without the necessity of installing and compiling TensorFlow itself. CppFlow 2 serves as a Tensorflow C API wrapper providing a simple C++ interface similar to TensorFlow callings in Python environment \cite{cppflow}. 
 
@@ -139,7 +164,5 @@ The data collection, frame collection yield by LMC, starts once a hand is presen
 
 The basic idea is to have a window of fixed size $T$, which slides through our data stream and captures a certain portion of it. It is important to remain the same $T$ value as we chose to record our dataset. Otherwise, the shape of the captured data would differ from the input shape of our trained model. It is worth mentioning that using a wider window size creates a noticeable time delay between a presented gesture and its prediction. On the other hand, using a size too small, there would be a possibility of not capturing a dynamic gesture completely, leading to possible inaccurate predictions. In our case we used $T = 90$. Considering a situation where a collected data is less than $T$, the missing data are then set to zeroes. If we present more than one hand, the stream is invalidated, collected data are flushed, and the window will begin its sliding again once there is only one hand in the controller's view.
 
-For each window, we then calculate features for classification and output the prediction of the captured portion. Features must be preprocessed exactly the same as they were for model training, in our case, same as described in chapter 2.3.3. The window slides by one frame, in other words leaves throw away the oldest frame and adds in the newest acquired.
-
-\subsection{Multileap library}
+For each window, we then calculate features for classification and output the prediction of the captured portion. Features must be preprocessed exactly the same as they were for model training, in our case, same as described in section \ref{sec:feature_extraction}. The window slides by one frame, in other words leaves throw away the oldest frame and adds in the newest acquired.
 

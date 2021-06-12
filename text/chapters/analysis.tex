@@ -116,6 +116,7 @@ Consider each hand gesture to be represtend as set $X = \{x_0, x1, ..., x_{T-1}\
 \end{figure}
 
 \subsubsection{Feature Extraction}
+\label{sec:feature_extraction}
 
 A hand gesture can be considered to be composed of different poses, where particular angles characterize each pose. Each feature vector $x_t \in X$ consists mostly of internal angles, finger segments, palm position, and fingertip positions.
 
@@ -126,7 +127,7 @@ A hand gesture can be considered to be composed of different poses, where partic
 	\label{fig:lstm_angles}
 \end{figure}
 
-As seen in Figure 2.6, each finger can be represented as set of segments:
+As seen in Figure \ref{fig:lstm_angles}, each finger can be represented as set of segments:
 \begin{itemize}
 	\item $\overline{AB}$, proximal phalax, or metacarpal in case of thumb
 	\item $\overline{BC}$, intermediate phalanx, or proximal phalanx in case of thumb
@@ -166,6 +167,7 @@ All above features form the input vector $x_t$ passed to DLSTM at time $t$.
 \end{equation}
 
 \subsubsection{Optimal Number of Stacked LSTMs}
+\label{sec:dlstm_params}
 
 Several tests were performed to find the optimal number of stacked LSTMs. The results showed that having 4 LSTM layers proved to achieve the best accuracy by using 800 \textit{epochs}, the number of times the learning algorithm goes through the complete training dataset. Although it was possible to get the same results with 5 or 6 stacked LSTM layers, only due to using 1600 and 1800 epochs, thus increasing the training time \cite{avola}. 
 
