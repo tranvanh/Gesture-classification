@@ -111,7 +111,7 @@ We performed the search for optimal dropout rate across different network depths
 
 \subsubsection{Optimal number of stacked layers}
 
-We also examined bidirectional LSTM architectures with different layers, specifically 1 to 5 layers. While searching for optimal dropout rate, we had performed the experiment across different depths of the network, more precisely 1 to 5 layered bidirectional LSTM networks. The dropout value appeared to have held the same characteristics for the different number of stacked layers.
+While searching for optimal dropout rate, we had performed the experiment across different depths of the network, more precisely 1 to 5 layered bidirectional LSTM networks. The dropout value appeared to have held the same characteristics for the different number of stacked layers.
 
 The additional testing of the network's depth was to find out whether using a different number of layers than proposed in \cite{bidirect_dynam} would make any improvements in overall prediction performance.
 
@@ -119,31 +119,29 @@ To find the optimal depth of the network, we have adopted $k$-fold Cross-validat
 
 \begin{table}[ht]
     \centering
-    \caption{Average recognition accuracies across different depths of bidirectional lstm architectures using 5-fold}
+    \caption{Average recognition accuracies across different depths of bidirectional lstm architectures using 5-fold on 200 epochs}
     \begin{tabular}{ | p{4.5cm}| p{4.5cm} |} 
         \hline
         \hfil \textit{Number of layers}
         & \hfil \textit{5-fold (\%)}\\
         \hline\hline
-        \hfil 1 				& \hfil 2,8			\\
+        \hfil 1 				& \hfil 88,14			\\
         \hline
-        \hfil 2 				& \hfil 5,82		\\
+        \hfil 2 				& \hfil 89,07		\\
         \hline
-        \hfil 3 				& \hfil 3,12		\\
+        \hfil 3 				& \hfil 87,48		\\
         \hline
-        \hfil 4 				& \hfil 6,40		\\
+        \hfil 4 				& \hfil 86,31		\\
         \hline
-        \hfil 5 				& \hfil 9,30		\\
+        \hfil 5 				& \hfil 87,98		\\
         \hline
     \end{tabular}
     \label{tab:HT_results_table}
 \end{table}
 
-% We have also tested the number of required stacked layers
+The two-layered bidirectional LSTM architecture acquired the best performance results compared to other depths. Increasing the number of epochs would improve the results of architectures with more layers, but we would suffer on the side of the training time required. In conclusion, choosing the two-layered architecture is a good compromise between accuracy and training time.
 
-% Benchmarking the model on SHREC Dataset and ASL Dataset resulted in similar high accuracies as DLSTM architecture. Our handicrafted dataset had also achieved promising results.
-
-% The two-layered bidirectional LSTM architecture was successful in learning dynamic gestures base on its characteristic movement. It was also successful in classifying static gestures, both in real-time recognition.
+The two-layered bidirectional LSTM architecture was successful in learning dynamic gestures base on its characteristic movement. It was also successful in classifying static gestures, both in real-time recognition.
 
 \section{Real-time recognition}
 
@@ -165,7 +163,7 @@ The basic idea is to have a window of fixed size $T$, which slides through our d
 
 \begin{figure}[ht]
 	\centering
-    \includegraphics[width=11cm]{sliding_window.png}
+    \includegraphics[width=8cm]{sliding_window.png}
 	\caption{General idea of a sliding \cite{sliding_window_img}}
 	\label{fig:sliding_window}
 \end{figure}
