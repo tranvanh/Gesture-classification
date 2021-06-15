@@ -9,9 +9,9 @@
 #include "GestureLeap/GeastureLeap.h"
 
 
+#define MODEL_DIR "./LSTM_model"
 #define TIMESTEP 60
 #define NUM_FEATURES 31
-#define MODEL_DIR "./LSTM_model"
 
 
 /** Callback for when the connection opens. */
@@ -77,8 +77,8 @@ int main(int argc, char** argv) {
 	std::cout << "Starting communication." << std::endl;
 
 
-	static GestureLeap leap(TIMESTEP,NUM_FEATURES, MODEL_DIR);
-	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* cxt) { leap.OnFrame(frame, deviceId, cxt); };
+	static GestureLeap gestureLeap(MODEL_DIR, TIMESTEP, NUM_FEATURES);
+	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* cxt) { gestureLeap.onFrame(frame, deviceId, cxt); };
 
 	if (!MultiLeap_InitCallbacksConnection(&OnConnect, &OnConnectionLost,
 		&OnDevice, &OnDeviceLost, &OnDeviceFailure, onFrame, &OnLogMessage, &OnSample, (void*)context)) {
@@ -222,6 +222,7 @@ int main(int argc, char** argv) {
 	} while (c != 'c');
 
 	std::cout << "Stopping communication." << std::endl;
+	gestureLeap.getSuccessRate();
 
 	MultiLeap_Deinit();
 	delete context;

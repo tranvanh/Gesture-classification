@@ -3,6 +3,10 @@
 
 void GestureLeap::processWindow() {
 	int res = gesturePrediction.predict(window.getWindow());
+
+	++num_predictions;
+	++prediction_map[res];
+
 	if (res < 0)
 		return;
 
@@ -25,11 +29,9 @@ void GestureLeap::processWindow() {
 
 	else
 		printf("predicted Gesture: %d\n", res);
-
-
 }
 
-void GestureLeap::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* context) {
+void GestureLeap::onFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* context) {
 	if (frame->nHands == 0) {
 		if (!window.isEmpty())
 			processWindow();
@@ -44,3 +46,11 @@ void GestureLeap::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned devic
 		processWindow();
 }
 
+void GestureLeap::getSuccessRate() const {
+
+	std::cout << "Number of predictions: "  << num_predictions << std::endl;
+	for (const auto& v : prediction_map)
+	{
+		std::cout << std::setprecision(3) << "[" << v.first << "] = " << (double)v.second / num_predictions << "%" << std::endl;
+	}
+}
