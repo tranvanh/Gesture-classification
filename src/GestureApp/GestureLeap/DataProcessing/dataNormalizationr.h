@@ -7,6 +7,7 @@
 
 #define PI 3.14159265
 
+/*Preprocess data*/
 class DataNormalization {
 public:
 	DataNormalization(const int& t, const int& f) :timeStep(t), num_feature(f) {};
@@ -34,10 +35,16 @@ private:
 		3.47366e+01, -3.13954e+02, -4.57886e+02,  1.45195e+01,
 	   -3.02162e+02, -4.42757e+02,  7.13368e+01, -2.82183e+02,
 		4.41342e-02,  4.25457e-02,  4.19405e-02 };
+	/*Perform MinMax scaling*/
 	double min_max_scaler(const double& input, const int& k);
+
+	/*Calculate hand features*/
 	void calculate_features(std::vector<double>& output, const LEAP_HAND& hand, int& i);
 
+	/*Compute vectors from given two points*/
 	VECT lineFromPoint(const LEAP_VECTOR& a, const LEAP_VECTOR& b);
+
+	/*Compute internal angle of given two vectors*/
 	double internalAngle(const VECT& a, const VECT& b);
 
 };

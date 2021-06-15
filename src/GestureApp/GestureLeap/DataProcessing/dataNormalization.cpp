@@ -1,4 +1,4 @@
-#include "dataNormalizationr.h"
+#include "DataNormalizationr.h"
 
 double DataNormalization::min_max_scaler(const double& input, const int& k)
 {

@@ -147,17 +147,19 @@ xcopy /y $(SolutionDir)\..\includes\multileap\*.dll "$(OutDir)"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GestureApp.cpp" />
-    <ClCompile Include="GestureLeap\DataProcessing\dataNormalization.cpp" />
-    <ClCompile Include="GestureLeap\DataProcessing\hoppingWindow.cpp" />
-    <ClCompile Include="GestureLeap\geastureLeap.cpp" />
-    <ClCompile Include="model\Model.cpp" />
+    <ClCompile Include="GestureDemoApp.cpp" />
+    <ClCompile Include="GestureLeap\DataProcessing\DataNormalization.cpp" />
+    <ClCompile Include="GestureLeap\SlidingWindow.cpp" />
+    <ClCompile Include="GestureLeap\GeastureLeap.cpp" />
+    <ClCompile Include="GestureLeap\DataProcessing\Model.cpp" />
+    <ClCompile Include="GestureLeap\DataProcessing\GesturePrediction.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GestureLeap\DataProcessing\dataNormalizationr.h" />
-    <ClInclude Include="GestureLeap\DataProcessing\hoppingWindow.h" />
-    <ClInclude Include="GestureLeap\geastureLeap.h" />
-    <ClInclude Include="model\Model.h" />
+    <ClInclude Include="GestureLeap\DataProcessing\DataNormalizationr.h" />
+    <ClInclude Include="GestureLeap\SlidingWindow.h" />
+    <ClInclude Include="GestureLeap\GeastureLeap.h" />
+    <ClInclude Include="GestureLeap\DataProcessing\Model.h" />
+    <ClInclude Include="GestureLeap\DataProcessing\GesturePrediction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

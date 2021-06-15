@@ -26,7 +26,7 @@ void Recorder::reinitRecording(const int& i, const std::string gt)
 }
 
 /** Callback for when a frame of tracking data is available. */
-void Recorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId) {
+void Recorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* context) {
 	if (!recording)
 	{
 		window.clear();

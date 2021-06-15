@@ -15,33 +15,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GestureApp.cpp">
+    <ClCompile Include="GestureDemoApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="model\Model.cpp">
+    <ClCompile Include="GestureLeap\DataProcessing\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GestureLeap\geastureLeap.cpp">
+    <ClCompile Include="GestureLeap\GeastureLeap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GestureLeap\DataProcessing\dataNormalization.cpp">
+    <ClCompile Include="GestureLeap\DataProcessing\DataNormalization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GestureLeap\DataProcessing\hoppingWindow.cpp">
+    <ClCompile Include="GestureLeap\SlidingWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GestureLeap\DataProcessing\GesturePrediction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="model\Model.h">
+    <ClInclude Include="GestureLeap\DataProcessing\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GestureLeap\geastureLeap.h">
+    <ClInclude Include="GestureLeap\GeastureLeap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GestureLeap\DataProcessing\hoppingWindow.h">
+    <ClInclude Include="GestureLeap\SlidingWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GestureLeap\DataProcessing\dataNormalizationr.h">
+    <ClInclude Include="GestureLeap\DataProcessing\DataNormalizationr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GestureLeap\DataProcessing\GesturePrediction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

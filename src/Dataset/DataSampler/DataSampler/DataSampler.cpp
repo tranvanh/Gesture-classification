@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
 
 
 	static Recorder recorder(TIMESTEP, NUM_FEATURES, COUNT, GESTURE_TYPE);
-	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId) { recorder.OnFrame(frame, deviceId); };
+	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* cxt) { recorder.OnFrame(frame, deviceId, cxt); };
 
 	if (!MultiLeap::Init(&OnConnect, &OnConnectionLost,
 		&OnDevice, &OnDeviceLost, &OnDeviceFailure, onFrame, &OnLogMessage, &OnSample)) {
