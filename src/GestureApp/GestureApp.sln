@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GestureApp", "GestureApp.vcxproj", "{EF871BD5-F088-4BC3-BEA2-F9362BFC8767}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataSampler", "..\Dataset\DataSampler\DataSampler\DataSampler.vcxproj", "{B1AED0BB-F661-47E5-AA60-29D6698CD10F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataSampler", "..\DataSampler\DataSampler\DataSampler.vcxproj", "{B1AED0BB-F661-47E5-AA60-29D6698CD10F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

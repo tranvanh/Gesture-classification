@@ -1,18 +1,17 @@
 #include <iostream>
 #include <functional>
 #include <vector>
-
 #include "MultiLeap.h"
 
-#include "../includes/cppflow/ops.h"
-#include "../includes/cppflow/model.h"
-#include "GestureLeap/GeastureLeap.h"
+#include "DataLeap/Recorder.h"
 
 
-#define MODEL_DIR "./LSTM_model"
+#define DYNAMIC_TIMESTEP 90
+
 #define TIMESTEP 60
 #define NUM_FEATURES 31
-
+#define COUNT 0
+#define GESTURE_TYPE "6"
 
 /** Callback for when the connection opens. */
 static void OnConnect(void* context) {
@@ -71,14 +70,15 @@ static void OnLogMessage(const eLeapLogSeverity severity, const int64_t timestam
 	printf("[%s][%lli] %s\n", severity_str, (long long int)timestamp, message);
 }
 
+
+
 int main(int argc, char** argv) {
 	int* context = new int(256);
-
 	std::cout << "Starting communication." << std::endl;
 
 
-	static GestureLeap gestureLeap(MODEL_DIR, TIMESTEP, NUM_FEATURES);
-	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* cxt) { gestureLeap.onFrame(frame, deviceId, cxt); };
+	static Recorder recorder(TIMESTEP, NUM_FEATURES, COUNT, GESTURE_TYPE);
+	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* cxt) { recorder.OnFrame(frame, deviceId, cxt); };
 
 	if (!MultiLeap_InitCallbacksConnection(&OnConnect, &OnConnectionLost,
 		&OnDevice, &OnDeviceLost, &OnDeviceFailure, onFrame, &OnLogMessage, &OnSample, (void*)context)) {
@@ -216,15 +216,48 @@ int main(int argc, char** argv) {
 
 			break;
 		}
+		case 'r':
+		{
+			std::cout << "start Recording" << std::endl;
+			recorder.startRecording();
+			break;
+		}
+		case 'p':
+		{
+			std::cout << "pause Recording" << std::endl;
+			recorder.pauseRecording();
+			break;
+		}
+		case 'o':
+		{
+			std::cout << "open Recording" << std::endl;
+			recorder.openRecording();
+			break;
+		}
+		case 'h':
+		{
+			std::cout << "start dynamic Recording" << std::endl;
+			recorder.startDynamicRecording(DYNAMIC_TIMESTEP);
+			break;
+		}
+		case 'x':
+		{
+			int index = 0;
+			std::string gestureType = "";
+			std::cin >> index >> gestureType;
+			std::cout << "reinit Recorder: file index[" << index << "] gesture type[" << gestureType << "]" << std::endl;
+			recorder.reinitRecording(index, gestureType);
+			break;
+		}
 		default:
 			break;
 		}
 	} while (c != 'c');
 
 	std::cout << "Stopping communication." << std::endl;
-	gestureLeap.getSuccessRate();
 
 	MultiLeap_Deinit();
 	delete context;
 	return 0;
+
 }
