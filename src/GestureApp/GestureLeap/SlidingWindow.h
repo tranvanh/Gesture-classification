@@ -2,10 +2,10 @@
 #include <list>
 #include <LeapC.h>
 
-class HoppingWindow
+class SlidingWindow
 {
 public:
-	HoppingWindow(const int& t) :num_timeStep(t) {}
+	SlidingWindow(const int& t) :num_timeStep(t) {}
 	void AddFrame(const LEAP_HAND& frame);
 	void flush();
 	bool isFull();

@@ -1,4 +1,4 @@
-#include "dataNormalizationr.h"
+#include "DataNormalizationr.h"
 
 double DataNormalization::internalAngle(const VECT& a, const VECT& b)
 {

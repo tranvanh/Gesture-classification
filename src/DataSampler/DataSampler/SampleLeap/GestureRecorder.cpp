@@ -13,7 +13,7 @@ void GestureRecorder::pauseRecording() {
 	window.clear();
 }
 
-void GestureRecorder::reinitRecording(const int& i, const std::string gt)
+void GestureRecorder::reinitRecording(const std::string& gt, const int& i)
 {
 	if (recording)
 	{
@@ -23,6 +23,7 @@ void GestureRecorder::reinitRecording(const int& i, const std::string gt)
 	count = i;
 	gestureType = gt;
 }
+
 
 /** Callback for when a frame of tracking data is available. */
 void GestureRecorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* context) {
@@ -72,7 +73,6 @@ void GestureRecorder::checkDirectories()
 	std::string save_dir = DATASET_DIR + std::string(SAVE_DIR);
 	std::string gesture_dir = DATASET_DIR + std::string(SAVE_DIR) + gestureType;
 
-	std::cout << gesture_dir << std::endl;
 
 	std::wstring LPCWSTR_datasetDir(dataset_dir.begin(), dataset_dir.end());
 	std::wstring LPCWSTR_saveDir(save_dir.begin(), save_dir.end());
@@ -80,14 +80,13 @@ void GestureRecorder::checkDirectories()
 
 
 	if (CreateDirectory(LPCWSTR_datasetDir.c_str(), NULL))
-		std::cout << "created directory:" << DATASET_DIR << std::endl;
+		std::cout << "created directory \"" << DATASET_DIR << std::endl;
 
 	if (CreateDirectory(LPCWSTR_saveDir.c_str(), NULL))
-		std::cout << "created directory:" << DATASET_DIR + std::string(SAVE_DIR) << std::endl;
+		std::cout << "created directory:\"" << DATASET_DIR + std::string(SAVE_DIR) << std::endl;
 	
 	if (CreateDirectory(LPCWSTR_gestureDir.c_str(), NULL))
-		std::cout << "created directory:" << DATASET_DIR + std::string(SAVE_DIR) + gestureType << std::endl;
-
+		std::cout << "created directory:\"" << DATASET_DIR + std::string(SAVE_DIR) + gestureType << std::endl;
 }
 
 
@@ -103,7 +102,7 @@ void GestureRecorder::writeDown(const std::vector<std::vector<double>>& data, bo
 {
 	checkDirectories();
 	std::string name = DATASET_DIR + std::string(SAVE_DIR) + gestureType + "/" + std::to_string(count) + ".txt";
-	std::ofstream writer(name, std::ios::app);
+	std::ofstream writer(name, std::ios::trunc);
 	if (!writer)
 	{
 		std::cout << "Error Opening File" << std::endl;

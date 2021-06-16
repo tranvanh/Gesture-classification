@@ -151,11 +151,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DataSampler.cpp" />
-    <ClCompile Include="SampleLeap\DataProcessing\dataNormalization.cpp" />
+    <ClCompile Include="SampleLeap\DataProcessing\DataNormalization.cpp" />
     <ClCompile Include="SampleLeap\GestureRecorder.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SampleLeap\DataProcessing\dataNormalizationr.h" />
+    <ClInclude Include="SampleLeap\DataProcessing\DataNormalizationr.h" />
     <ClInclude Include="SampleLeap\GestureRecorder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

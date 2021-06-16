@@ -10,7 +10,6 @@
 #include "DataProcessing/dataNormalizationr.h"
 
 
-#define LPCWSTR_SAVE_DIR L"../../Dataset/DataCollection/"
 #define SAVE_DIR "DataCollection/"
 #define DATASET_DIR "../../Dataset/"
 
@@ -22,19 +21,27 @@ public:
 	/** Callback for when a frame of tracking data is available. */
 	void OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* context);
 	
+	/** Single sample recording **/
 	void startRecording();
+	/** Open recording **/
 	void openRecording();
+	/** Recording siginificant frames**/
 	void startDynamicRecording(const int& t);
+	/** Pause recording **/
 	void pauseRecording();
 
 
-
-	void reinitRecording(const int &i, const std::string gt);
+	/** Change Recorder's settings: gestureType and file index(default=0) **/
+	void reinitRecording(const std::string& gt, const int &i);
 
 private:
+	/** Checks existence of save directories, creates them if necessary **/
 	void checkDirectories();
+	/** Saves sample **/
 	void writeDown(const std::vector<std::vector<double>>& data, bool notFull);
+	/** Forward data from window for prediction and flush if its dynamic gesture **/
 	void processData(bool notFull);
+	/** Set recording flags to default values and flush window**/
 	void cleanUp();
 
 	DataNormalization dataNormalization;

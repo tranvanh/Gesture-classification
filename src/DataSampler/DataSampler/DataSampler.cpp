@@ -11,7 +11,6 @@
 #define TIMESTEP 60
 #define NUM_FEATURES 31
 #define COUNT 0
-#define GESTURE_TYPE "1"
 
 /** Callback for when the connection opens. */
 static void OnConnect(void* context) {
@@ -76,8 +75,11 @@ int main(int argc, char** argv) {
 	int* context = new int(256);
 	std::cout << "Starting communication." << std::endl;
 
+	std::string gestureType = "";
+	std::cout << "Enter gesture Type" << std::endl;
+	std::cin >> gestureType;
 
-	static GestureRecorder gestureRecorder(TIMESTEP, NUM_FEATURES, COUNT, GESTURE_TYPE);
+	static GestureRecorder gestureRecorder(TIMESTEP, NUM_FEATURES, COUNT, gestureType);
 	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* cxt) { gestureRecorder.OnFrame(frame, deviceId, cxt); };
 
 	if (!MultiLeap_InitCallbacksConnection(&OnConnect, &OnConnectionLost,
@@ -240,13 +242,21 @@ int main(int argc, char** argv) {
 			gestureRecorder.startDynamicRecording(DYNAMIC_TIMESTEP);
 			break;
 		}
+		case 'z':
+		{
+			std::string gestureType = "";
+			std::cin >> gestureType;
+			std::cout << "gestureType changed to [" << gestureType << "]" << std::endl;
+			gestureRecorder.reinitRecording(gestureType, 0);
+			break;
+		}
 		case 'x':
 		{
 			int index = 0;
 			std::string gestureType = "";
-			std::cin >> index >> gestureType;
+			std::cin >> gestureType >> index;
 			std::cout << "reinit Recorder: file index[" << index << "] gesture type[" << gestureType << "]" << std::endl;
-			gestureRecorder.reinitRecording(index, gestureType);
+			gestureRecorder.reinitRecording(gestureType, index);
 			break;
 		}
 		default:

@@ -1,6 +1,6 @@
 #include "SlidingWindow.h"
 
-void HoppingWindow::AddFrame(const LEAP_HAND& frame) {
+void SlidingWindow::AddFrame(const LEAP_HAND& frame) {
 
 	if (this->window.size() == num_timeStep) {
 		this->window.pop_front();
@@ -10,10 +10,10 @@ void HoppingWindow::AddFrame(const LEAP_HAND& frame) {
 		this->window.push_back(frame);
 }
 
-void HoppingWindow::flush() { window.clear(); }
+void SlidingWindow::flush() { window.clear(); }
 
-bool HoppingWindow::isFull() { return window.size() == num_timeStep; }
+bool SlidingWindow::isFull() { return window.size() == num_timeStep; }
 
-bool HoppingWindow::isEmpty() { return window.empty(); }
+bool SlidingWindow::isEmpty() { return window.empty(); }
 
-const std::list<LEAP_HAND>& HoppingWindow::getWindow() { return this->window; }
+const std::list<LEAP_HAND>& SlidingWindow::getWindow() { return this->window; }

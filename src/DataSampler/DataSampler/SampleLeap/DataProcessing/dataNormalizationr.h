@@ -13,8 +13,12 @@ class DataNormalization {
 public:
 	DataNormalization(const int& t, const int& f) :timeStep(t), num_feature(f) {};
 
+	/** Filters significant frames **/
 	std::list<LEAP_HAND> selectSignificantFrames(const std::list<LEAP_HAND>& window, const int &recordSize);
+
+	/** Start processcing **/
 	void scale(const std::list<LEAP_HAND>& window, std::vector<std::vector<double>>& dataFrame);
+
 private:
 	struct VECT {
 		double x;
@@ -31,14 +35,21 @@ private:
 	int timeStep;
 	int num_feature;
 
+	/** Compute distance between two given points **/
 	double distancePoints(const LEAP_HAND &a, const LEAP_HAND &b);
 
+	/** Calculate hand features **/
 	void calculate_features(std::vector<double>& output, const LEAP_HAND& hand);
+
+	/** Compute distance between palm positions **/
 	void calculate_palmDistance(const std::vector<LEAP_HAND>& input, std::vector<DISTANCE>& output);
 
+	/** Desc sort on significance of frames **/
 	void sortSignificant(std::vector<DISTANCE>& input);
 
+	/** Compute vectors from given two points **/
 	VECT lineFromPoint(const LEAP_VECTOR& a, const LEAP_VECTOR& b);
+	/** Compute internal angle of given two vectors **/
 	double internalAngle(const VECT& a, const VECT& b);
 
 };

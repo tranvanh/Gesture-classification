@@ -20,14 +20,14 @@ public:
 	/** Conclude success rate of prediction */
 	void getSuccessRate() const;
 private:
-	HoppingWindow window;
+	SlidingWindow window;
 	GesturePrediction gesturePrediction;
 	long long int num_predictions;
 	std::map<int, long long int> prediction_map = { {-1, 0}, {1, 0}, {2, 0},{3, 0}, {4, 0},{5, 0},{6, 0},{7, 0},{8, 0} };
 
 
 
-	/*Forward data from window for prediction and flush if its dynamic gesture*/
+	/** Forward data from window for prediction and flush if its dynamic gesture **/
 	void processWindow();
 };
 
