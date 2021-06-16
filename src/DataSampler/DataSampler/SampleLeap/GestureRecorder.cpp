@@ -17,7 +17,7 @@ void GestureRecorder::reinitRecording(const std::string& gt, const int& i)
 {
 	if (recording)
 	{
-		std::cout << "---> Ongoing recording, pause your recording first: p" << std::endl;
+		std::cout << "---> Ongoing recording, pause your recording first using: p" << std::endl;
 		return;
 	}
 	count = i;

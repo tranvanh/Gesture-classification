@@ -6,9 +6,9 @@
 #include "SampleLeap/GestureRecorder.h"
 
 
-#define DYNAMIC_TIMESTEP 90
+#define DYNAMIC_TIMESTEP 120
 
-#define TIMESTEP 60
+#define TIMESTEP 90
 #define NUM_FEATURES 31
 #define COUNT 0
 

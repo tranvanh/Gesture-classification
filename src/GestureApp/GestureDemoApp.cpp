@@ -10,7 +10,7 @@
 
 
 #define MODEL_DIR "./LSTM_model"
-#define TIMESTEP 60
+#define TIMESTEP 90
 #define NUM_FEATURES 31
 
 
