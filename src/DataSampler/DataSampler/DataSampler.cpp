@@ -242,20 +242,12 @@ int main(int argc, char** argv) {
 			gestureRecorder.startDynamicRecording(DYNAMIC_TIMESTEP);
 			break;
 		}
-		case 'z':
-		{
-			std::string gestureType = "";
-			std::cin >> gestureType;
-			std::cout << "gestureType changed to [" << gestureType << "]" << std::endl;
-			gestureRecorder.reinitRecording(gestureType, 0);
-			break;
-		}
 		case 'x':
 		{
 			int index = 0;
 			std::string gestureType = "";
 			std::cin >> gestureType >> index;
-			std::cout << "reinit Recorder: file index[" << index << "] gesture type[" << gestureType << "]" << std::endl;
+			std::cout << "reinit Recorder: gesture type[" << gestureType << "] file index[" << index << "]" << std::endl;
 			gestureRecorder.reinitRecording(gestureType, index);
 			break;
 		}

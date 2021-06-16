@@ -10,16 +10,20 @@ void GestureLeap::processWindow() {
 	if (res < 0)
 		return;
 
-	if (res > 5)
+	if (res > 6)
 	{
 		switch (res)
 		{
 		case 7:
+			printf("predicted Gesture: %d RIGHT\n", res);
+			window.flush();
+			break;
+		case 8:
 			printf("predicted Gesture: %d LEFT\n", res);
 			window.flush();
 			break;
-		case 6:
-			printf("predicted Gesture: %d RIGHT\n", res);
+		case 9:
+			printf("predicted Gesture: %d EXPAND\n", res);
 			window.flush();
 			break;
 		default:
