@@ -18,18 +18,18 @@
     <ClCompile Include="DataSampler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataLeap\DataProcessing\dataNormalization.cpp">
+    <ClCompile Include="SampleLeap\DataProcessing\dataNormalization.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataLeap\Recorder.cpp">
+    <ClCompile Include="SampleLeap\GestureRecorder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DataLeap\DataProcessing\dataNormalizationr.h">
+    <ClInclude Include="SampleLeap\DataProcessing\dataNormalizationr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataLeap\Recorder.h">
+    <ClInclude Include="SampleLeap\GestureRecorder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

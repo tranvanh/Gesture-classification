@@ -3,7 +3,7 @@
 #include <vector>
 #include "MultiLeap.h"
 
-#include "DataLeap/Recorder.h"
+#include "SampleLeap/GestureRecorder.h"
 
 
 #define DYNAMIC_TIMESTEP 90
@@ -11,7 +11,7 @@
 #define TIMESTEP 60
 #define NUM_FEATURES 31
 #define COUNT 0
-#define GESTURE_TYPE "6"
+#define GESTURE_TYPE "1"
 
 /** Callback for when the connection opens. */
 static void OnConnect(void* context) {
@@ -77,8 +77,8 @@ int main(int argc, char** argv) {
 	std::cout << "Starting communication." << std::endl;
 
 
-	static Recorder recorder(TIMESTEP, NUM_FEATURES, COUNT, GESTURE_TYPE);
-	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* cxt) { recorder.OnFrame(frame, deviceId, cxt); };
+	static GestureRecorder gestureRecorder(TIMESTEP, NUM_FEATURES, COUNT, GESTURE_TYPE);
+	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* cxt) { gestureRecorder.OnFrame(frame, deviceId, cxt); };
 
 	if (!MultiLeap_InitCallbacksConnection(&OnConnect, &OnConnectionLost,
 		&OnDevice, &OnDeviceLost, &OnDeviceFailure, onFrame, &OnLogMessage, &OnSample, (void*)context)) {
@@ -219,25 +219,25 @@ int main(int argc, char** argv) {
 		case 'r':
 		{
 			std::cout << "start Recording" << std::endl;
-			recorder.startRecording();
+			gestureRecorder.startRecording();
 			break;
 		}
 		case 'p':
 		{
 			std::cout << "pause Recording" << std::endl;
-			recorder.pauseRecording();
+			gestureRecorder.pauseRecording();
 			break;
 		}
 		case 'o':
 		{
 			std::cout << "open Recording" << std::endl;
-			recorder.openRecording();
+			gestureRecorder.openRecording();
 			break;
 		}
 		case 'h':
 		{
 			std::cout << "start dynamic Recording" << std::endl;
-			recorder.startDynamicRecording(DYNAMIC_TIMESTEP);
+			gestureRecorder.startDynamicRecording(DYNAMIC_TIMESTEP);
 			break;
 		}
 		case 'x':
@@ -246,7 +246,7 @@ int main(int argc, char** argv) {
 			std::string gestureType = "";
 			std::cin >> index >> gestureType;
 			std::cout << "reinit Recorder: file index[" << index << "] gesture type[" << gestureType << "]" << std::endl;
-			recorder.reinitRecording(index, gestureType);
+			gestureRecorder.reinitRecording(index, gestureType);
 			break;
 		}
 		default:
