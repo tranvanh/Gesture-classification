@@ -36,7 +36,10 @@ private:
 	int num_feature;
 
 	/** Compute distance between two given points **/
-	double distancePoints(const LEAP_HAND &a, const LEAP_HAND &b);
+	double distancePoints(const LEAP_VECTOR& a, const LEAP_VECTOR& b);
+
+	/** Compute average sum distance between fingers from each representative intervals **/
+	double distanceFingerTips(const LEAP_HAND& a, const LEAP_HAND& b);
 
 	/** Calculate hand features **/
 	void calculate_features(std::vector<double>& output, const LEAP_HAND& hand);

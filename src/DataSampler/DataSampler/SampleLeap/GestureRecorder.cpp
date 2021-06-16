@@ -33,6 +33,14 @@ void GestureRecorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned d
 		return;
 	}
 
+
+	if (frame->nHands > 1) {
+		std::cout << "Multiple hands presented, sample is thrown away" << std::endl;
+		if (!continuous)
+			recording = false;
+		window.clear();
+	}
+
 	if (frame->nHands == 0) {
 		if (!window.empty())
 			processData(true);

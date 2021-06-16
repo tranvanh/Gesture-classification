@@ -93,12 +93,27 @@ void DataNormalization::calculate_features(std::vector<double>& output, const LE
 		internalAngle(middle, index)
 	};
 }
-double DataNormalization::distancePoints(const LEAP_HAND& a, const LEAP_HAND& b)
+
+double DataNormalization::distancePoints(const LEAP_VECTOR& a, const LEAP_VECTOR& b)
+{
+	double x = (double)b.x - a.x;
+	double y = (double)b.y - a.y;
+	double z = (double)b.z - a.z;
+	return sqrt(x * x + y * y + z * z) / 6;
+}
+
+double DataNormalization::distanceFingerTips(const LEAP_HAND& a, const LEAP_HAND& b)
 {
 	double x = (double)b.palm.position.x - a.palm.position.x;
 	double y = (double)b.palm.position.y - a.palm.position.y;
 	double z = (double)b.palm.position.z - a.palm.position.z;
-	return sqrt(x * x + y * y + z * z);
+
+	double sum = 0;
+
+	for (int i = 0; i < 5; ++i)
+		sum += distancePoints(a.digits[i].distal.next_joint, b.digits[i].distal.next_joint);
+	sum += distancePoints(a.palm.position, b.palm.position);
+	return sum;
 }
 void DataNormalization::calculate_palmDistance(const std::vector<LEAP_HAND>& input, std::vector<DISTANCE>& output)
 {
@@ -107,7 +122,7 @@ void DataNormalization::calculate_palmDistance(const std::vector<LEAP_HAND>& inp
 		output[i].id_left = i;
 		output[i].id_right = i + 1;
 
-		output[i].dist = distancePoints(input[i], input[i + 1]);
+		output[i].dist = distanceFingerTips(input[i], input[i + 1]);
 	}
 }
 
@@ -167,8 +182,8 @@ std::list<LEAP_HAND>  DataNormalization::selectSignificantFrames(const std::list
 			}
 			else
 			{
-				double dist_left = distancePoints(workingWindow[distances[i].id_left - 1], workingWindow[distances[i].id_left]);
-				double dist_right = distancePoints(workingWindow[distances[i].id_right], workingWindow[distances[i].id_right + 1]);
+				double dist_left = distanceFingerTips(workingWindow[distances[i].id_left - 1], workingWindow[distances[i].id_left]);
+				double dist_right = distanceFingerTips(workingWindow[distances[i].id_right], workingWindow[distances[i].id_right + 1]);
 				if (dist_left > dist_right)
 				{
 					saved.insert(distances[i].id_left);
