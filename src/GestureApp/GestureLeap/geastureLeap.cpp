@@ -22,10 +22,6 @@ void GestureLeap::processWindow() {
 			printf("predicted Gesture: %d LEFT\n", res);
 			window.flush();
 			break;
-		case 9:
-			printf("predicted Gesture: %d EXPAND\n", res);
-			window.flush();
-			break;
 		default:
 			break;
 		}
