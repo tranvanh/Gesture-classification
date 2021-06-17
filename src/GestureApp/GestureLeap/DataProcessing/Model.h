@@ -15,7 +15,7 @@ public:
 		}
 	};
 	/** Preform prediction **/
-	int predict(const std::vector<double> &input_data);
+	std::pair<int, double> predict(const std::vector<double> &input_data);
 	int getTimeStep() const { return this->num_timestep; }
 	int getNumFeatures() const { return this->num_features; }
 

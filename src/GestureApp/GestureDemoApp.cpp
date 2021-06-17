@@ -43,21 +43,6 @@ static void OnDeviceFailure(const LEAP_DEVICE_FAILURE_EVENT* deviceFailureEvent,
 	std::cout << "Failed device " << deviceFailureEvent->status << std::endl;
 }
 
-/** Callback for when a frame of tracking data is available. */
-static void OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* context) {
-	for (uint32_t h = 0; h < frame->nHands; h++) {
-		LEAP_HAND* hand = &frame->pHands[h];
-		printf("    Hand id %i from device %i is a %s hand with position (%f, %f, %f) with confidence %f and deviation %f.\n",
-			hand->id,
-			deviceId,
-			(hand->type == eLeapHandType_Left ? "left" : "right"),
-			hand->palm.position.x,
-			hand->palm.position.y,
-			hand->palm.position.z,
-			hand->confidence,
-			deviation);
-	}
-}
 
 /** Callback for when a sample loop is ran. */
 static void OnSample(const int deviceCount, const uint32_t* ids, const int* completion, void* context)
@@ -103,7 +88,7 @@ int main(int argc, char** argv) {
 	leapCallbacks.onDeviceFound = OnDevice;
 	leapCallbacks.onDeviceLost = OnDeviceLost;
 	leapCallbacks.onDeviceFailure = OnDeviceFailure;
-	leapCallbacks.onFrame = OnFrame;
+	leapCallbacks.onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* cxt) { gestureLeap.onFrame(frame, deviceId, deviation, cxt); };
 	leapCallbacks.onLogMessage = OnLogMessage;
 
 	MultiLeapCallbacks multileapCallbacks{};
@@ -275,6 +260,8 @@ int main(int argc, char** argv) {
 	std::cout << "Stopping communication." << std::endl;
 
 	gestureLeap.getSuccessRate();
+	gestureLeap.getInvalidAcc();
+
 	MultiLeap_Deinit();
 	delete context;
 	return 0;
