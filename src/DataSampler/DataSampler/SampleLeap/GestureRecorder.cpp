@@ -25,7 +25,7 @@ void GestureRecorder::reinitRecording(const std::string& gt, const int& i)
 }
 
 /** Callback for when a frame of tracking data is available. */
-void GestureRecorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* context) {
+void GestureRecorder::OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* context) {
 	if (!recording)
 	{
 		window.clear();

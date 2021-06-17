@@ -19,7 +19,7 @@ public:
 	GestureRecorder(const int& t, const int& f, const int &c, const std::string gt) : dataNormalization(t, f), timestep(t), timestepBackup(t), num_features(f),
 		count(c), gestureType(gt), recording(false), continuous(false), dynamicRecording(false) {}
 	/** Callback for when a frame of tracking data is available. */
-	void OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* context);
+	void OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* context);
 	
 	/** Single sample recording **/
 	void startRecording();

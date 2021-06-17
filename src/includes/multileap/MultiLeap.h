@@ -9,57 +9,33 @@
 
 #include "MultiLeapDataTypes.h"
 #include "MultiLeapCallbacks.h"
+#include "MultiLeapMessage.h"
 
 /// <summary>
 /// Initialize the library and register all Leap Motion callbacks.
 /// This version of init will start a thread that polls the Leap Motion Service and handles the callbacks invocation.
 /// </summary>
-/// <param name="onConnection">Leap Motion callback called on successful connection.</param>
-/// <param name="onConnectionLost">Leap Motion callback called on connection lost.</param>
-/// <param name="onDevice">Leap Motion callback called on device connection.</param>
-/// <param name="onDeviceLost">Leap Motion callback called on device lost.</param>
-/// <param name="onDeviceFailure">Leap Motion callback called on device failure.</param>
-/// <param name="onFrame">Leap Motion callback called on frame.</param>
-/// <param name="onLogMessage">Leap Motion callback called on sent log message.</param>
-/// <param name="onSample">MultiLeap callback called when calibration sample loop is ran.</param>
+/// <param name="leapCallbacks">Struct of Leap Motion callbacks.</param>
+/// <param name="multileapCallbacks">Struct of MultiLeap callbacks.</param>
 /// <param name="context">Context of the connection (can be null).</param>
 /// <returns>True if initializon was successful, false otherwise.</returns>
-MULTILEAP_API bool MultiLeap_InitCallbacksConnection(connection_callback onConnection, connection_callback onConnectionLost,
-	device_callback onDevice, device_lost_callback onDeviceLost, device_failure_callback onDeviceFailure,
-	tracking_callback onFrame, log_callback onLogMessage, calibration_sample_callback onSample, void* context);
+MULTILEAP_API bool MultiLeap_InitCallbacksConnection(LeapCallbacks leapCallbacks, MultiLeapCallbacks multileapCallbacks,
+	void* context);
 
 /// <summary>
 /// Initialize the library.
 /// This version does not start the underlying thread and the polling should be handled by the client
 /// via the PollLeapMotionMessages function.
 /// </summary>
-/// <param name="onSample">MultiLeap callback called on calibration sampling thread run.</param>
-/// <param name="context">Context of the connection (can be null).</param>
 /// <returns>True if initializon was successful, false otherwise.</returns>
-MULTILEAP_API bool MultiLeap_InitPollingConnection(calibration_sample_callback onSample, void* context);
+MULTILEAP_API bool MultiLeap_InitPollingConnection();
 
 /// <summary>
 /// Set the library callbacks.
 /// </summary>
-/// <param name="onConnection">Leap Motion callback called on successful connection.</param>
-/// <param name="onConnectionLost">Leap Motion callback called on connection lost.</param>
-/// <param name="onDevice">Leap Motion callback called on device connection.</param>
-/// <param name="onDeviceLost">Leap Motion callback called on device lost.</param>
-/// <param name="onDeviceFailure">Leap Motion callback called on device failure.</param>
-/// <param name="onFrame">Leap Motion callback called on frame.</param>
-/// <param name="onLogMessage">Leap Motion callback called on sent log message.</param>
-/// <param name="onSample">MultiLeap callback called on calibration sampling thread run.</param>
-/// <param name="onPolicy">Leap Motion callback called on device policy.</param>
-/// <param name="onConfigChange">Leap Motion callback called on config change.</param>
-/// <param name="onConfigResponse">Leap Motion callback called on config change response.</param>
-/// <param name="onImage">Leap Motion callback called on sent image.</param>
-/// <param name="onPointMapping">Leap Motion callback called on point mapping change.</param>
-MULTILEAP_API void MultiLeap_SetCallbacks(connection_callback onConnection, connection_callback onConnectionLost,
-	device_callback onDevice, device_lost_callback onDeviceLost, device_failure_callback onDeviceFailure,
-	tracking_callback onFrame, log_callback onLogMessage, calibration_sample_callback onSample,
-	policy_callback onPolicy = nullptr, config_change_callback onConfigChange = nullptr,
-	config_response_callback onConfigResponse = nullptr, image_callback onImage = nullptr,
-	point_mapping_change_callback onPointMapping = nullptr);
+/// <param name="leapCallbacks">Struct of Leap Motion callbacks.</param>
+/// <param name="multileapCallbacks">Struct of MultiLeap callbacks.</param>
+MULTILEAP_API void MultiLeap_SetCallbacks(LeapCallbacks leapCallbacks, MultiLeapCallbacks multileapCallbacks);
 
 /// <summary>
 /// Close the connection and free all resources.
@@ -69,22 +45,22 @@ MULTILEAP_API void MultiLeap_Deinit();
 /// <summary>
 /// Poll for a message from the Leap Motion Service. 
 /// </summary>
-/// <param name="message">The Leap Message struct to be filled.</param>
+/// <param name="message">The MultiLeap Message struct to be filled.</param>
 /// <param name="timeout">Timeout of the poll in milliseconds.</param>
 /// <returns>Result of the internal poll.</returns>
-MULTILEAP_API	eLeapRS MultiLeap_PollLeapMotionMessages(LEAP_CONNECTION_MESSAGE* message, unsigned int timeout);
+MULTILEAP_API	eLeapRS MultiLeap_PollLeapMotionMessages(MultiLeap_Message* message, unsigned int timeout);
 
 /// <summary>
 /// Calibrate the connected devices.
 /// </summary>
-/// <param name="sampleCount">The number of calibration samples to be taken.</param> 
-MULTILEAP_API void MultiLeap_CalibrateDevices(const int sampleCount);
+/// <param name="samplesCount">Count of samples to be taken.</param>
+MULTILEAP_API void MultiLeap_CalibrateDevices(const int samplesCount = 100);
 
 /// <summary>
-/// Set the merge status the corresponding hands from the devices.
+/// Set the merge mode for the system.
 /// </summary>
-/// <param name="merge">If the hands should be merged or not.</param>
-MULTILEAP_API void MultiLeap_MergeHands(const bool merge);
+/// <param name="merge">The merge mode.</param>
+MULTILEAP_API void MultiLeap_MergeHands(const MergeMode mode);
 
 /// <summary>
 /// Set the device status.
@@ -120,7 +96,6 @@ MULTILEAP_API bool MultiLeap_GetDeviceTransformation(const unsigned id, char* re
 /// <param name="rotation">Quaternion representing the rotation of the device.</param>
 /// <returns>True on success, false otherwise (e.g. a device with provided id does not exist).</returns>
 MULTILEAP_API bool MultiLeap_SetDeviceTransformationRaw(const unsigned id, MultiLeap_Vector3f position, MultiLeap_Quaternionf rotation);
-
 
 /// <summary>
 /// Get the device's translation, rotation.
@@ -183,23 +158,70 @@ MULTILEAP_API const LEAP_TRACKING_EVENT* MultiLeap_GetInterpolatedFrameFromTime(
 MULTILEAP_API const uint64_t MultiLeap_GetLeapNow();
 
 /// <summary>
-/// Get the ID of the reference device.
+/// Set Leap Policy flags.
 /// </summary>
-/// <returns>The ID.</returns>
-MULTILEAP_API const uint32_t MultiLeap_GetPivotId();
+/// <param name="set">The flags to set.</param>
+/// <param name="clear">If previous flags should be cleared.</param>
+/// <returns>Result of the call.</returns>
+MULTILEAP_API eLeapRS MultiLeap_SetLeapPolicyFlags(uint64_t set, uint64_t clear);
 
 /// <summary>
-/// Set the ID of the reference device.
+/// Set Leap Policy flags for specific device. NOT IMPLEMENTED YET.
 /// </summary>
 /// <param name="id">The ID of the device.</param>
+/// <param name="set">The flags to set.</param>
+/// <param name="clear">If previous flags should be cleared.</param>
+/// <returns>Result of the call.</returns>
+//MULTILEAP_API eLeapRS MultiLeap_SetLeapDevicePolicyFlags(const unsigned id, uint64_t set, uint64_t clear);
+
+/// <summary>
+/// If the device is calibrated.
+/// </summary>
+/// <param name="id">ID of the device.</param>
+/// <returns>True if device transformation is persistent, false otherwise.</returns>
+MULTILEAP_API bool MultiLeap_IsDeviceCalibrated(const uint32_t id);
+
+/// <summary>
+/// Mark if the device is calibrated.
+/// </summary>
+/// <param name="id">ID of the device.</param>
+/// <param name="calibrated">True if device is calibrated, false otherwise.</param>
 /// <returns>False when ID does not exist or when ID of virtual device was provided, true otherwise.</returns>
-MULTILEAP_API bool MultiLeap_SetPivotId(const uint32_t id);
+MULTILEAP_API bool MultiLeap_SetDeviceCalibrated(const uint32_t id, bool calibrated);
+
+/// <summary>
+/// Check if the calibration is currently running.
+/// </summary>
+/// <returns>True if the calibration is running, false otherwise.</returns>
+MULTILEAP_API bool MultiLeap_IsCalibrationRunning();
+
+/// <summary>
+/// Stop the calibration. If it is not running, it does nothing.
+/// </summary>
+MULTILEAP_API void MultiLeap_StopCalibration();
+
+/// <summary>
+/// Resets calibration status for all devices.
+/// </summary>
+MULTILEAP_API void MultiLeap_ResetCalibration();
 
 /// <summary>
 /// Get the ID of the virtual device.
 /// </summary>
 /// <returns>The ID.</returns>
 MULTILEAP_API const uint32_t MultiLeap_GetVirtualDeviceId();
+
+/// <summary>
+/// Saves transformations for all connected devices.
+/// </summary>
+/// <returns>True if the safe was successfull, false otherwise.</returns>
+MULTILEAP_API bool MultiLeap_SaveConfiguration();
+
+/// <summary>
+/// Loads transformations for all connected devices.
+/// </summary>
+/// <returns>True if the safe was successfull, false otherwise.</returns>
+MULTILEAP_API bool MultiLeap_LoadConfiguration();
 
 MULTILEAP_API int MultiLeap_Test();
 MULTILEAP_API int MultiLeap_TestAdd(int a, int b);

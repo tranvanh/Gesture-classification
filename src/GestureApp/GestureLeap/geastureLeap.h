@@ -16,7 +16,7 @@ public:
 	GestureLeap(const std::string& model_dir, const int &t, const int &f) :
 		window(t), gesturePrediction(model_dir, t, f), num_predictions(0){}
 	/** Callback for when a frame of tracking data is available. */
-	void onFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* context);
+	void onFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* context);
 	/** Conclude success rate of prediction */
 	void getSuccessRate() const;
 private:

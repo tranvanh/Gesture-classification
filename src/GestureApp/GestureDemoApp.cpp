@@ -12,7 +12,9 @@
 #define MODEL_DIR "./LSTM_model"
 #define TIMESTEP 90
 #define NUM_FEATURES 31
-
+constexpr unsigned int hash(const char* s, int off = 0) {
+	return !s[off] ? 5381 : (hash(s, off + 1) * 33) ^ s[off];
+}
 
 /** Callback for when the connection opens. */
 static void OnConnect(void* context) {
@@ -41,6 +43,21 @@ static void OnDeviceFailure(const LEAP_DEVICE_FAILURE_EVENT* deviceFailureEvent,
 	std::cout << "Failed device " << deviceFailureEvent->status << std::endl;
 }
 
+/** Callback for when a frame of tracking data is available. */
+static void OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* context) {
+	for (uint32_t h = 0; h < frame->nHands; h++) {
+		LEAP_HAND* hand = &frame->pHands[h];
+		printf("    Hand id %i from device %i is a %s hand with position (%f, %f, %f) with confidence %f and deviation %f.\n",
+			hand->id,
+			deviceId,
+			(hand->type == eLeapHandType_Left ? "left" : "right"),
+			hand->palm.position.x,
+			hand->palm.position.y,
+			hand->palm.position.z,
+			hand->confidence,
+			deviation);
+	}
+}
 
 /** Callback for when a sample loop is ran. */
 static void OnSample(const int deviceCount, const uint32_t* ids, const int* completion, void* context)
@@ -71,6 +88,7 @@ static void OnLogMessage(const eLeapLogSeverity severity, const int64_t timestam
 	printf("[%s][%lli] %s\n", severity_str, (long long int)timestamp, message);
 }
 
+
 int main(int argc, char** argv) {
 	int* context = new int(256);
 
@@ -78,33 +96,47 @@ int main(int argc, char** argv) {
 
 
 	static GestureLeap gestureLeap(MODEL_DIR, TIMESTEP, NUM_FEATURES);
-	tracking_callback onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* cxt) { gestureLeap.onFrame(frame, deviceId, cxt); };
 
-	if (!MultiLeap_InitCallbacksConnection(&OnConnect, &OnConnectionLost,
-		&OnDevice, &OnDeviceLost, &OnDeviceFailure, onFrame, &OnLogMessage, &OnSample, (void*)context)) {
+	LeapCallbacks leapCallbacks{};
+	leapCallbacks.onConnection = OnConnect;
+	leapCallbacks.onConnectionLost = OnConnectionLost;
+	leapCallbacks.onDeviceFound = OnDevice;
+	leapCallbacks.onDeviceLost = OnDeviceLost;
+	leapCallbacks.onDeviceFailure = OnDeviceFailure;
+	leapCallbacks.onFrame = OnFrame;
+	leapCallbacks.onLogMessage = OnLogMessage;
+
+	MultiLeapCallbacks multileapCallbacks{};
+	multileapCallbacks.onCalibrationSample = OnSample;
+
+	if (!MultiLeap_InitCallbacksConnection(leapCallbacks, multileapCallbacks, (void*)context)) {
 		std::cout << "Failed to init MultiLeap." << std::endl;
 		return 0;
 	}
-	char c = '\n';
-	bool merge = true;
+	std::string command = "\n";
 	bool deviceEnabled = true;
 	do {
-		std::cin >> c;
+		std::cin >> command;
 
-		switch (c)
+		switch (hash(command.c_str()))
 		{
-		case 'a':
-			MultiLeap_CalibrateDevices(2500);
+		case hash("calibrate"):
+			MultiLeap_CalibrateDevices();
 			break;
-		case 'm':
-			merge = !merge;
-			MultiLeap_MergeHands(merge);
+		case hash("merge"):
+			MultiLeap_MergeHands(MergeMode::COMBINATION);
 			break;
-		case 'd':
+		case hash("best"):
+			MultiLeap_MergeHands(MergeMode::BEST);
+			break;
+		case hash("stopMerge"):
+			MultiLeap_MergeHands(MergeMode::NONE);
+			break;
+		case hash("disable"):
 			deviceEnabled = !deviceEnabled;
-			MultiLeap_SetDeviceStatus(1, deviceEnabled);
+			MultiLeap_SetDeviceStatus(1, false);
 			break;
-		case 'g':
+		case hash("getTransformation"):
 		{
 			size_t size = 0;
 			MultiLeap_GetDeviceTransformation(1, nullptr, size);
@@ -114,18 +146,18 @@ int main(int argc, char** argv) {
 			delete[] result;
 			break;
 		}
-		case 's':
+		case hash("setTransformation"):
 		{
 			MultiLeap_SetDeviceTransformation(1, "{\"rotation\":{\"w\":1.0,\"x\":1.0,\"y\":0.0,\"z\":0.0},\"scale\":{\"x\":1.0,\"y\":1.0,\"z\":1.0},\"translation\":{\"x\":1.0,\"y\":1.0,\"z\":1.0}}");
 			break;
 		}
-		case 'u':
+		case hash("rawTransform"):
 		{
 			MultiLeap_Vector3f* position = new MultiLeap_Vector3f();
 			MultiLeap_Quaternionf* rotation = new MultiLeap_Quaternionf();
 			MultiLeap_GetDeviceTransformationRaw(1, position, rotation);
 
-			std::cout << "Pivot is:" << std::endl
+			std::cout << "Pivot has:" << std::endl
 				<< "position: " << position->x << ", " << position->y << ", " << position->z << std::endl
 				<< "rotation: " << rotation->x << ", " << rotation->y << ", " << rotation->z << ", " << rotation->w << "." << std::endl;
 
@@ -134,7 +166,7 @@ int main(int argc, char** argv) {
 
 			MultiLeap_GetDeviceTransformationRaw(1, position, rotation);
 
-			std::cout << "Pivot is:" << std::endl
+			std::cout << "Pivot has:" << std::endl
 				<< "position: " << position->x << ", " << position->y << ", " << position->z << std::endl
 				<< "rotation: " << rotation->x << ", " << rotation->y << ", " << rotation->z << ", " << rotation->w << "." << std::endl;
 
@@ -142,7 +174,7 @@ int main(int argc, char** argv) {
 			delete rotation;
 			break;
 		}
-		case 'i':
+		case hash("getDevices"):
 		{
 			size_t count = 0;
 			MultiLeap_GetDevices(nullptr, nullptr, count);
@@ -166,7 +198,7 @@ int main(int argc, char** argv) {
 			delete[] ids;
 			break;
 		}
-		case 'j':
+		case hash("getDevice"):
 		{
 			LEAP_DEVICE_INFO* info = new LEAP_DEVICE_INFO;
 			unsigned id = 1;
@@ -177,17 +209,12 @@ int main(int argc, char** argv) {
 			delete info;
 			break;
 		}
-		case 't':
+		case hash("interpolateSize"):
 		{
 			std::cout << MultiLeap_GetInterpolatedFrameSize(1, MultiLeap_GetLeapNow()) << std::endl;
 			break;
 		}
-		case 'v':
-		{
-			std::cout << "ID of the virtual device is " << MultiLeap_GetVirtualDeviceId() << "." << std::endl;
-			break;
-		}
-		case 'f':
+		case hash("interpolate"):
 		{
 			const LEAP_TRACKING_EVENT* frame = MultiLeap_GetInterpolatedFrame(1, MultiLeap_GetLeapNow());
 			if (frame) {
@@ -196,34 +223,58 @@ int main(int argc, char** argv) {
 			}
 			break;
 		}
-		case 'k':
+		case hash("virtual"):
 		{
-			std::cout << "Setting reference device to 8." << std::endl;
-			if (!MultiLeap_SetPivotId(8)) {
-				std::cout << "Setting reference device to 8 failed." << std::endl;
+			std::cout << "ID of the virtual device is " << MultiLeap_GetVirtualDeviceId() << "." << std::endl;
+			break;
+		}
+		case hash("stopCalibration"):
+		{
+			if (!MultiLeap_IsCalibrationRunning()) {
+				std::cout << "Calibration is not running." << std::endl;
+				break;
 			}
+			MultiLeap_StopCalibration();
+			std::cout << "Calibration stopped." << std::endl;
+			break;
+		}
+		case hash("isCalibrated"):
+		{
+			std::cout << "The device with ID 2 is " << (MultiLeap_IsDeviceCalibrated(2) ? "" : "not ") << "calibrated." << std::endl;
+			break;
+		}
+		case hash("setCalibrated"):
+		{
+			std::cout << "Setting calibrated for device with ID 2." << std::endl;
+			MultiLeap_SetDeviceCalibrated(2, false);
+			break;
+		}
+		case hash("policy"):
+		{
+			std::cout << "Setting Leap Policy to eLeapPolicyFlag_OptimizeHMD." << std::endl;
+			std::cout << MultiLeap_SetLeapPolicyFlags(eLeapPolicyFlag_OptimizeHMD, 0) << std::endl;
+			break;
+		}
+		case hash("save"):
+		{
 
-			std::cout << "Setting reference device to 42." << std::endl;
-			if (!MultiLeap_SetPivotId(42)) {
-				std::cout << "Setting reference device to 42 failed." << std::endl;
-			}
+			std::cout << MultiLeap_SaveConfiguration() << std::endl;
+			break;
+		}
+		case hash("load"):
+		{
 
-			std::cout << "Setting reference device to 2." << std::endl;
-			if (MultiLeap_SetPivotId(2)) {
-				std::cout << "Setting reference device to 2 succeeded." << std::endl;
-			}
-			std::cout << "Current reference device is " << MultiLeap_GetPivotId() << "." << std::endl;
-
+			std::cout << MultiLeap_LoadConfiguration() << std::endl;
 			break;
 		}
 		default:
 			break;
 		}
-	} while (c != 'c');
+	} while (hash("close") != hash(command.c_str()));
 
 	std::cout << "Stopping communication." << std::endl;
-	gestureLeap.getSuccessRate();
 
+	gestureLeap.getSuccessRate();
 	MultiLeap_Deinit();
 	delete context;
 	return 0;

@@ -31,7 +31,7 @@ void GestureLeap::processWindow() {
 		printf("predicted Gesture: %d\n", res);
 }
 
-void GestureLeap::onFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, void* context) {
+void GestureLeap::onFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* context) {
 	if (frame->nHands == 0) {
 		if (!window.isEmpty())
 			processWindow();
