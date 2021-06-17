@@ -35,6 +35,7 @@ private:
 	   -251.495 , -643.156 ,    0.    , -243.005 , -675.481 ,    0.    ,
 	   -220.466 , -607.075 ,    0.    , -158.459 ,    0.    ,    0.    ,
 		  0. };
+
 	/** Perform MinMax scaling **/
 	double min_max_scaler(const double& input, const int& k);
 
