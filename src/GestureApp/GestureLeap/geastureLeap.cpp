@@ -32,6 +32,7 @@ void GestureLeap::processWindow() {
 
 	else
 		printf("predicted Gesture: %d [%.3f]\n", res.first, res.second);
+
 }
 
 void GestureLeap::onFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* context) {
@@ -46,7 +47,11 @@ void GestureLeap::onFrame(const LEAP_TRACKING_EVENT* frame, const unsigned devic
 
 	window.AddFrame(hand);
 	if (window.isFull())
+	{
 		processWindow();
+		window.slide();
+	}
+
 }
 
 void GestureLeap::getSuccessRate() const {
@@ -54,7 +59,7 @@ void GestureLeap::getSuccessRate() const {
 	std::cout << "Number of predictions: "  << num_predictions << std::endl;
 	for (const auto& v : prediction_map)
 	{
-		std::cout << std::setprecision(3) << "[" << v.first << "] = " << (double)v.second / num_predictions << "%" << std::endl;
+		std::cout << std::setprecision(3) << "[" << v.first << "] = " << (double)v.second / num_predictions << std::endl;
 	}
 }
 

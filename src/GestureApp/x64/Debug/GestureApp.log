@@ -1,4 +1,4 @@
-﻿  Model.cpp
+﻿  GeastureLeap.cpp
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\includes\tensorflow2\tensorflow\c\c_api.h(953,68): warning C4190: 'TF_NewWhile' has C-linkage specified, but returns UDT 'TF_WhileParams' which is incompatible with C
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\includes\tensorflow2\tensorflow\c\c_api.h(909): message : see declaration of 'TF_WhileParams'
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\includes\cppflow\tensor.h(133,83): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data

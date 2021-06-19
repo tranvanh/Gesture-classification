@@ -10,6 +10,15 @@ void SlidingWindow::AddFrame(const LEAP_HAND& frame) {
 		this->window.push_back(frame);
 }
 
+void SlidingWindow::slide() {
+	for (int i = 0; i < rate; ++i)
+	{
+		if (!window.size())
+			return;
+		this->window.pop_front();
+	}
+}
+
 void SlidingWindow::flush() { window.clear(); }
 
 bool SlidingWindow::isFull() { return window.size() == num_timeStep; }

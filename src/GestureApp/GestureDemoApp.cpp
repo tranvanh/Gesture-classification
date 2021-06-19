@@ -12,6 +12,8 @@
 #define MODEL_DIR "./LSTM_model"
 #define TIMESTEP 60
 #define NUM_FEATURES 31
+#define RATE 10
+
 constexpr unsigned int hash(const char* s, int off = 0) {
 	return !s[off] ? 5381 : (hash(s, off + 1) * 33) ^ s[off];
 }
@@ -80,7 +82,7 @@ int main(int argc, char** argv) {
 	std::cout << "Starting communication." << std::endl;
 
 
-	static GestureLeap gestureLeap(MODEL_DIR, TIMESTEP, NUM_FEATURES);
+	static GestureLeap gestureLeap(MODEL_DIR, TIMESTEP, NUM_FEATURES, RATE);
 
 	LeapCallbacks leapCallbacks{};
 	leapCallbacks.onConnection = OnConnect;
