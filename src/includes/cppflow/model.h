@@ -164,7 +164,7 @@ namespace cppflow {
     }
 
     inline tensor model::operator()(const tensor& input) {
-        return (*this)({{"serving_default_bidirectional_input", input}}, {"StatefulPartitionedCall"})[0];
+        return (*this)({{"serving_default_bidirectional_4_input", input}}, {"StatefulPartitionedCall"})[0];
     }
 }
 

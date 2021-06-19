@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
 	leapCallbacks.onDeviceFound = OnDevice;
 	leapCallbacks.onDeviceLost = OnDeviceLost;
 	leapCallbacks.onDeviceFailure = OnDeviceFailure;
-	leapCallbacks.onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* cxt) { gestureRecorder.onFrame(frame, deviceId, deviation, cxt); };;
+	leapCallbacks.onFrame = [](const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* cxt) { gestureRecorder.OnFrame(frame, deviceId, deviation, cxt); };;
 	leapCallbacks.onLogMessage = OnLogMessage;
 
 	MultiLeapCallbacks multileapCallbacks{};
@@ -116,19 +116,19 @@ int main(int argc, char** argv) {
 			gestureRecorder.pauseRecording();
 			break;
 		}
-		case hash("record --open"):
+		case hash("record--open"):
 		{
 			std::cout << "open Recording" << std::endl;
 			gestureRecorder.openRecording();
 			break;
 		}
-		case hash("record --dynamic"):
+		case hash("record--dynamic"):
 		{
 			std::cout << "start dynamic Recording" << std::endl;
 			gestureRecorder.startDynamicRecording(DYNAMIC_TIMESTEP);
 			break;
 		}
-		case 'x':
+		case hash("reinit"):
 		{
 			int index = 0;
 			std::string gestureType = "";
