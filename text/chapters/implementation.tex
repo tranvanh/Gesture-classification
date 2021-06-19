@@ -59,9 +59,9 @@ The recording is initiated by key command, but the data collection does not star
     
     The method is recommended for sampling dynamic gestures. We attempt to capture the most important part of a dynamic gesture, its movement. If the sampling is met with more delicate dynamic gestures performed only by fingers, it won't be able to underline the motion.
 
-    The most challenging part of creating a dataset is when we do the sampling itself. We want to keep in mind the variety of samples, meaning angles, positions and additionaly when it comes to dynamic gestures, various speeds and starting positions. Also the factor of overlapping characteristics gestures must be taken into considiration. For example an open hand and open handed swipe right may share some similar sequence of frames.
+    The most challenging part of creating a dataset is when we do the sampling itself. We want to keep in mind the variety of samples, meaning angles, positions and additionaly when it comes to dynamic gestures, various speeds and starting positions. Also, the factor of overlapping characteristics of gestures must be taken into considiration. For example an open hand and open handed swipe right may share some similar sequence of frames. Despite introducing sampling specifically for dynamic gestures, it can still be difficult to create a diverse enough dataset, which still holding key properties of the gesture and will enforce the model to learn on its characteristics.
 
-    Despite introducing sampling specifically for dynamic gestures, it can still be difficult to create a dataset, which will enforce the model to learn on characteristic movemnts. At the end, the trained model is just as good as the dataset it was trained on.
+    For our purposes we created a dataset, which consists of 7 static gestures (fist, 1-pointing, 2-peace sign, 3, 4, 5-open fist, pinch) and 2 dynamic gestures(swipe left, swipe right), each of average 370 samples performed by both hands. 
 
 \end{enumerate}
 
@@ -85,9 +85,9 @@ At first, we followed the proposed architecture of 4 layers stacked LSTM by Avol
 
 Benchmarking the model on ASL Dataset resulted in similar accuracies as in \cite{avola}. Our handicrafted dataset had also achieved high results.
 
-Despite achieving high accuracies on all datasets, the model itself did not perform well in a real-time environment. More specifically, the 4 layered LSTM architecture struggled with dynamic gestures. The model did not learn the gesture in relation to the movement but rather on its most occurring position in the recorded sequence, which in the case of swipe right was the palm's final position. The model successfully classified test samples because all gestures swipe right contained some frames where the palm position was on the right. Once we presented the model in a real-time environment with an open palm on the right, without the swipe movement, it classifies such gesture as swipe right, which is an undesired behavior. 
+Despite achieving high accuracies on ASL dataset and our original dataset, the model itself did not perform well in a real-time environment. More specifically, the 4 layered LSTM architecture struggled with dynamic gestures. The model did not learn the gesture in relation to the movement but rather on its most occurring position in the recorded sequence, which in the case of swipe right was the palm's final position. The model successfully classified test samples because all gestures swipe right contained some frames where the palm position was on the right. Once we presented the model in a real-time environment with an open palm on the right, without the swipe movement, it classifies such gesture as swipe right, which is an undesired behavior. 
 
-It is unclear whether the model would perform better with more stacked LSTM layers or not, but we concluded that the architecture was not suitable for our purposes. 
+It is unclear whether the model would perform better with more stacked LSTM layers or not. Other possibility would be insufficent dataset, but we were able to utilize the same dataset on different architecture in real-time environment. Hence we concluded that the DLSTM architecture was not suitable for our purposes.
 
 \subsection{Two-Layered Bidirectional LSTM architecture}
 

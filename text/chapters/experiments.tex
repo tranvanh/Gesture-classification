@@ -1,5 +1,7 @@
-As mentioned in \nameref{ch:introduction} chapter, we would want to evaluate the recognition performance based on a number of connected LMC sensors. We mainly focused on the overall placement of sensors and their field of view., having a single connected sensor as a reference field of view and exploring its expansion using different layouts with a different number of connected sensors. 
+As mentioned in \nameref{ch:introduction} chapter, we would want to evaluate the recognition performance based on a number of connected LMC sensors. We mainly focused on the overall placement of sensors and their field of view, having a single connected sensor as a reference field of view and exploring its expansion using different layouts with a different number of connected sensors. 
 
-We used the demo application and trained model as described in section \ref{real_time_recognition} section. The model was trained on original dataset using sampling process from section \ref{handicrafted_dataset}. The dataset consists of 7 static gestures (fist, 1-pointing, 2-peace sign, 3, 4, 5-open fist, pinch) and 2 dynamic gestures(swipe left, swipe right). Each gesture consists of average 370 samples.
+We used the demo application and trained model as described in section \ref{real_time_recognition}. The model was trained on our original dataset from section \ref{handicrafted_dataset}. 
 
 \subsection{Testing Method}
+
+For each gesture we performed 1000 classifications. We did not exclude classifications with corrupt sequences such as randomly floating hand without any hand presented or when the LMC sensor did not get a correct
