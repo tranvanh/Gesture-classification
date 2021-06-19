@@ -108,9 +108,13 @@ int main(int argc, char** argv) {
 		switch (hash(command.c_str()))
 		{
 		case hash("calibrate"):
+		{
+			gestureLeap.stop();
 			MultiLeap_CalibrateDevices();
 			break;
+		}
 		case hash("merge"):
+			gestureLeap.listen();
 			MultiLeap_MergeHands(MergeMode::COMBINATION);
 			break;
 		case hash("best"):
@@ -176,7 +180,7 @@ int main(int argc, char** argv) {
 				}
 				if (MultiLeap_GetDevices(info, ids, count)) {
 					for (size_t i = 0; i < count; i++) {
-						std::cout << "Device with id " << ids[i] << " has serial number " << info[i].serial << "." << std::endl;
+						std::cout << "Device with id " << ids[i] << " has serial number " << info[i].serial << "." << " status [" << info[i].status << "]"<< std::endl;
 						delete[] info[i].serial;
 					}
 				}
@@ -223,6 +227,7 @@ int main(int argc, char** argv) {
 			}
 			MultiLeap_StopCalibration();
 			std::cout << "Calibration stopped." << std::endl;
+			gestureLeap.listen();
 			break;
 		}
 		case hash("isCalibrated"):
@@ -254,10 +259,18 @@ int main(int argc, char** argv) {
 			std::cout << MultiLeap_LoadConfiguration() << std::endl;
 			break;
 		}
+		case hash("reinit"):
+		{
+			gestureLeap.getSuccessRate();
+			gestureLeap.getInvalidAcc();
+			gestureLeap.reinit();
+			std::cout << "DEMO APP REINIT" << std::endl;
+			break;
+		}
 		default:
 			break;
 		}
-	} while (hash("close") != hash(command.c_str()));
+	} while(hash("close") != hash(command.c_str()));
 
 	std::cout << "Stopping communication." << std::endl;
 

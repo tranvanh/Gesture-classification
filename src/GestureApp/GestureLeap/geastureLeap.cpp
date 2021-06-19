@@ -3,8 +3,9 @@
 
 void GestureLeap::processWindow() {
 	std::pair<int, double> res = gesturePrediction.predict(window.getWindow());
-
+	
 	++num_predictions;
+
 	++prediction_map[res.first];
 
 	if (res.first < 0)
@@ -18,11 +19,11 @@ void GestureLeap::processWindow() {
 		switch (res.first)
 		{
 		case 7:
-			printf("predicted Gesture: %d RIGHT [%.3f]\n", res.first, res.second);
+			printf("predicted Gesture: %d RIGHT [%.3f] <%lld> \n", res.first, res.second, num_predictions);
 			window.flush();
 			break;
 		case 8:
-			printf("predicted Gesture: %d LEFT [%.3f]\n", res.first, res.second);
+			printf("predicted Gesture: %d LEFT [%.3f] <%lld> \n", res.first, res.second, num_predictions);
 			window.flush();
 			break;
 		default:
@@ -31,14 +32,23 @@ void GestureLeap::processWindow() {
 	}
 
 	else
-		printf("predicted Gesture: %d [%.3f]\n", res.first, res.second);
+		printf("predicted Gesture: %d [%.3f] <%lld>\n", res.first, res.second, num_predictions);
 
 }
 
 void GestureLeap::onFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* context) {
-	if (frame->nHands == 0) {
+	if (!listen_bool)
+		return;
+
+	if (frame->nHands == 0 || frame->nHands > 1) {
 		if (!window.isEmpty())
 			processWindow();
+		window.flush();
+		return;
+	}
+
+	if (num_predictions > PREDICTION_LIMIT){
+		std::cout << "STOP LIMIT REACHED" << std::endl;
 		window.flush();
 		return;
 	}
