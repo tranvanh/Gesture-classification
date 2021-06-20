@@ -57,9 +57,9 @@ The recording is initiated by key command, but the data collection does not star
         \item $x_{t} \in \Theta \land x_{t+1} \notin \Theta$, frame $x_{t+1}$ is picked
     \end{itemize}
     
-    The method is recommended for sampling dynamic gestures. We attempt to capture the most important part of a dynamic gesture, its movement. If the sampling is met with more delicate dynamic gestures performed only by fingers, it won't be able to underline the motion.
+    The method is recommended for sampling dynamic gestures. We attempt to capture the most important part of a dynamic gesture, its movement. 
 
-    The most challenging part of creating a dataset is when we do the sampling itself. We want to keep in mind the variety of samples, meaning angles, positions and additionaly when it comes to dynamic gestures, various speeds and starting positions. Also, the factor of overlapping characteristics of gestures must be taken into considiration. For example an open hand and open handed swipe right may share some similar sequence of frames. Despite introducing sampling specifically for dynamic gestures, it can still be difficult to create a diverse enough dataset, which still holding key properties of the gesture and will enforce the model to learn on its characteristics.
+    The most challenging part of creating a dataset is when we do the sampling itself. We want to keep in mind the variety of samples, meaning angles, positions and additionaly when it comes to dynamic gestures, various speeds and starting positions. Also, the factor of overlapping characteristics of gestures must be taken into considiration. For example an open hand and open handed swipe right may share some similar sequence of frames. Despite introducing sampling specifically for dynamic gestures, it can still be difficult to create a diverse enough dataset, which still holds key properties of the gesture and will enforce the model to learn on its characteristics.
 
     For our purposes we created a dataset, which consists of 7 static gestures (fist, 1-pointing, 2-peace sign, 3, 4, 5-open fist, pinch) and 2 dynamic gestures(swipe left, swipe right), each of average 370 samples performed by both hands. 
 

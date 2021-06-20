@@ -1,2 +1,5 @@
 ﻿  DataSampler.cpp
+  GestureRecorder.cpp
+C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\DataSampler\DataSampler\SampleLeap\GestureRecorder.cpp(67,75): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
+  Generating Code...
   DataSampler.vcxproj -> C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\x64\Debug\DataSampler.exe

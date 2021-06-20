@@ -10,6 +10,7 @@ void GestureLeap::processWindow() {
 
 	if (res.first < 0)
 	{
+		printf("invalid prediction [%.3f] <%lld> \n", res.second, num_predictions);
 		invalid_acc.push_back(res.second);
 		return;
 	}
@@ -82,5 +83,5 @@ void GestureLeap::getInvalidAcc() const{
 	{
 		std::cout << std::setprecision(3) << v << ", ";
 	}
-	std::cout << std::endl;
+	std::cout << "]"<< std::endl;
 }
