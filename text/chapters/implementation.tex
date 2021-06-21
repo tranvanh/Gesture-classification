@@ -17,8 +17,8 @@ ASL Dataset consists of 30 hand gestures, 18 static gestures, and 12 dynamic ges
 After further inspection of the ASL dataset, we have discovered possible mislabeling of features. Specifically, taking a look at internal angles of gesture for number 1, we can see that 1 requires the ring finger to straighten out instead of the index finger. The same can be said about the gesture of number 2, where it appears to have the ring finger and middle finger straight out instead of the index finger and middle finger. It is unclear whether there are other mislabeling among the features. The mislabeling in itself is not an obstacle for training because the features are independent of each other, and the ANN can still learn on them, but the issue will arise in real-time classification, where raw data must be preprocessed identically as the training data. We decided not to use ASL Dataset for our purposes but only to benchmark model architecture.
 
 
-\subsection{Handicrafted Dataset}
-\label{handicrafted_dataset}
+\subsection{Data sampling}
+\label{data_sampling}
 By not using ASL Dataset we have lost a set of static gestures. Also, we want to have the ability to provide the training with our own sets of gestures and not to be bound only to those publicly available. For such purposes, we had created a simple interactive data sampler in the form of a console application.
 
 The sampler saves each sample in .txt format, one line by timestep $T$, frame yield by LMC, each line containing a set of features. Features were selected and computed as previously described in section \ref{sec:feature_extraction}. The order of features in a line $x_t$, at time $t$ is as follows.
@@ -59,10 +59,9 @@ The recording is initiated by key command, but the data collection does not star
     
     The method is recommended for sampling dynamic gestures. We attempt to capture the most important part of a dynamic gesture, its movement. 
 
-    The most challenging part of creating a dataset is when we do the sampling itself. We want to keep in mind the variety of samples, meaning angles, positions and additionaly when it comes to dynamic gestures, various speeds and starting positions. Also, the factor of overlapping characteristics of gestures must be taken into considiration. For example an open hand and open handed swipe right may share some similar sequence of frames. Despite introducing sampling specifically for dynamic gestures, it can still be difficult to create a diverse enough dataset, which still holds key properties of the gesture and will enforce the model to learn on its characteristics.
+    The most challenging part of creating a dataset is when we do the sampling itself. We want to keep in mind the variety of samples, meaning angles, positions, and additionally regarding dynamic gestures, various speeds, and starting positions. Also, the factor of overlapping characteristics of gestures must be taken into consideration. For example, an open hand and open-handed swipe right may share some similar sequence of frames. Despite introducing sampling specifically for dynamic gestures, it can still be challenging to create a diverse enough dataset, which still holds key properties of the gesture and will enforce the model to learn its characteristics.
 
-    For our purposes we created a dataset, which consists of 7 static gestures (fist, 1-pointing, 2-peace sign, 3, 4, 5-open fist, pinch) and 2 dynamic gestures(swipe left, swipe right), each of average 370 samples performed by both hands. 
-
+    We created a dataset, which consists of 7 static gestures (fist, 1-pointing, 2-peace sign, 3, 4, 5-open fist, pinch) and 2 dynamic gestures(swipe left, swipe right), each of average 429 samples performed by both hands, a total of 3861 samples. All gestures were sampled by one LMC sensor, which at some specific angles, \textit{number 1} pointing towards the sensor, the sensor meets its limitation and is unable to create correct hand joint alignments. Due to this fact, some gestures can be lacking in samples with more intricate angles. We do not recommend using our dataset for any benchmarking as the gesture set is not complex enough for any model performance evaluation, and another factor being it was sampled only by one user, which should be further expanded in future works. Its sole purpose is to have a working gesture set for real-time recognition. 
 \end{enumerate}
 
 
@@ -71,9 +70,9 @@ The recording is initiated by key command, but the data collection does not star
 
 We selected Python to be our primary language for training the ANN mode along with the web-based interactive development environment Jupyter Notebook. One of the main reasons to pick Python over other available languages was its wide range of libraries and scientific packages supporting machine learning tasks. Most importantly, Keras, a high-level deep learning API integrated with TensorFlow, enabling the user to create and train model structures in very few steps.
 
-SHREC Dataset and ASL Dataset were used to benchmark the model. For the purpose of real-time recognition, we trained the model on our handicrafted dataset consisting of numbers between 1 to 5 and simple dynamic gestures swipe left and right, where each gesture had 150 to 600 samples, 90 frames per sample, recorded in various angles, positions and speeds. 
+ASL Dataset were used to benchmark the model and further analysing optimal parameters. For the purpose of real-time recognition, we trained the model on our original dataset described at the end of section \ref{data_sampling}.
 
-Each dataset was then split into 80\% for the training set and 20\% for the testing set, where 10\% of the training set was used for validation. Each feature was then normalized via min-max scaler formula:
+ASL dataset was split into 80\% for the training set and 20\% for the testing set, where 10\% of the training set was used for validation.  Each feature was then normalized via min-max scaler formula:
 
 \begin{equation}
     { x' = \frac{x - Min(X)}{Max(X)-Min(X)}\;\;\; x \in X}
@@ -83,7 +82,7 @@ Each dataset was then split into 80\% for the training set and 20\% for the test
 
 At first, we followed the proposed architecture of 4 layers stacked LSTM by Avola D., Bernardi M. et al. \cite{avola}. We trained the model using 800 epochs and 0.0001 learning rate, which were proved to be optimal hyperparameters as described in section \ref{sec:dlstm_params}
 
-Benchmarking the model on ASL Dataset resulted in similar accuracies as in \cite{avola}. Our handicrafted dataset had also achieved high results.
+Benchmarking the model on ASL Dataset resulted in similar accuracies as in \cite{avola}. Our original dataset had also achieved high results.
 
 Despite achieving high accuracies on ASL dataset and our original dataset, the model itself did not perform well in a real-time environment. More specifically, the 4 layered LSTM architecture struggled with dynamic gestures. The model did not learn the gesture in relation to the movement but rather on its most occurring position in the recorded sequence, which in the case of swipe right was the palm's final position. The model successfully classified test samples because all gestures swipe right contained some frames where the palm position was on the right. Once we presented the model in a real-time environment with an open palm on the right, without the swipe movement, it classifies such gesture as swipe right, which is an undesired behavior. 
 
@@ -98,7 +97,7 @@ After an unsuccessful attempt to utilize DLSTM, we turned over to two-layered bi
 To avoid the problem of overfitting, we used dropout regularization. 
 A technique that, during training, randomly drops out a number of neurons in layers, thus ignoring their connections in the network. This creates a new smaller network and, in essence, simulates model ensembling without creating multiple networks.
 
-We used ASL Dataset for its variety in samples and possible more complexity over our own handicrafted dataset. Despite its mislabeling of features, it still serves well for model benchmarking and validation.
+We used ASL Dataset for its variety in samples and possible more complexity over our own original dataset. Despite its mislabeling of features, it still serves well for model benchmarking and validation.
 
 The optimal dropout rate was selected through several experiments using dropout values in a range of 0.0 to 0.9. As seen below, not using dropout regulation caused a visible difference between train and validation accuracies through the course of training. The difference stayed poor, almost the same up to the value of 0.4, which showed improved results but not necessarily optimal. The difference was most promising when using dropout values of 0.5 and 0.6, where 0.6 performed better. However, the performance gets worse from 0.7 and on. The overall results indicate that the optimal dropout value is between 0.5 and 0.6. The value of 0.6 is satisfactory enough for our uses.
 
@@ -147,7 +146,7 @@ The two-layered bidirectional LSTM architecture was successful in learning dynam
 \section{Real-time recognition}
 \label{real_time_recognition}
 
-The demo application for real-time recognition is in the form of a simple console application, supporting multiple LMCs using MultiLeap \cite{tomasMultileap} library described in chapter \ref{ch:multileap} and with key commands for LMC calibration. When a hand gesture is presented, the application prints out the prediction, which is considered a valid prediction if the value passes the threshold of 90\% accuracy. The demo application served mainly for debugging and experimental purposes.
+The demo application for real-time recognition is in the form of a simple console application, supporting multiple LMCs using MultiLeap \cite{tomasMultileap} library described in chapter \ref{ch:multileap} and with key commands for LMC calibration. When a hand gesture is presented, the application prints out the prediction, which is considered a valid prediction if the value passes the threshold of 90\% accuracy. The application currently works with only one hand. When more than one hand is presented, the user is notified, and no prediction is made. The demo application served mainly for debugging and experimental purposes. 
 
 For real-time recognition, we chose C++ as our primary language since C++ and C\# are widely used programming languages in graphic engines such as Unity, PhyreEngine, or Unreal, which opens the possibility of integrating our application into graphic engines in future works.
 
@@ -161,7 +160,8 @@ Cppflow 2 is an API created by Sergio Izquierdo, allowing the user to run Tensor
 
 The data collection, frame collection yield by LMC, starts once a hand is presented in LMC's field of view and stops if the hand falls out of the view. Let us introduce a situation where during the stream of data yield by LMC, we change our hand gesture from a "fist" to a "peace sign". We want to classify both of these gestures, but how do we determine where one gesture ends and the other starts. To tackle the presented scenario, we adopted the concept of \textit{sliding window}.
 
-The basic idea is to have a window of fixed size $T$, which slides through our data stream and captures a certain portion of it. It is important to remain the same $T$ value as we chose to record our dataset. Otherwise, the shape of the captured data would differ from the input shape of our trained model. It is worth mentioning that using a wider window size creates a noticeable time delay between a presented gesture and its prediction. On the other hand, using a size too small, there would be a possibility of not capturing a dynamic gesture completely, leading to possible inaccurate predictions. In our case we used $T = 60$. Considering a situation where a collected data is less than $T$, the missing data are then set to zeroes. If we present more than one hand, the stream is invalidated, collected data are flushed, and the window will begin its sliding again once there is only one hand in the controller's view.
+The basic idea is to have a window of fixed size $T$, which slides through our data stream and captures a certain portion of it. It is important to remain the same $T$ value as we chose to record our dataset. Otherwise, the shape of the captured data would differ from the input shape of our trained model. It is worth mentioning that using a wider window size creates a noticeable time delay between a presented gesture and its prediction. On the other hand, using a size too small, there would be a possibility of not capturing a dynamic gesture completely, leading to possible inaccurate predictions. In our case we used $T = 60$. Considering a situation where the collected data is less than $T$, the missing data are then set to zeroes. If we present more than one hand, the stream is invalidated, collected data are flushed, and the window will begin its sliding again once there is only one hand in the controller's view.
+
 
 \begin{figure}[ht]
 	\centering
@@ -172,5 +172,5 @@ The basic idea is to have a window of fixed size $T$, which slides through our d
 
 For each window, we then calculate features for classification and output the prediction of the captured portion. Features must be preprocessed exactly the same as they were for model training, in our case, same as described in section \ref{sec:feature_extraction}. 
 
-The window slides by 10 frame, in other words throws away oldest frames and adds in newest acquired. The slide rate should be further tunned for optimal value. If we throw away too many frames, we risk of leaving some gestures unclassified. On the other hand, sliding by one frame can be demanding on hardware, where weaker computer builds may not be able to keep up and the prediction may stutter.
+The window slides by 10 frame, in other words, throws away oldest frames and adds in newest acquired. The sliding rate should be further tuned for optimal value. If we throw away too many frames, we risk leaving some gestures unclassified. On the other hand, sliding by one frame can be demanding on hardware, where weaker computer builds may not be able to keep up, and the prediction may stutter.
 

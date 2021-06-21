@@ -1,9 +1,50 @@
-As mentioned in \nameref{ch:introduction} chapter, we would want to evaluate the recognition performance based on a number of connected LMC sensors and test the capabilities of \nameref{ch:multileap} libray.
 
-We mainly focused on the overall placement of sensors and their field of view, having a single connected sensor as a reference field of view and exploring its expansion using different layouts with a different number of connected sensors. 
+One other goal of the thesis is to evaluate the recognition performance based on a number of connected LMC sensors and test the capabilities of \nameref{ch:multileap} library in the real-time environment using various layouts with a different number of sensors. Results from one connected sensor served as the reference, mostly whether having multiple LMC sensors does improve the recognition of difficult angles. On the other hand, whether MultiLeap \cite{tomasMultileap} perform correct merging for gestures presented in simple default angles.
 
-We used the demo application and trained model as described in section \ref{real_time_recognition}. The model was trained on our original dataset from section \ref{handicrafted_dataset}. 
+We used the demo application and trained model as described in section \ref{real_time_recognition}. The model was trained on our original dataset from section \ref{data_sampling}. 
 
-\subsection{Testing Method}
+\section{Testing Method}
 
-For each gesture we performed 1000 classifications. We did not exclude classifications with corrupt sequences such as randomly floating hand without any hand presented or when the LMC sensor did not get a correct
+For each gesture, we performed 1000 classifications. We did not exclude classifications with corrupt sequences, such as when the LMC sensor did not get a correct hand skeletal alignment of the presented hand. We wanted to emulate genuine user interaction with the LMC. Each gesture was held in various positions and angles in a certain span of time until the number of classification was not satisfied. 
+
+Results of multiple LMC sensors are an average of 5 different automatic calibrations. There is currently no telling how well sensors were calibrated. Therefore, we want to avoid generalizing MultiLeap capabilities base on experiments conducted on only one calibration.
+
+Dynamic gestures were not tested, as it is hard to evaluate the percentage of correct classifications in a continuous stream of data. If we test dynamic gestures without any mix-up with static gestures, it will defeat the purpose of testing in a real-time environment. We want to evaluate the performance when a dynamic gesture is performed in the middle of the sequence of static gestures, as to whether the trained model is capable of recognizing the difference between the static gesture of number 5 as oppose to having number 5 moving quickly to one side, doing a swipe. Despite not dedicating any experiments to dynamic gestures, we can still evaluate responsiveness and general correctness when we perform it.
+
+
+\subsection{One Leap Motion Sensor}
+
+Experiments for a single connected sensor were performed with LMC's VRVisualizer to understand better how the skeletal structure, which gets classified, looks. It helps us distinguish whether misclassification is caused by our trained model or by LMC's hand joints misalignment.
+
+The classification was responsive with every presented gesture, including dynamic gestures. Still, the limitation of having only one sensor presents itself when we perform a gesture of \textit{number 1} pointing towards the sensor. The sensor struggles to recognize the pointing finger as being straight, and often time it misclassifies the gesture as a fist, or the prediction does not meet the threshold requirement. It also struggles with the prediction of \textit{number 3} and \textit{number 4}, wherein various angles, the thumb is not recognized by LMC as bent and straighten correctly. Gestures then get confused with \textit{number 2}, and \textit{number 5} respectively. Despite not having  The \textit{pinch} gesture was mostly misclassified due to hand joint misalignment by the LMC sensor. We could be questioning the trained model's performance due to training on a not optimal dataset, but when the hand joint was aligned correctly, the gestures also got classified correctly without any further complications.
+
+The percentage of invalidated gestures was also not too high as most of the discarded predictions were of 0.8 probability and lower. We can assume that our set threshold of 0.9 is not overly strict for the prediction.
+
+\subsection{Two Leap Motion Sensors}
+
+For two sensors, we explored several layouts with different calibrations. We could not utilize VRVisualizer as we did with one LMC sensor. The MultiLeap library does not have a feature of visualizing the merged hand or any visualization during calibration at the moment. We could not accurately evaluate how the merged hand structure looks like during classification or calibration, thus can be our experiments limited in correction when evaluating the accuracy of multiple LMC sensors. We recommend conducting experiments again once the visualizing feature is implemented.
+
+\subsubsection{Parallel Layout}
+\label{parallel_layout}
+
+The parallel layout, with sensors facing each other, could not be tested. LMC sensors expect to receive emitted IR signals to return from a hand. The emitted IR signal is received by the other sensor. The behavior will confuse LMC recognition making the sensors think there is a hand presented even when it actually is not. Thus we assume this parallel layout is inappropriate to be a part of any setup with multiple LMC sensors.
+
+
+\subsubsection{Non-parallel Layout}
+
+Sensors were placed next to each other at a slight angle facing inwards. Using MultiLeap \cite{tomasMultileap} showed improvements in classifying gestures in difficult angles, which it struggled in previous experiments with one connected sensor. The MultiLeap was able to capitalize on the advantage of having multiple fields of view for capturing a presented hand.
+
+Despite improved performance with various angles, the number of invalidated classifications had increased. The average prediction probability for gesture was 0.697, which is most likely caused by misalignment when merging hands. This can be caused by poor calibration, which there is currently no way to identify the calibration quality in order to avoid this issue. 
+
+The calibration quality significantly affects the prediction accuracy. More specifically, when we tested \textit{pinch} gesture, the measurement accuracy was mere 24\%, but when tested again with a new calibration, the accuracy improved up to 83\%, which is already better than referential results of one connected sensor. The calibration could also have an effect on dynamic gestures. While performing experiments, dynamic gestures were not responsive as they were with only one connected sensor. Often times they were not recognized at all, but their responsiveness varied with different calibrations. 
+
+The MultiLeap's current most notable issue is an incorrect number of reported hands. Our demo application does not make a prediction when there is more than one hand presented. This feature is conflicting with the current bug of MultiLeap, where it frequently returns two hands instead of one, even though only one is present, which from a user's point of view makes the demo application almost unusable for any accurate consecutive recognition. The issue is known, and its fix is currently in development.
+
+\subsection{Three Leap Motion Sensor}
+
+Sensors were carefully placed into a triangular layout so that LMC sensors don't emit IR signals to others, recreating a similar misrecognition issue as in section \ref{parallel_layout}. Using three sensors shares the same behavior as using two sensors. The improvement in recognition of difficult angles was expectedly improved upon additional sensors and its field of view, but it suffered similarly if not at times more on the side of increased invalidated classification. The average prediction probability for gesture was 0.6841. The issue with the incorrect number of reported hands still persists in a similar frequency as it did with two connected sensors. 
+
+The \textit{pinch} alongside with \textit{number 4} gesture has low accuracy across all 5 different calibrations. They often got confused with the gesture of \textit{number 5}. Dynamic gestures also suffered where the responsiveness seemingly did not change with various calibrations. We can only assume that having more sensors is harder to calibrate and more demanding on calibration quality.
+
+
+

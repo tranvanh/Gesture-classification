@@ -1,5 +1,21 @@
-Mouse and keyboard are considered to be default devices for human-computer interaction nowadays. But with the maturity in technology, namely virtual and extended reality, the computer's need to understand human's body language is more and more present. Actions such as rotation or grabbing and moving an object in three-dimensional space with a computer mouse are unintuitive. They require a little understanding of the controls to execute the task. The movement is limited to the two-dimensional space of the mouse. Oppose to performing the desired action by hands in our three-dimensional space as we would in real life.
+Mouse and keyboard are considered to be default devices for human-computer interaction nowadays. But with the maturity in technology, namely virtual and extended reality, the computer's need to understand human body language is more and more present. Actions such as rotation or grabbing and moving an object in three-dimensional space with a computer mouse are unintuitive. They require a little understanding of the controls to execute the task. The movement is limited to the two-dimensional space of the mouse. Oppose to performing the desired action by hands in our three-dimensional space as we would in real life.
 
-One of the proposed solutions for the issue is gesture recognition, where a general idea is for computers to have the ability to recognize gestures and perform actions based on them. Therefore, several devices, tracking devices, were developed to process an image and yield useful data for gesture recognition.
+One of the proposed solutions for the issue is gesture recognition, where a general idea is for computers to have the ability to recognize gestures and perform actions based on them. Therefore, several devices, tracking devices, were developed to process an image and yield valuable data for gesture recognition.
 
-Our goal is to utilize these tracking devices, specifically Leap Motion controllers, combined with artificial neural networks, creating a simple library with a pre-trained model ready to be used and expanded by other applications. We also want to evaluate the recognition performance base on number of connected LMC sensors using MultiLeap library.
+Our goal is to utilize these tracking devices, specifically Leap Motion controllers, combined with artificial neural networks, creating a simple library with a pre-trained model ready to be used and expanded by other applications. We also want to use the pre-trained model to evaluate the performance of the MultiLeap library base on the number of connected Leap Motion sensors.
+
+The structure of the thesis is as follows:
+\begin{description}
+
+    \item In Chapter \nameref{ch:neural_network}, we introduce neural networks, explain basic terminology and several exemplary network architectures.
+    
+    \item In Chapter \nameref{ch:gesture_recognition}, we briefly explain gesture categories. What hardware image processing devices are there, and what are some of the proposed methods in the field of gesture recognition using machine learning techniques.
+    
+    \item In Chapter \nameref{ch:multileap}, we explore the MultiLeap library developed for unifying the stream of data from multiple LeapMotion sensors.
+    
+    \item In Chapter \nameref{ch:implementation}, we describe used methods, key implementation points of our work.
+    
+    \item In Chapter \nameref{ch:experiments}, we discuss the performance of our work in a real-time environment, explore several setups using multiple Leap Motion sensors, and testing the capabilities of MultiLeap library.
+
+    \item In \nameref{ch:conclusion}, we will evaluate the results of the work and suggest possibilities for future research.
+\end{description}

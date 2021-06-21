@@ -43,15 +43,20 @@
 \title{Gesture detector with Leap Motion sensor}
 \authorGN{Anh Viet} %author's given name/names
 \authorFN{Tran} %author's surname
-\author{Anh Tran Viet} %author's name without academic degrees
+\author{Anh Viet Tran} %author's name without academic degrees
 \authorWithDegrees{Anh Tran Viet} %author's name with academic degrees
-\supervisor{Tomáš Nováček}
-\acknowledgements{THANKS (remove entirely in case you do not with to thank anyone)}
-\abstractEN{The bachelor thesis focuses on utilizing LeapMotion sensors in realtime gesture recognition using artifitial inteligence. We used two layered bidirectional LSTM architecture to classify static gestures along with dynamic gestures. The neural network was benchmarked on publicly available datasets and ultimately trained on handicrafted dataset used for realtime deployment of the trained model. We had created }
-\abstractCS{V n{\v e}kolika v{\v e}t{\' a}ch shr{\v n}te obsah a p{\v r}{\' i}nos t{\' e}to pr{\' a}ce v {\v c}esk{\' e}m jazyce.}
+\supervisor{Ing. Tomáš Nováček}
+
+\acknowledgements{First, I would like to thank my supervisor Ing. Tomáš Nováček, for his active support and guidance on and off my studies. I also wish to thank my friends, namely Ája, Nikky, Daniel, David, Matěj, for making the world a bit more colorful. Finally, to thank my mother for putting up with me my entire life and Bc. Matouš Kozák for his never-ending help during my studies at the faculty.}
+
+
+\abstractEN{Exploring ways to control the virtual environment is a popular goal of many human-computer interaction researchers. One of the approaches is using Leap Motion optical sensors, developed specifically to track hand and finger movements. The bachelor thesis focuses on utilizing Leap Motion sensors in real-time gesture recognition using neural networks. We used two layered bidirectional LSTM architecture to train static gestures along with dynamic gestures. The neural network was benchmarked on a publicly available ASL dataset acquiring 89.07\% using 5-fold cross-validation on 200 epochs. The architecture was ultimately trained using our dataset of 3861 samples for real-time deployment. We had demonstrated that the pre-trained model is sufficient to be integrated into other applications, and we had also discussed the current state of the MultiLeap library.
+}
+
+\abstractCS{Zkoumání způsobů pro ovládání virtuálního prostředí je populárním cílem mnoha výzkumných prací v odvětví interakce člověka s počítačem. Jeden ze způsobů je použití Leap Motion optického senzoru, vyvíjený specificky pro rozpoznávání pohybu ruky a prstů. Bakalářská práce se zaměřuje na využití Leap Motion senzorů k rozpoznávání gest v reálném čase za pomocí neuronové sítě. Využili jsme architekturu dvouvrstvé obousměrné LSTM k natrénování statických i dznamických gest. Neuronová síť byla otestovaná na veřejně dostupným ASL datasetu s výsledkem 89.07\% za použití 5-fold cross validace s 200 iterací. Architektura byla ve finále natrénovaná využitím našeho vlastního datasetu s 3861 vzorky pro rozpoznávání v reálném čase. Demonstrovali jsme, že náš předtrénovaný model vhodný pro použití v jiných aplikacích a také jsme diskutovali aktuální stav MultiLeap knihovny.}
 \placeForDeclarationOfAuthenticity{Prague}
-\keywordsCS{Replace with comma-separated list of keywords in Czech.}
-\keywordsEN{Replace with comma-separated list of keywords in English.}
+\keywordsCS{rozpoznávání gest, dvouvrstvé obousměrné LSTM, MultiLeap, strojové učení, rekurentní neuronová síť, rozpoznávání v reálném čase}
+\keywordsEN{gesture recognition, two-layered bidirectional LSTM, MultiLeap, machine learning, recurrent neural network, real-time recognition}
 \declarationOfAuthenticityOption{1} %select as appropriate, according to the desired license (integer 1-6)
 % \website{http://site.example/thesis} %optional thesis URL
 
@@ -73,16 +78,22 @@
 	\input{chapters/analysis.tex}\newpage\cleardoublepage
 	%========================================================================================================
 	\setsecnumdepth{all}
-	\chapter{MultiLeap Library}\label{ch:multileap}
+	\chapter{MultiLeap}\label{ch:multileap}
 	\input{chapters/multileap.tex}\newpage\cleardoublepage
 	%========================================================================================================
 	\setsecnumdepth{all}
 	\chapter{Implementation}\label{ch:implementation}
 	\input{chapters/implementation.tex}\newpage\cleardoublepage
+	%========================================================================================================
 	\setsecnumdepth{all}
 	\chapter{Experiments}\label{ch:experiments}
 	\input{chapters/experiments.tex}\newpage\cleardoublepage
-	
+	%========================================================================================================
+	\setsecnumdepth{all}
+	\chapter{Conclusion}\label{ch:conclusion}
+	\input{chapters/conclusion.tex}\newpage\cleardoublepage
+
+
 \bibliographystyle{iso690}
 \bibliography{mybibliographyfile}
 

@@ -1,7 +1,7 @@
 #include "geastureLeap.h"
 
 
-void GestureLeap::processWindow() {
+void GestureLeap::processWindow(const float & deviation) {
 	std::pair<int, double> res = gesturePrediction.predict(window.getWindow());
 	
 	++num_predictions;
@@ -10,7 +10,7 @@ void GestureLeap::processWindow() {
 
 	if (res.first < 0)
 	{
-		printf("invalid prediction [%.3f] <%lld> \n", res.second, num_predictions);
+		printf("invalid prediction [%.3f] <%lld> deviation: %f \n", res.second, num_predictions, deviation);
 		invalid_acc.push_back(res.second);
 		return;
 	}
@@ -20,11 +20,11 @@ void GestureLeap::processWindow() {
 		switch (res.first)
 		{
 		case 7:
-			printf("predicted Gesture: %d RIGHT [%.3f] <%lld> \n", res.first, res.second, num_predictions);
+			printf("predicted Gesture: %d RIGHT [%.3f] <%lld> deviation: %f \n", res.first, res.second, num_predictions, deviation);
 			window.flush();
 			break;
 		case 8:
-			printf("predicted Gesture: %d LEFT [%.3f] <%lld> \n", res.first, res.second, num_predictions);
+			printf("predicted Gesture: %d LEFT [%.3f] <%lld> deviation: %f \n", res.first, res.second, num_predictions, deviation);
 			window.flush();
 			break;
 		default:
@@ -33,7 +33,7 @@ void GestureLeap::processWindow() {
 	}
 
 	else
-		printf("predicted Gesture: %d [%.3f] <%lld>\n", res.first, res.second, num_predictions);
+		printf("predicted Gesture: %d [%.3f] <%lld> deviation: %f \n", res.first, res.second, num_predictions, deviation);
 
 }
 
@@ -42,8 +42,24 @@ void GestureLeap::onFrame(const LEAP_TRACKING_EVENT* frame, const unsigned devic
 		return;
 
 	if (frame->nHands == 0 || frame->nHands > 1) {
+		if (frame->nHands > 1)
+		{
+			std::cout << "Invalid number of hands" << std::endl;
+		/*	for (uint32_t h = 0; h < frame->nHands; h++) {
+				LEAP_HAND* hand = &frame->pHands[h];
+				printf("Hand id %i from device %i is a %s hand with position (%f, %f, %f) with confidence %f and deviation %f.\n",
+					hand->id,
+					deviceId,
+					(hand->type == eLeapHandType_Left ? "left" : "right"),
+					hand->palm.position.x,
+					hand->palm.position.y,
+					hand->palm.position.z,
+					hand->confidence,
+					deviation);
+			}*/
+		}
 		if (!window.isEmpty())
-			processWindow();
+			processWindow(deviation);
 		window.flush();
 		return;
 	}
@@ -59,7 +75,7 @@ void GestureLeap::onFrame(const LEAP_TRACKING_EVENT* frame, const unsigned devic
 	window.AddFrame(hand);
 	if (window.isFull())
 	{
-		processWindow();
+		processWindow(deviation);
 		window.slide();
 	}
 

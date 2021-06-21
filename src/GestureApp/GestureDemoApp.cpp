@@ -110,7 +110,7 @@ int main(int argc, char** argv) {
 		case hash("calibrate"):
 		{
 			gestureLeap.stop();
-			MultiLeap_CalibrateDevices(500);
+			MultiLeap_CalibrateDevices(2500);
 			break;
 		}
 		case hash("merge"):

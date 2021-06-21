@@ -13,7 +13,9 @@
 #define PREDICTION_LIMIT 1000
 
 
+
 class GestureLeap {
+
 public:
 	GestureLeap(const std::string& model_dir, const int &t, const int &f, const int &r) :
 		window(t, r), gesturePrediction(model_dir, t, f), num_predictions(0), listen_bool(true){}
@@ -43,6 +45,6 @@ private:
 
 
 	/** Forward data from window for prediction and flush if its dynamic gesture **/
-	void processWindow();
+	void processWindow(const float &deviation);
 };
 

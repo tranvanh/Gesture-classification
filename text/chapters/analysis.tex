@@ -96,13 +96,13 @@ The acquired gesture information is converted into hand joints color images. The
 
 Ameur et al. \cite{ameur} presented a solution using an SVM classifier used with LMC acquired data, (X, Y, Z) coordinates of fingertips and palm center. The experimental results show an accuracy of 81\% on a dataset containing 11 actions, performed by ten different subjects, having in total 550 samples.
 
-Yang L., Chen J., and Zhu W. \cite{bidirect_dynam} used two-layer Bidirectional RNN in combination with an LMC to classify dynamic hand gestures represented by sets of feature vectors (fingertip distance, angle, height, the angle of adjacent fingertips and the coordinates of the palm). The proposed method has been tested on the American Sign Language (ASL) datasets with 360 samples and the Handicraft‐Gesture dataset with 480 samples, achieving 90\% and 92\% accuracy \cite{bidirect_dynam}.
+Yang L., Chen J., and Zhu W. \cite{bidirect_dynam} used two-layer Bidirectional RNN in combination with an LMC to classify dynamic hand gestures represented by sets of feature vectors (fingertip distance, angle, height, the angle of adjacent fingertips and the coordinates of the palm). The proposed method has been tested on modified American Sign Language (ASL) datasets with 360 samples and the Handicraft‐Gesture dataset with 480 samples, both containing only dynamic gestures and achieving 90\% and 92\% accuracy. The LMC was used only for data acquisition. The architecture was not further tested in real-time environment and also the performance on static gestures is unclear since both benchmarked datasets were stripped of any static gesture. \cite{bidirect_dynam}
 
 \subsection{Proposed LSTM solution}
 
 Many of the proposed methods focus either on static gesture recognition or dynamic gesture recognition, but very few of them are actually utilized for both types at the same time. 
 
-Avola D., Bernardi M. et al. proposed a method in \cite{avola} utilizing LSTM, specifically Deep LSTM (DLSTM), and LMC to recognize sign language and semaphoric hand gestures. It uses a hand skeleton extracted by an LMC and considers angles formed by a specific subset of hand joints. The presented method reached 96\% accuracy in its predictions.
+Avola D., Bernardi M. et al. proposed a method in \cite{avola} using LSTM, specifically Deep LSTM (DLSTM), and LMC to recognize sign language and semaphoric hand gestures. It uses a hand skeleton extracted by an LMC and considers angles formed by a specific subset of hand joints. The presented method reached 96\% accuracy in its predictions.
 
 The LMC was used only to collect data for training. The method was not tested in real-time environment, it is yet to be explored whether it will.
 
