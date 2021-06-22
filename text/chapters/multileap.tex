@@ -59,6 +59,26 @@ Then, the $3\times3$ cross-variance matrix between the points must be calculated
 
 At last, we will extract the rotation from the covariance matrix using polar decomposition. The extraction can be done in more iterations, resulting in more accurate rotation calculation but requiring higher computation time in return.
 
+\begin{algorithm}
+	\caption{Kabsch algorithm}
+	\label{alg:devicePositioning}
+	\hspace*{\algorithmicindent} \textbf{Input}: 
+	    \begin{itemize}
+	        \item \textbf{sensors}: List of N collections of samples for N sensors
+	        \item \textbf{iterations}: The number of iterations of the Kabsch algorithm
+	    \end{itemize}
+	\begin{algorithmic}[1]
+		\For {$sensor=2,\ldots,N$}
+		    \State optimalTranslation = getAverage(referenceMatrix) - getAverage(sensorMatrix);
+			\State covarianceMatrix = transpose(sensorMatrix) - referenceMatrix
+			\For {$i=1,\ldots,iterations$}
+		    	\State extractRotation(covarianceMatrix)
+		    \EndFor
+		    \State Translation and rotation of the sensor in the Unity scene
+		\EndFor
+	\end{algorithmic} 
+\end{algorithm}
+
 \section{Data fusion}
 
 If multiple sensors detect the hand, the fusion algorithm is used. In most cases, not all sensors detect the hands properly. One of the yield information provided by MultiLeap library is a \textit{confidence}, a float value ranging from 0.3 to 1, which denotes the confidence level of the tracking data corresponding Leap Motion frame. The purpose of confidence level is to give more weight to tracking data from the sensor, which detects the hand better, making the tracking more accurate even if two out of three sensors would send inaccurate tracking data. The confidence level is of value 0.3 when the palm normal is in a 90\textdegree and 1 when in 0\textdegree or 180\textdegree angle to Y-axis. MultiLeap does not use the confidence of 0 because even with the occlusion of fingers and hand, the tracking data still carries some information about the hand. After few experiments, the value 0.3 was determined to be the most suitable confidence level for minimal tracking data when the palm normal is in 90\textdegree angle to the Y-axis of the sensor. The mentioned approach resulted in following equation for \textit{confidence} computation:
