@@ -17,7 +17,7 @@ Hand and body gesture recognition had followed a conventional scheme of extracti
 We will only cover optical devices, but there are also controllers in the form of a stick with buttons, like HTC Vive, or others in the form of gloves, sending tracking information to the computer.
 \subsection{Microsoft Kinect}
 %=======================================================================================================================
-One of them being Micorosoft Kinect, a device first released in 2010. Originally developed for gaming but eventually finding more success in academics and commercial applications, such as robotics, medicine, and health care, it led Microsoft to discontinue production of its Xbox version in 2018 and release Azure Kinect in March 2020, incorporating Microsoft Azure cloud computing functionalities.
+One of them being Micorosoft Kinect, a device first released in 2010. Originally developed for gaming but eventually finding more success in academical and commercial applications, such as robotics, medicine, and health care, it led Microsoft to discontinue production of its Xbox version in 2018 and release Azure Kinect in March 2020, incorporating Microsoft Azure cloud computing functionalities.
 
 \begin{figure}[ht]
 	\centering
@@ -37,7 +37,7 @@ Another option would be using a Leap Motion Controller (LMC), developed specific
 
 LMC consists of two monochromatic IR cameras and three IR LEDs (emitters). 
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
     \includegraphics[width=8cm]{lmc_schematic.png}
 	\caption{Schematic View of Leap Motion Controller \cite{LMCanalysis}}
@@ -83,6 +83,15 @@ One of the commonly used methods for static gesture recognition is \textit{Suppo
 
 Chen and Tseng \cite{chentseng} presented an SVM solution for multi-angle hand gesture recognition for rock paper scissors using images from a web camera. The training dataset consisted of 420 images and a testing set of 120 images. 
 Datasets were collected from 5 different people for the right hand only and achieving 95\%. The classifier still managed to recognize left-hand gestures with 90\% accuracy. 
+
+\begin{figure}[H]
+	\centering
+    \subfloat[\centering Hyperplane in ${\Bbb R}^2$]{{\includegraphics[width=6cm]{svm_2d.png}}}%
+    \qquad
+    \subfloat[\centering Hyperplane in ${\Bbb R}^3$]{{\includegraphics[width=6cm]{svm_3d.png}}}%
+    \caption{Hyperplane examples seperating classes in different dimesions \cite{svm_pic}}
+\end{figure}
+
 
 Domino et al. \cite{dominokinect} utilized SVM with Microsoft Kinect sensors. Extracting hand features, fingertips, and center of the hand, from the depth map and feeding the data into SVM. Achieving 99.5\% recognition rate on the dataset provided by Ren et Al. \cite{dominokinect_data}. The dataset consists of 10 different gestures performed by ten different people repeatedly each ten times, a total of 1000 different depth maps.
 
@@ -193,13 +202,13 @@ One gesture can be performed differently by each person, and all collected frame
 
 To explain more specifically, let $f_{\omega_i}(t)$, $f_{\beta_i}(t)$, $f_{\gamma_j}(t)$ be functions representing values of $\omega_i$, $\beta_i$, $\gamma_j$ angles at time $t$, where $0 \leq i \leq 4$ and $1 \leq j \leq 3$. Coordinates of $P_h$ may be $\phi$ and coordinates at time $t$ may be represented as $f_{\phi}(t)$. Then the Savitzky-Golay filter \cite{savitzkty} is applied on each of the named functions, $f_g(t)$, $g \in G = \{\omega_i,\beta_i, \gamma_j, \phi\}$. Svaitzky-Golay is a digital filter used to smooth a set of digital data in order to increase the signal-to-noise ratio without distorting the signal itself. Local extremes of each $f_g(t)$ are to be indentified as significant time variations and all time instances $t$, associated with at least one of these local maximum and minimum of feature $g$, form a new set $\Theta^*$, representing candidates of possible important time instances to be sampled. 
 
-\begin{figure}[h]
-	\centering
-    \subfloat[\centering Feature $\omega_1$]{{\includegraphics[width=6cm]{avola_sign.png}}}%
-    \qquad
-    \subfloat[\centering Feature $\omega_1$ after Savitzky-Golay filtering]{{\includegraphics[width=6cm]{avola_sign_smooth.png}}}%
-    \caption{Sampling example of feature $\omega_1$}
-\end{figure}
+% \begin{figure}[h]
+% 	\centering
+%     \subfloat[\centering Feature $\omega_1$]{{\includegraphics[width=6cm]{avola_sign.png}}}%
+%     \qquad
+%     \subfloat[\centering Feature $\omega_1$ after Savitzky-Golay filtering]{{\includegraphics[width=6cm]{avola_sign_smooth.png}}}%
+%     \caption{Sampling example of feature $\omega_1$}
+% \end{figure}
 
 Depending on the cardinality of the newly acquired set $\Theta^*$, the following cases must be considered:
 
