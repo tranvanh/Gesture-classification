@@ -7,7 +7,9 @@
 class Model
 {
 public:
-	Model(const std::string& model_dir, const int& t, const int& f) :model(model_dir), num_timestep(t), num_features(f) {
+	Model() {};
+	Model(const std::string& model_dir, const int& t, const int& f) : num_timestep(t), num_features(f) {
+		model.loadModel(model_dir);
 		auto output = model.get_operations();
 		for (const auto& i : output)
 		{

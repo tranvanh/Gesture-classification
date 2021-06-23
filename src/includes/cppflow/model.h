@@ -19,7 +19,8 @@ namespace cppflow {
 
     class model {
     public:
-        explicit model(const std::string& filename);
+        explicit model();
+        void loadModel(const std::string& filename);
 
         std::vector<std::string> get_operations() const;
         std::vector<int64_t> get_operation_shape(const std::string& operation) const;
@@ -28,7 +29,7 @@ namespace cppflow {
         tensor operator()(const tensor& input);
 
         ~model() = default;
-        model(const model &model) = default;
+        model(const model& model) : graph(model.graph), session(session) {};
         model(model &&model) = default;
         model &operator=(const model &other) = default;
         model &operator=(model &&other) = default;
@@ -43,13 +44,15 @@ namespace cppflow {
 
 namespace cppflow {
 
-    inline model::model(const std::string &filename) {
-        this->graph = {TF_NewGraph(), TF_DeleteGraph};
+
+
+    inline model::model() {
+        this->graph = { TF_NewGraph(), TF_DeleteGraph };
 
         // Create the session.
-        std::unique_ptr<TF_SessionOptions, decltype(&TF_DeleteSessionOptions)> session_options = {TF_NewSessionOptions(), TF_DeleteSessionOptions};
-        std::unique_ptr<TF_Buffer, decltype(&TF_DeleteBuffer)> run_options = {TF_NewBufferFromString("", 0), TF_DeleteBuffer};
-        std::unique_ptr<TF_Buffer, decltype(&TF_DeleteBuffer)> meta_graph = {TF_NewBuffer(), TF_DeleteBuffer};
+        std::unique_ptr<TF_SessionOptions, decltype(&TF_DeleteSessionOptions)> session_options = { TF_NewSessionOptions(), TF_DeleteSessionOptions };
+        std::unique_ptr<TF_Buffer, decltype(&TF_DeleteBuffer)> run_options = { TF_NewBufferFromString("", 0), TF_DeleteBuffer };
+        std::unique_ptr<TF_Buffer, decltype(&TF_DeleteBuffer)> meta_graph = { TF_NewBuffer(), TF_DeleteBuffer };
 
         auto session_deleter = [](TF_Session* sess) {
             TF_DeleteSession(sess, context::get_status());
@@ -58,11 +61,7 @@ namespace cppflow {
 
         int tag_len = 1;
         const char* tag = "serve";
-        this->session = {TF_LoadSessionFromSavedModel(session_options.get(), run_options.get(), filename.c_str(),
-                                &tag, tag_len, this->graph.get(), meta_graph.get(), context::get_status()),
-                         session_deleter};
-
-        status_check(context::get_status());
+        
     }
 
     inline std::vector<std::string> model::get_operations() const {
@@ -75,6 +74,27 @@ namespace cppflow {
             result.emplace_back(TF_OperationName(oper));
         }
         return result;
+    }
+
+    inline void model::loadModel(const std::string& filename)
+    {
+        // Create the session.
+        std::unique_ptr<TF_SessionOptions, decltype(&TF_DeleteSessionOptions)> session_options = { TF_NewSessionOptions(), TF_DeleteSessionOptions };
+        std::unique_ptr<TF_Buffer, decltype(&TF_DeleteBuffer)> run_options = { TF_NewBufferFromString("", 0), TF_DeleteBuffer };
+        std::unique_ptr<TF_Buffer, decltype(&TF_DeleteBuffer)> meta_graph = { TF_NewBuffer(), TF_DeleteBuffer };
+
+        auto session_deleter = [](TF_Session* sess) {
+            TF_DeleteSession(sess, context::get_status());
+            status_check(context::get_status());
+        };
+
+        int tag_len = 1;
+        const char* tag = "serve";
+        this->session = { TF_LoadSessionFromSavedModel(session_options.get(), run_options.get(), filename.c_str(),
+                                &tag, tag_len, this->graph.get(), meta_graph.get(), context::get_status()),
+                         session_deleter };
+
+        status_check(context::get_status());
     }
 
     inline std::vector<int64_t> model::get_operation_shape(const std::string& operation) const {

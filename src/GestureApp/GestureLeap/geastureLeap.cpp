@@ -1,5 +1,16 @@
 #include "geastureLeap.h"
 
+GestureLeap::GestureLeap(): num_predictions(0), listen_bool(true), configManager() {
+
+gesturePrediction = GesturePrediction(
+		configManager.getConfigValue("model_directory").asCString(),
+		configManager.getConfigValue("timestep").asInt(),
+		configManager.getConfigValue("num_features").asInt(),
+		configManager.getConfigVector("min_scales"),
+		configManager.getConfigVector("max_scales")
+	);
+	window = SlidingWindow(configManager.getConfigValue("timestep").asInt(), configManager.getConfigValue("sliding_rate").asInt());
+}
 
 void GestureLeap::processWindow(const float & deviation) {
 	std::pair<int, double> res = gesturePrediction.predict(window.getWindow());

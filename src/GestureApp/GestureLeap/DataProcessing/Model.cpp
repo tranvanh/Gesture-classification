@@ -1,7 +1,7 @@
 #include "Model.h"
 
 std::pair<int, double> Model::predict(const std::vector<double> &input_data) {
-    auto output = this->model(cppflow::tensor(input_data, { 1,this->num_timestep,this->num_features }));
+    auto output = model(cppflow::tensor(input_data, { 1,this->num_timestep,this->num_features }));
     auto values = output.get_data<double>();
     
     double glob_max = 0.;
