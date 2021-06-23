@@ -10,7 +10,7 @@
 /** Preprocess data **/
 class DataNormalization {
 public:
-	DataNormalization() {};
+	DataNormalization(): timeStep(0), num_feature(0) {};
 	DataNormalization(const int& t, const int& f, const std::vector<double> &min_s, const std::vector<double> &max_s) :
 		timeStep(t), num_feature(f), min_scaler(min_s), max_scaler(max_s) {};
 

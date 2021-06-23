@@ -15,9 +15,9 @@ double DataNormalization::internalAngle(const VECT& a, const VECT& b)
 DataNormalization::VECT DataNormalization::lineFromPoint(const LEAP_VECTOR& a, const LEAP_VECTOR& b)
 {
 	VECT res;
-	res.x = b.x - a.x;
-	res.y = b.y - a.y;
-	res.z = b.z - a.z;
+	res.x = (double)b.x - a.x;
+	res.y = (double)b.y - a.y;
+	res.z = (double)b.z - a.z;
 	return res;
 }
 

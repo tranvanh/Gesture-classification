@@ -5,7 +5,7 @@
 class SlidingWindow
 {
 public:
-	SlidingWindow() {}
+	SlidingWindow() :num_timeStep(0), rate(0) {}
 	SlidingWindow(const int& t, const int& r) :num_timeStep(t), rate(r) { if (rate > t) throw "Rate must be lower than number of timesteps"; }
 	void AddFrame(const LEAP_HAND& frame);
 	void flush();
