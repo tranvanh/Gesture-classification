@@ -5,12 +5,6 @@
 
 #include "SampleLeap/GestureRecorder.h"
 
-
-#define DYNAMIC_TIMESTEP 120
-
-#define TIMESTEP 90
-#define NUM_FEATURES 31
-#define COUNT 0
 constexpr unsigned int hash(const char* s, int off = 0) {
 	return !s[off] ? 5381 : (hash(s, off + 1) * 33) ^ s[off];
 }
@@ -77,7 +71,7 @@ int main(int argc, char** argv) {
 	std::cout << "Enter gesture Type" << std::endl;
 	std::cin >> gestureType;
 
-	static GestureRecorder gestureRecorder(TIMESTEP, NUM_FEATURES, COUNT, gestureType);
+	static GestureRecorder gestureRecorder(gestureType);
 
 	std::cout << "Starting communication." << std::endl;
 	LeapCallbacks leapCallbacks{};
@@ -272,7 +266,7 @@ int main(int argc, char** argv) {
 		case hash("dynamic"):
 		{
 			std::cout << "start dynamic Recording" << std::endl;
-			gestureRecorder.startDynamicRecording(DYNAMIC_TIMESTEP);
+			gestureRecorder.startDynamicRecording();
 			break;
 		}
 		case hash("reinit"):

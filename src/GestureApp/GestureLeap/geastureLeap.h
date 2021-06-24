@@ -32,6 +32,7 @@ public:
 
 	/** Conclude success rate of prediction */
 	void getSuccessRate() const;
+	/** List probabilities of invalid predictions */
 	void getInvalidAcc() const;
 
 private:

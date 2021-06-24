@@ -11,6 +11,7 @@
 
 class DataNormalization {
 public:
+	DataNormalization() :timeStep(0), num_feature(0) {};
 	DataNormalization(const int& t, const int& f) :timeStep(t), num_feature(f) {};
 
 	/** Filters significant frames **/

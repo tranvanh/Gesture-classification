@@ -24,6 +24,9 @@
     <ClCompile Include="SampleLeap\GestureRecorder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SampleLeap\ConfigManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SampleLeap\DataProcessing\DataNormalizationr.h">
@@ -32,5 +35,11 @@
     <ClInclude Include="SampleLeap\GestureRecorder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SampleLeap\ConfigManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

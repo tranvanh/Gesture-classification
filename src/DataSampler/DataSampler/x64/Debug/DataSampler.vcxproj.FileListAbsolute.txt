@@ -1,0 +1,1 @@
+C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\DataSampler\DataSampler\x64\Debug\DataSampler.vcxproj.CopyComplete

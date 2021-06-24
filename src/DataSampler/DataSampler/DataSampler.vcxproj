@@ -151,14 +151,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DataSampler.cpp" />
+    <ClCompile Include="SampleLeap\ConfigManager.cpp" />
     <ClCompile Include="SampleLeap\DataProcessing\DataNormalization.cpp" />
     <ClCompile Include="SampleLeap\GestureRecorder.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SampleLeap\ConfigManager.h" />
     <ClInclude Include="SampleLeap\DataProcessing\DataNormalizationr.h" />
     <ClInclude Include="SampleLeap\GestureRecorder.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\GestureApp\packages\JsonCpp.Windows.1.9.2\build\JsonCpp.Windows.targets" Condition="Exists('..\..\GestureApp\packages\JsonCpp.Windows.1.9.2\build\JsonCpp.Windows.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\GestureApp\packages\JsonCpp.Windows.1.9.2\build\JsonCpp.Windows.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\GestureApp\packages\JsonCpp.Windows.1.9.2\build\JsonCpp.Windows.targets'))" />
+  </Target>
 </Project>

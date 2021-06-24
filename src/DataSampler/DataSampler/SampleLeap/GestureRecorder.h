@@ -8,21 +8,19 @@
 
 #include "MultiLeap.h"
 #include "DataProcessing/dataNormalizationr.h"
+#include "ConfigManager.h"
 
-
-#define SAVE_DIR "DataCollection/"
-#define DATASET_DIR "../../Dataset/"
 
 class GestureRecorder {
 public:
 	/** Callback for when the connection opens. */
-	GestureRecorder(const int& t, const int& f, const int &c, const std::string gt) : dataNormalization(t, f), timestep(t), timestepBackup(t), num_features(f),
-		count(c), gestureType(gt), recording(false), continuous(false), dynamicRecording(false) {}
+	GestureRecorder(const std::string gt);
 	/** Callback for when a frame of tracking data is available. */
 	void OnFrame(const LEAP_TRACKING_EVENT* frame, const unsigned deviceId, float deviation, void* context);
 	
 	/** Single sample recording **/
 	void startRecording();
+	void startDynamicRecording();
 	/** Open recording **/
 	void openRecording();
 	/** Recording siginificant frames**/
@@ -45,7 +43,9 @@ private:
 	void cleanUp();
 
 	DataNormalization dataNormalization;
+	ConfigManager configManager;
 
+	std::string dataset_dir;
 	std::list<LEAP_HAND> window;
 	int timestep;
 	int timestepBackup;
@@ -53,6 +53,7 @@ private:
 	int count;
 	bool recording;
 	bool continuous;
+	int dynamic_timestep;
 
 	bool dynamicRecording;
 

@@ -1,6 +1,23 @@
 #include "GestureRecorder.h"
+
+GestureRecorder::GestureRecorder(const std::string gt): count(0), gestureType(gt), recording(false), continuous(false), dynamicRecording(false), dynamic_timestep(0) {
+
+	dataNormalization = DataNormalization(
+		configManager.getConfigValue("timestep").asInt(),
+		configManager.getConfigValue("num_features").asInt()
+	);
+	timestep = configManager.getConfigValue("timestep").asInt();
+	dynamic_timestep = configManager.getConfigValue("dynamic_timestep").asInt();
+
+	timestepBackup = configManager.getConfigValue("timestep").asInt();
+	num_features = configManager.getConfigValue("num_features").asInt();
+
+	dataset_dir = configManager.getConfigValue("dataset_directory").asCString();
+
+}
+
 void GestureRecorder::startRecording() { recording = true; continuous = false; }
-void GestureRecorder::startDynamicRecording(const int& t) { recording = true; timestep = t; dynamicRecording = true; }
+void GestureRecorder::startDynamicRecording() { recording = true; timestep = dynamic_timestep; dynamicRecording = true; }
 
 void GestureRecorder::openRecording() {
 	recording = true;
@@ -76,24 +93,18 @@ void GestureRecorder::processData(bool notFull)
 
 void GestureRecorder::checkDirectories()
 {
-	std::string dataset_dir = DATASET_DIR;
-	std::string save_dir = DATASET_DIR + std::string(SAVE_DIR);
-	std::string gesture_dir = DATASET_DIR + std::string(SAVE_DIR) + gestureType;
+	std::string gesture_dir = dataset_dir + "/" + gestureType;
 
 
 	std::wstring LPCWSTR_datasetDir(dataset_dir.begin(), dataset_dir.end());
-	std::wstring LPCWSTR_saveDir(save_dir.begin(), save_dir.end());
 	std::wstring LPCWSTR_gestureDir(gesture_dir.begin(), gesture_dir.end());
 
 
 	if (CreateDirectory(LPCWSTR_datasetDir.c_str(), NULL))
-		std::cout << "created directory \"" << DATASET_DIR << std::endl;
+		std::cout << "created directory \"" << dataset_dir << std::endl;
 
-	if (CreateDirectory(LPCWSTR_saveDir.c_str(), NULL))
-		std::cout << "created directory:\"" << DATASET_DIR + std::string(SAVE_DIR) << std::endl;
-	
 	if (CreateDirectory(LPCWSTR_gestureDir.c_str(), NULL))
-		std::cout << "created directory:\"" << DATASET_DIR + std::string(SAVE_DIR) + gestureType << std::endl;
+		std::cout << "created directory:\"" << gesture_dir << std::endl;
 }
 
 
@@ -108,7 +119,7 @@ void GestureRecorder::cleanUp()
 void GestureRecorder::writeDown(const std::vector<std::vector<double>>& data, bool notFull)
 {
 	checkDirectories();
-	std::string name = DATASET_DIR + std::string(SAVE_DIR) + gestureType + "/" + std::to_string(count) + ".txt";
+	std::string name = dataset_dir + "/" + gestureType + "/" + std::to_string(count) + ".txt";
 	std::ofstream writer(name, std::ios::trunc);
 	if (!writer)
 	{
