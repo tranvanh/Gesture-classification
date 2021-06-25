@@ -1,27 +1,6 @@
 #include "ConfigManager.h"
-ConfigManager::ConfigManager() {
+ConfigManager::ConfigManager(): path(DEFAULT_CONFIG_PATH) {
 
-    TCHAR basePath[MAX_PATH];
-    if (!SUCCEEDED(SHGetFolderPath(NULL, CSIDL_COMMON_APPDATA, NULL, 0, basePath)))
-    {
-        throw "cant find path";
-    }
-
-    std::wstring wPath(&basePath[0]); //convert to wstring
-    std::string tmpPath(wPath.begin(), wPath.end()); //and convert to string.
-
-    tmpPath += "\\VRG\\";
-
-    if (!std::filesystem::exists(tmpPath) && !std::filesystem::create_directory(tmpPath)) {
-        throw "cant create directory VRG";
-    }
-
-    tmpPath += "\\MultiLeap\\";
-
-    if (!std::filesystem::exists(tmpPath) && !std::filesystem::create_directory(tmpPath)) {
-        throw "cant create directory Multileap";
-    }
-    path = tmpPath + "gestureLeapConfig.json";
     std::ifstream file_input(path.c_str());
     if (file_input.fail())
     {
@@ -61,6 +40,9 @@ void ConfigManager::defaultConfig() {
     root["model_directory"] = "./TrainedModel";
     root["dataset_directory"] = "./Dataset";
     root["num_features"] = 31;
+    root["epoch"] = 200;
+    root["serve_command"] = "serve_bidirectional_input";
+    root["gpu"] = false;
 
     for (int i = 0; i < 31; ++i){
         root["min_scales"].append(Json::Value(min_scales[i]));

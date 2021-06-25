@@ -9,7 +9,7 @@
 #include <json/json.h>
 #include <vector>
 
-
+#define DEFAULT_CONFIG_PATH "./gestureLeapConfig.json"
 class ConfigManager
 {
 public:
