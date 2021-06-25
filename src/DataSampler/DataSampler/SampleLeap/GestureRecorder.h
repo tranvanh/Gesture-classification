@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 #include "MultiLeap.h"
-#include "DataProcessing/dataNormalizationr.h"
+#include "DataProcessing/DataNormalizationSampling.h"
 #include "ConfigManager.h"
 
 

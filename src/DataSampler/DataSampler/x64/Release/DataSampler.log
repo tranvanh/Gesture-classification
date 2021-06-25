@@ -1,0 +1,13 @@
+﻿  DataSampler.cpp
+  DataNormalizationSampling.cpp
+  GestureRecorder.cpp
+C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\DataSampler\DataSampler\SampleLeap\GestureRecorder.cpp(84,75): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
+  Generating code
+  314 of 707 functions (44.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    25 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  DataSampler.vcxproj -> C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\x64\Release\DataSampler.exe
+  C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\\..\includes\multileap\MultiLeapC.dll
+  C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\\..\includes\multileap\MultiLeapLibrary.dll
+  2 File(s) copied

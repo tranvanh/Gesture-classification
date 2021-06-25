@@ -20,7 +20,7 @@ namespace cppflow {
     class model {
     public:
         explicit model();
-        void loadModel(const std::string& filename);
+        void loadModel(const std::string& filename, const std::string& serving);
 
         std::vector<std::string> get_operations() const;
         std::vector<int64_t> get_operation_shape(const std::string& operation) const;
@@ -33,6 +33,7 @@ namespace cppflow {
         model(model &&model) = default;
         model &operator=(const model &other) = default;
         model &operator=(model &&other) = default;
+        std::string serving_command;
 
     private:
 
@@ -76,8 +77,9 @@ namespace cppflow {
         return result;
     }
 
-    inline void model::loadModel(const std::string& filename)
+    inline void model::loadModel(const std::string& filename, const std::string& serving)
     {
+        serving_command = serving;
         // Create the session.
         std::unique_ptr<TF_SessionOptions, decltype(&TF_DeleteSessionOptions)> session_options = { TF_NewSessionOptions(), TF_DeleteSessionOptions };
         std::unique_ptr<TF_Buffer, decltype(&TF_DeleteBuffer)> run_options = { TF_NewBufferFromString("", 0), TF_DeleteBuffer };
@@ -184,7 +186,7 @@ namespace cppflow {
     }
 
     inline tensor model::operator()(const tensor& input) {
-        return (*this)({{"serving_default_bidirectional_4_input", input}}, {"StatefulPartitionedCall"})[0];
+        return (*this)({{serving_command.c_str(), input}}, {"StatefulPartitionedCall"})[0];
     }
 }
 

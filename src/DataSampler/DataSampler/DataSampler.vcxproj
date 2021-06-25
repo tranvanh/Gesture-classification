@@ -132,6 +132,9 @@
       <AdditionalLibraryDirectories>"$(SolutionDir)/../includes/multileap";</AdditionalLibraryDirectories>
       <AdditionalDependencies>MultiLeapLibrary.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y $(SolutionDir)\..\includes\multileap\*.dll "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -141,23 +144,30 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>"$(SolutionDir)/../includes/multileap"</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>"$(SolutionDir)/../includes/multileap"</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MultiLeapLibrary.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y $(SolutionDir)\..\includes\multileap\*.dll "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DataSampler.cpp" />
     <ClCompile Include="SampleLeap\ConfigManager.cpp" />
-    <ClCompile Include="SampleLeap\DataProcessing\DataNormalization.cpp" />
+    <ClCompile Include="SampleLeap\DataProcessing\DataNormalizationSampling.cpp" />
     <ClCompile Include="SampleLeap\GestureRecorder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SampleLeap\ConfigManager.h" />
-    <ClInclude Include="SampleLeap\DataProcessing\DataNormalizationr.h" />
+    <ClInclude Include="SampleLeap\DataProcessing\DataNormalizationSampling.h" />
     <ClInclude Include="SampleLeap\GestureRecorder.h" />
   </ItemGroup>
   <ItemGroup>

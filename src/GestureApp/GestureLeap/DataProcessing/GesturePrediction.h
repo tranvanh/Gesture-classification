@@ -7,9 +7,9 @@
 class GesturePrediction {
 public:
 	GesturePrediction() {};
-	GesturePrediction(const std::string& model_dir, const int& t, const int& f, const std::vector<double>& min_scales, const std::vector<double>& max_scales) :
+	GesturePrediction(const std::string& model_dir, const std::string& serving, const int& t, const int& f, const std::vector<double>& min_scales, const std::vector<double>& max_scales) :
 		dataNormalization(t, f, min_scales, max_scales) {
-		model = Model(model_dir, t, f);
+		model = Model(model_dir, serving, t, f);
 
 	}
 	/** Request prediction on incoming data **/

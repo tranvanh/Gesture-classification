@@ -18,7 +18,7 @@
     <ClCompile Include="DataSampler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SampleLeap\DataProcessing\DataNormalization.cpp">
+    <ClCompile Include="SampleLeap\DataProcessing\DataNormalizationSampling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SampleLeap\GestureRecorder.cpp">
@@ -29,7 +29,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SampleLeap\DataProcessing\DataNormalizationr.h">
+    <ClInclude Include="SampleLeap\DataProcessing\DataNormalizationSampling.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SampleLeap\GestureRecorder.h">

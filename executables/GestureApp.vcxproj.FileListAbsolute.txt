@@ -1,0 +1,3 @@
+C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\x64\Release\GestureApp.vcxproj.CopyComplete
+C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\x64\Release\GestureApp.exe
+C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\x64\Release\jsoncpp.dll

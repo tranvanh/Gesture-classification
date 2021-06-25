@@ -9,8 +9,18 @@
 #include "GestureLeap/GeastureLeap.h"
 #include "GestureLeap/ConfigManager.h"
 
+/**Disclamer: Initialization is extended from MultiLeapCallbackTest file **/
+
 constexpr unsigned int hash(const char* s, int off = 0) {
 	return !s[off] ? 5381 : (hash(s, off + 1) * 33) ^ s[off];
+}
+
+
+void printHelp() {
+	std::cout << "calibrate  => Calibrate devices" << std::endl;
+	std::cout << "merge      => Merge hands" << std::endl;
+	std::cout << "stopMerge  => Stop merging hands" << std::endl;
+	std::cout << "help       => show available commands" << std::endl;
 }
 
 /** Callback for when the connection opens. */
@@ -261,16 +271,16 @@ int main(int argc, char** argv) {
 			std::cout << "DEMO APP REINIT" << std::endl;
 			break;
 		}
+		case hash("help"):
+		{
+			printHelp();
+		}
 		default:
 			break;
 		}
 	} while(hash("close") != hash(command.c_str()));
 
 	std::cout << "Stopping communication." << std::endl;
-
-	gestureLeap.getSuccessRate();
-	gestureLeap.getInvalidAcc();
-
 	MultiLeap_Deinit();
 	delete context;
 	return 0;

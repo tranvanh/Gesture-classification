@@ -10,9 +10,6 @@
 #include "DataProcessing/Model.h"
 #include "DataProcessing/GesturePrediction.h"
 #include "ConfigManager.h"
-#define PREDICTION_LIMIT 1000
-
-
 
 class GestureLeap {
 
@@ -30,9 +27,9 @@ public:
 	void listen() { listen_bool = true; }
 	void stop() { listen_bool = false; }
 
-	/** Conclude success rate of prediction */
+	/** Conclude success rate of prediction (serves for experimental purposes) */
 	void getSuccessRate() const;
-	/** List probabilities of invalid predictions */
+	/** List probabilities of invalid predictions (serves for experimental purposes) */
 	void getInvalidAcc() const;
 
 private:

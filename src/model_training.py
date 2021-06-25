@@ -46,6 +46,8 @@ def defaultParams():
 		'num_features' : 31,
 		'sliding_rate' : 10,
 		'timestep' : 60,
+		'demo': False,
+		'serve_command': ''
 	}
 
 	return jsonDefault
@@ -155,7 +157,7 @@ def main():
 		optimizer=opt,
 		metrics=['accuracy'],
 	)
-	
+
 	gestures = model.fit(x = x_train,
 		y = y_train,
 		epochs=params['epoch'],
@@ -169,7 +171,7 @@ def main():
 	params['timestep'] = timestep
 	params['num_features'] = num_features
 	
-	params['serve_command'] = 'serve_' + model.input.name
+	params['serve_command'] = 'serving_default_' + model.input.name
 
 	writeJson(params, writepath)	
 

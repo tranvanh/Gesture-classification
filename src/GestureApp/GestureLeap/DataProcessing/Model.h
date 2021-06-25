@@ -8,13 +8,8 @@ class Model
 {
 public:
 	Model() : num_timestep(0), num_features(0) {};
-	Model(const std::string& model_dir, const int& t, const int& f) : num_timestep(t), num_features(f) {
-		model.loadModel(model_dir);
-		auto output = model.get_operations();
-		for (const auto& i : output)
-		{
-			std::cout << i << std::endl;
-		}
+	Model(const std::string& model_dir, const std::string& serving, const int& t, const int& f) : num_timestep(t), num_features(f) {
+		model.loadModel(model_dir, serving);
 	};
 	/** Preform prediction **/
 	std::pair<int, double> predict(const std::vector<double> &input_data);

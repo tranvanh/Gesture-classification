@@ -17,7 +17,7 @@ public:
 
 	/** Return config value at Key **/
 	Json::Value getConfigValue(const char* key) const& { return root[key]; }
-	/** Return config array at Key **/
+	/** Return config array of doubles at Key **/
 	std::vector<double> getConfigVector(const char* key) const&;
 private:
 	/** Create a config file with default values **/

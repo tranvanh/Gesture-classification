@@ -5,8 +5,25 @@
 
 #include "SampleLeap/GestureRecorder.h"
 
+/**Disclamer: Initialization is extended from MultiLeapCallbackTest file **/
+
+
 constexpr unsigned int hash(const char* s, int off = 0) {
 	return !s[off] ? 5381 : (hash(s, off + 1) * 33) ^ s[off];
+}
+
+void printHelp() {
+	std::cout << "record => Sample one hand sequence	" << std::endl;
+	std::cout << "pause => Pause sampling" << std::endl;
+	std::cout << "open => Open sampling. Interupt by pause or close" << std::endl;
+	std::cout << "reinit [gesture type] [index]	=> show available commands" << std::endl;
+	std::cout << "help => show available commands" << std::endl;
+	std::cout << "close  => close application" << std::endl;
+	std::cout << "--------------------------------------------------------------------------" << std::endl;
+	std::cout << "### Additional possibility to sample using multiple sensors (not recommended)	###" << std::endl;
+	std::cout << "calibrate => Calibrate devices" << std::endl;
+	std::cout << "merge => Merge hands" << std::endl;
+	std::cout << "stopMerge => Stop merging hands" << std::endl;
 }
 
 /** Callback for when the connection opens. */
@@ -68,7 +85,7 @@ static void OnLogMessage(const eLeapLogSeverity severity, const int64_t timestam
 int main(int argc, char** argv) {
 	int* context = new int(256);
 	std::string gestureType = "";
-	std::cout << "Enter gesture Type" << std::endl;
+	std::cout << "Enter gesture Type (must be numeric value)" << std::endl;
 	std::cin >> gestureType;
 
 	static GestureRecorder gestureRecorder(gestureType);
@@ -276,6 +293,11 @@ int main(int argc, char** argv) {
 			std::cin >> gestureType >> index;
 			std::cout << "reinit Recorder: gesture type[" << gestureType << "] file index[" << index << "]" << std::endl;
 			gestureRecorder.reinitRecording(gestureType, index);
+			break;
+		}
+		case hash("help"):
+		{
+			printHelp();
 			break;
 		}
 		default:

@@ -4,13 +4,12 @@ ConfigManager::ConfigManager() : path(DEFAULT_CONFIG_PATH) {
     std::ifstream file_input(path.c_str());
     if (file_input.fail())
     {
-        std::cout << "default" << std::endl;
+        std::cout << "default configuration created" << std::endl;
         defaultConfig();
     }
     else
         file_input >> root;
 
-    std::cout << root["timestep"] << std::endl;
     file_input.close();
     return;
 }
@@ -34,6 +33,7 @@ void ConfigManager::defaultConfig() {
         146.668
     };
 
+    root["demo"] = false;
     root["timestep"] = 60;
     root["dynamic_timestep"] = 100;
     root["sliding_rate"] = 10;
@@ -41,7 +41,7 @@ void ConfigManager::defaultConfig() {
     root["dataset_directory"] = "./Dataset";
     root["num_features"] = 31;
     root["epoch"] = 200;
-    root["serve_command"] = "serve_bidirectional_input";
+    root["serve_command"] = "serving_default_bidirectional_4_input";
     root["gpu"] = false;
 
     for (int i = 0; i < 31; ++i) {
