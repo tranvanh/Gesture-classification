@@ -14,7 +14,7 @@ Gestures are categorized into \textit{static gestures} and \textit{dynamic gestu
 
 \section{Tracking devices}
 Hand and body gesture recognition had followed a conventional scheme of extracting key features via one or multiple preprocessing sensors and applying machine learning techniques on them \cite{avola}. The field of gesture recognition gave birth to several image processing devices yielding useful data.
-We will only cover optical devices, but there are also controllers in the form of a stick with buttons, like HTC Vive, or others in the form of gloves, sending tracking information to the computer.
+We will only cover optical devices, but there are also controllers in the form of a stick with buttons, like HTC Vive, or others in the form of gloves.
 \subsection{Microsoft Kinect}
 %=======================================================================================================================
 One of them being Micorosoft Kinect, a device first released in 2010. Originally developed for gaming but eventually finding more success in academical and commercial applications, such as robotics, medicine, and health care, it led Microsoft to discontinue production of its Xbox version in 2018 and release Azure Kinect in March 2020, incorporating Microsoft Azure cloud computing functionalities.
@@ -45,7 +45,6 @@ LMC consists of two monochromatic IR cameras and three IR LEDs (emitters).
 \end{figure}
 
 
-
 The LMC's current API, Leap Motion Service, yields positions of extracted hand features. All the positional data about the hand and its features are represented in the coordinate system relative to the LMC's center point, positioned at top of the controller \cite{LMCanalysis}. The x- and z-axes lie in the camera sensors plane, with the x-axis running along the camera baseline. The y-axis is vertical, with positive values increasing upwards (in contrast to the downward orientation of most computer graphics coordinate systems). The z-axis has positive values increasing toward the user \cite{tomasMultileap}.
 
 \begin{figure}[ht]
@@ -59,7 +58,7 @@ The LMC's current API, Leap Motion Service, yields positions of extracted hand f
 
 Ultraleap Stereo IR 170, formerly known as the Leap Motion Rigel, is the successor to the Leap Motion controller.
 
-The Stereo IR inherits Leap Motions key features but improves with a wider 170-degree field of view, more-powerful LED illuminators providing more extended tracking range, and a higher framerate when used with USB 3.0 \cite{ultraleap}, \cite{ultraleap2}.
+The Stereo IR inherits Leap Motions key features but improves with a wider 170-degree field of view, more-powerful LED illuminators providing more extended tracking range, and a higher framerate when used with USB 3.0. The Stereo IR also shares with original LMC its API \cite{ultraleap}, \cite{ultraleap2}.
 
 \begin{figure}[H]
 	\centering

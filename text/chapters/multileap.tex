@@ -1,5 +1,5 @@
 
-In 2018, developers from UltraLeap had released an experimental build for Leap Motion tracking software, which provided data from all connected LMCs at once. Despite having this feature, the provided tracking information for the same hand was different from each sensor due to different points of origin. This problem was solved by MultiLeap library created by Tomáš Nováček et al. in \cite{tomasMultileap}, which merges the information from all sensors and returns unified stream of data. 
+In 2018, developers from UltraLeap had released an experimental build for Leap Motion tracking software, which provided data from all connected LMCs at once. Despite having this feature, the provided tracking information for the same hand was different from each sensor due to different points of origin. This problem was solved by MultiLeap library created by Tomáš Nováček et al. in \cite{tomasMultileap}, which merges the information from all sensors and returns unified stream of data. The library works with same data structures as Leap Motion's API.
 
 \section{Alignment of the tracking data}
 
@@ -18,13 +18,13 @@ Hands will then align automatically, but it is up to the user, performing the ca
 
 Considering the tracking data, where the hand is completely still, it will not have the necessary diversity in its samples. The deviation between collected tracking data is too insignificant. If we were to move the hand across the tracking area, having it rotated in various ways in various positions, the deviation of rotations and positions will be more evident, and the calculation of the alignment more precise \cite{tomasMultileap}.
 
-Another option for calibration is a fully manual setting, allowing a user to set the position and rotation of sensors in the Unity environment. Values need to be calculated accurately for the alignment to have any use. The main advantage of this approach is having the possibility of tracking different parts of the tracked space with the sensors, for example, LMCs being back to each other \cite{tomasMultileap}.
+Another option for calibration is a fully manual setting, allowing a user to set the position and rotation of sensors. Values need to be calculated accurately for the alignment to have any use. The main advantage of this approach is having the possibility of tracking different parts of the tracked space with the sensors, for example, LMCs being back to each other \cite{tomasMultileap}.
 
 The combined approach is also possible. First, making a rough calibration manually and eventually improved by the semi-automatic.
 
 \subsection{Kabsch algorithm}
 
-Kabsch algorithm \cite{kabsch} also known as Procrustes superimposition, was used to determine the rotation of sensors by calculating optimal rotation matrix minimizing the root mean squared deviation between two paired sets of points. The set of LMC sensor, which was connected first, serves as a reference sensor. The second set of points consists of the tracking information from any other sensor. \cite{tomasMultileap}
+Kabsch algorithm \cite{kabsch} also known as Procrustes superimposition, was used to determine the rotation of sensors by calculating optimal rotation matrix minimizing the root mean squared deviation between two paired sets of points. The first set of points consists of merged tracking information from calibrated sensors. The second set of points consists of the tracking information from any other sensor. \cite{tomasMultileap}
 
 The goal of the Kabsch algorithm is to compute the optimal translation rotation of P onto Q, where P and Q are sets of pair points that minimize the distance between the two sets. Both P and Q are represented as $N \times 3$ matrix. Each row consists of coordinates of every point \cite{tomasMultileap}.
 
