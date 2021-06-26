@@ -46,6 +46,8 @@ def defaultParams():
 		'num_features' : 31,
 		'sliding_rate' : 10,
 		'timestep' : 60,
+		'demo': False,
+		'serve_command': ''
 	}
 
 	return jsonDefault
@@ -90,7 +92,7 @@ def loadDataset(dataset_directory, timestep, num_features):
 			df = pd.read_csv(dataset_directory+ '/' + i + '/' + samples[k], header=None, sep=' ')
 			df = df.drop(df.index[timestep:]) #possible bad parsing of separator, rows beyond timestep value
 			if len(df.columns) > num_features: ##possible bad parsing of separator, columns beyond timestep value
-				df = df.drop(columns=[num_features:])
+				df = df.drop(columns=[num_features])
 
 			if df.isnull().values.any() or len(np.where(df.applymap(np.isreal).all(1)==False)[0]) > 0: #very inefective solution, shall be fixed in the future
 				print(f'Found NaN value at gesture[{i}] index [{samples[k]}], sample is thrown away')
@@ -155,7 +157,7 @@ def main():
 		optimizer=opt,
 		metrics=['accuracy'],
 	)
-	
+
 	gestures = model.fit(x = x_train,
 		y = y_train,
 		epochs=params['epoch'],
@@ -169,7 +171,7 @@ def main():
 	params['timestep'] = timestep
 	params['num_features'] = num_features
 	
-	params['serve_command'] = 'serve_' + model.input.name
+	params['serve_command'] = 'serving_default_' + model.input.name
 
 	writeJson(params, writepath)	
 

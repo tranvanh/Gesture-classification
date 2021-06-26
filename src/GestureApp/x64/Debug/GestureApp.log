@@ -443,6 +443,10 @@ C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\includes\cppflow
               _InIt=std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<std::vector<int64_t,std::allocator<int64_t>>>>>,
               _Fn=cppflow::anonymous_iterator::<lambda_e1842c5ab8af8c457e97e822dcdcd593>
           ]
+  ConfigManager.cpp
+C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\GestureLeap\ConfigManager.cpp(25,5): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\GestureLeap\ConfigManager.cpp(34,5): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\GestureLeap\ConfigManager.cpp(70,23): warning C4018: '<': signed/unsigned mismatch
   GeastureLeap.cpp
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\includes\tensorflow2\tensorflow\c\c_api.h(953,68): warning C4190: 'TF_NewWhile' has C-linkage specified, but returns UDT 'TF_WhileParams' which is incompatible with C
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\includes\tensorflow2\tensorflow\c\c_api.h(909): message : see declaration of 'TF_WhileParams'

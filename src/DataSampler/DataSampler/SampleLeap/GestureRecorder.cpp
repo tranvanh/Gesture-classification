@@ -2,7 +2,7 @@
 
 GestureRecorder::GestureRecorder(const std::string gt): count(0), gestureType(gt), recording(false), continuous(false), dynamicRecording(false), dynamic_timestep(0) {
 
-	dataNormalization = DataNormalization(
+	dataNormalization = DataNormalizationSampling(
 		configManager.getConfigValue("timestep").asInt(),
 		configManager.getConfigValue("num_features").asInt()
 	);
@@ -121,6 +121,7 @@ void GestureRecorder::writeDown(const std::vector<std::vector<double>>& data, bo
 	checkDirectories();
 	std::string name = dataset_dir + "/" + gestureType + "/" + std::to_string(count) + ".txt";
 	std::ofstream writer(name, std::ios::trunc);
+	std::cout << "save file to: " << name << std::endl;
 	if (!writer)
 	{
 		std::cout << "Error Opening File" << std::endl;

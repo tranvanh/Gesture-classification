@@ -42,7 +42,7 @@ private:
 	/** Set recording flags to default values and flush window**/
 	void cleanUp();
 
-	DataNormalization dataNormalization;
+	DataNormalizationSampling dataNormalization;
 	ConfigManager configManager;
 
 	std::string dataset_dir;

@@ -9,10 +9,10 @@
 
 #define PI 3.14159265
 
-class DataNormalization {
+class DataNormalizationSampling {
 public:
-	DataNormalization() :timeStep(0), num_feature(0) {};
-	DataNormalization(const int& t, const int& f) :timeStep(t), num_feature(f) {};
+	DataNormalizationSampling() :timeStep(0), num_feature(0) {};
+	DataNormalizationSampling(const int& t, const int& f) :timeStep(t), num_feature(f) {};
 
 	/** Filters significant frames **/
 	std::list<LEAP_HAND> selectSignificantFrames(const std::list<LEAP_HAND>& window, const int &recordSize);

@@ -1,13 +1,13 @@
 #include "DataNormalizationSampling.h"
 
-double DataNormalization::internalAngle(const VECT& a, const VECT& b)
+double DataNormalizationSampling::internalAngle(const VECT& a, const VECT& b)
 {
 	double numerator = (double)a.x * b.x + (double)a.y * b.y + (double)a.z * b.z;
 	double denominator = sqrt((double)a.x * a.x + (double)a.y * a.y + (double)a.z * a.z) * sqrt((double)b.x * b.x + (double)b.y * b.y + (double)b.z * b.z);
 	return acos(numerator / denominator) * 180.0 / PI;
 }
 
-DataNormalization::VECT DataNormalization::lineFromPoint(const LEAP_VECTOR& a, const LEAP_VECTOR& b)
+DataNormalizationSampling::VECT DataNormalizationSampling::lineFromPoint(const LEAP_VECTOR& a, const LEAP_VECTOR& b)
 {
 	VECT res;
 	res.x = (double)b.x - a.x;
@@ -16,7 +16,7 @@ DataNormalization::VECT DataNormalization::lineFromPoint(const LEAP_VECTOR& a, c
 	return res;
 }
 
-void DataNormalization::calculate_features(std::vector<double>& output, const LEAP_HAND& hand)
+void DataNormalizationSampling::calculate_features(std::vector<double>& output, const LEAP_HAND& hand)
 {
 
 	VECT CD_thumb = lineFromPoint(hand.thumb.distal.prev_joint, hand.thumb.distal.next_joint);
@@ -94,7 +94,7 @@ void DataNormalization::calculate_features(std::vector<double>& output, const LE
 	};
 }
 
-double DataNormalization::distancePoints(const LEAP_VECTOR& a, const LEAP_VECTOR& b)
+double DataNormalizationSampling::distancePoints(const LEAP_VECTOR& a, const LEAP_VECTOR& b)
 {
 	double x = (double)b.x - a.x;
 	double y = (double)b.y - a.y;
@@ -102,7 +102,7 @@ double DataNormalization::distancePoints(const LEAP_VECTOR& a, const LEAP_VECTOR
 	return sqrt(x * x + y * y + z * z) / 6;
 }
 
-double DataNormalization::distanceFingerTips(const LEAP_HAND& a, const LEAP_HAND& b)
+double DataNormalizationSampling::distanceFingerTips(const LEAP_HAND& a, const LEAP_HAND& b)
 {
 	double x = (double)b.palm.position.x - a.palm.position.x;
 	double y = (double)b.palm.position.y - a.palm.position.y;
@@ -115,7 +115,7 @@ double DataNormalization::distanceFingerTips(const LEAP_HAND& a, const LEAP_HAND
 	sum += distancePoints(a.palm.position, b.palm.position);
 	return sum;
 }
-void DataNormalization::calculate_palmDistance(const std::vector<LEAP_HAND>& input, std::vector<DISTANCE>& output)
+void DataNormalizationSampling::calculate_palmDistance(const std::vector<LEAP_HAND>& input, std::vector<DISTANCE>& output)
 {
 	for (int i = 0; i < input.size() - 1; ++i)
 	{
@@ -126,7 +126,7 @@ void DataNormalization::calculate_palmDistance(const std::vector<LEAP_HAND>& inp
 	}
 }
 
-void DataNormalization::sortSignificant(std::vector<DISTANCE>& input)
+void DataNormalizationSampling::sortSignificant(std::vector<DISTANCE>& input)
 {
 	struct compare
 	{
@@ -137,7 +137,7 @@ void DataNormalization::sortSignificant(std::vector<DISTANCE>& input)
 	};
 	std::sort(input.begin(), input.end(), compare());
 }
-std::list<LEAP_HAND>  DataNormalization::selectSignificantFrames(const std::list<LEAP_HAND>& window, const int& recordSize)
+std::list<LEAP_HAND>  DataNormalizationSampling::selectSignificantFrames(const std::list<LEAP_HAND>& window, const int& recordSize)
 {
 	std::vector<LEAP_HAND> workingWindow(recordSize);
 	std::vector<DISTANCE> distances(recordSize - 1);
@@ -212,7 +212,7 @@ std::list<LEAP_HAND>  DataNormalization::selectSignificantFrames(const std::list
 
 	return output;
 }
-void DataNormalization::scale(const std::list<LEAP_HAND>& window, std::vector<std::vector<double>>& dataFrame)
+void DataNormalizationSampling::scale(const std::list<LEAP_HAND>& window, std::vector<std::vector<double>>& dataFrame)
 {
 	int i = 0;
 	for (auto hand = window.cbegin(); hand != window.cend(); ++hand, ++i) {

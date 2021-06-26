@@ -9,8 +9,6 @@ ConfigManager::ConfigManager(): path(DEFAULT_CONFIG_PATH) {
     }
     else
         file_input >> root;
-
-    std::cout << root["timestep"] << std::endl;
     file_input.close();
     return;
 }
