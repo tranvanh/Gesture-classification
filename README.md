@@ -11,7 +11,7 @@ The DataSampler application serves for sampling custom datasets using predefined
 
 The application loads its configuration from `gestureLeapConfig.json` in the execution folder. The user can change `dataset_directory`, `timestep`, `dynamic_timestep` values, or use default values. If the configuration file is not found, it gets created with default values.
 
-The user is on startup asked to enter gesture type, must be a numeric value. Samples are saved to `<dataset directory>\<gesture type>\<index>.txt`. The index value begins from 0, but can be changed in application using `reinit <gesture type> <index>` command. Call `help` command to get the list of available commands.
+The user is on startup asked to enter gesture type, must be a numeric value. Samples are saved to `<dataset directory>/<gesture type>/<index>.txt`. The index value begins from 0, but can be changed in application using `reinit <gesture type> <index>` command. Call `help` command to get the list of available commands.
 
 #### Available functionalities
 * help - *list of commands*
