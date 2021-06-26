@@ -21,7 +21,7 @@ After further inspection of the ASL dataset, we have discovered possible mislabe
 \label{data_sampling}
 By not using ASL Dataset, we have lost a set of static gestures. Also, we want to have the ability to provide the training with our own sets of gestures and not to be bound only to those publicly available. For such purposes, we had created a simple interactive data sampler in the form of a console application.
 
-The sampler saves each sample in .txt format, one line per timestep $T$, frame yield by LMC. Each line contains a set of features. Features were selected and computed as previously described in section \ref{sec:feature_extraction}. The order of features in a line $x_t$, at time $t$ is as follows.
+The sampler saves each sample in .txt format, one line per timestep $T$, frame yield by LMC. Each line contains a set of features. Features were selected and computed as previously described in section \ref{sec:feature_extraction}. The order of features in a line $x_t$, at time $t$ is as follows:
 
 
 \begin{equation}

@@ -73,7 +73,7 @@
    ],
    "model_directory" : "./TrainedModel",
    "num_features" : 31,
-   "serve_command" : "serve_bidirectional_input",
+   "serve_command" : "serving_default_bidirectional_4_input",
    "sliding_rate" : 10,
    "timestep" : 60
 }

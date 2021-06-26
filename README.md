@@ -4,14 +4,14 @@ This library was developed as a bachelor thesis at FIT CTU in Prague by Anh Tran
 
 The library allows user to sample their own hand gesture dataset, using `DataSampler.exe`, fit their model, using `model_training.py`, and apply it in real-time recognition using provided demo application `GestureLeap.exe`.
 
-The data sampling, and real-time deployment is written in C++. The model training is in form of Python script.
+The data sampling and real-time deployment are written in C++. The model training is in the form of a Python script.
 
 ## DataSampler
-DataSampler application serves for sampling custom dataset using predefined feature extraction methods.
+The DataSampler application serves for sampling custom datasets using predefined feature extraction methods.
 
-The application loads its configuration from `gestureLeapConfig.json` in execution folder. The user can change `dataset_directory`, `timestep`, `dynamic_timestep` values, or use default values. If the configuration file is not found, it gets created with default values.
+The application loads its configuration from `gestureLeapConfig.json` in the execution folder. The user can change `dataset_directory`, `timestep`, `dynamic_timestep` values, or use default values. If the configuration file is not found, it gets created with default values.
 
-The user is on startup asked to enter gesture type, must be numeric value. Samples are saved to `<dataset directory>\<gesture type>\<index>.txt`. The index value begins from 0, but can be changed in application using `reinit <gesture type> <index>` command. Call `help` command to get list of available commands.
+The user is on startup asked to enter gesture type, must be a numeric value. Samples are saved to `<dataset directory>\<gesture type>\<index>.txt`. The index value begins from 0, but can be changed in application using `reinit <gesture type> <index>` command. Call `help` command to get the list of available commands.
 
 #### Available functionalities
 * help - *list of commands*
@@ -24,9 +24,9 @@ The user is on startup asked to enter gesture type, must be numeric value. Sampl
 
 ## model_training.py
 
-The Python scrips serves for model training on custom datasets. Run `python model_training.py`
+The Python script serves for model training on custom datasets. Run `python model_training.py`
 
-The script loads its configuration from `gestureLeapConfig.json` in execution folder. The user can change `dataset_directory`, `model_directory`, `epoch`, `dynamic_timestep`, `gpu` values, or use default values. If the configuration file is not found, it gets created with default values. Dataset directory must follow structure defined by DataSampler application `<dataset_directory>/<gesture type>/<index>.txt`. Names of gesture types must be numeric values. The `model_directory` is location where the trained model will be saved, must exist.
+The script loads its configuration from `gestureLeapConfig.json` in the execution folder. The user can change `dataset_directory`, `model_directory`, `epoch`, `dynamic_timestep`, `gpu` values, or use default values. If the configuration file is not found, it gets created with default values. Dataset directory must follow structure defined by DataSampler application `<dataset_directory>/<gesture type>/<index>.txt`. Names of gesture types must be numeric values. The `model_directory` is the location where the trained model will be saved, must exist.
 
  Set `gpu: True` to run the script with GPU support, more on installation [here](https://www.tensorflow.org/install/gpu)
 
@@ -34,11 +34,11 @@ The script loads its configuration from `gestureLeapConfig.json` in execution fo
 ## GestureApp
 GestureApp application serves for demonstration of the thesis.
 
-The application loads its configuration from `gestureLeapConfig.json` in execution folder. The user can change `model_directory`, `sliding_rate` values, or use default values. Other configuration values should be in relation pre-trained model yield by `model_training.py`. If the configuration file is not found, it gets created with default values, which could lead to exceptions/crashes caused by incorrect configuration.
+The application loads its configuration from `gestureLeapConfig.json` in the execution folder. The user can change `model_directory`, `sliding_rate` values, or use default values. Other configuration values should be in relation to pre-trained model yield by `model_training.py`. If the configuration file is not found, it gets created with default values, which could lead to exceptions/crashes caused by incorrect configuration.
 
 Application classifies gestures once a hand is presented in Leap Motion's field of view.
 
-Call `help` command to get list of available commands.
+Call `help` command to get the list of available commands.
 
 #### Available functionalities
 * help - *list of commands*
@@ -72,12 +72,12 @@ This directory consists of the pdf version of the bachelor thesis, text director
 │   └── ...
 ├── src
 │   ├── DataSampler
-│   │   ├── DataSampler
+│   │   ├── DataSampler
 │   │   │   ├── DataSampler.vcx.proj
 │   │   │   └── ...
 │   │   └── DataSampler.sln
 │   ├── Dataset
-│   │   ├── ASLDataset
+│   │   ├── ASLDataset
 │   │   |   ├── Samples
 │   │   │   │   ├── gestures_test.csv
 │   │   │   │   └── gestures_train.csv
@@ -87,11 +87,15 @@ This directory consists of the pdf version of the bachelor thesis, text director
 │   │   ├── DataCollection
 │   │   │   └── ...
 │   ├── GestureApp
-│   │   ├── GestureClassificationThesis.sln
+│   │   ├── GestureClassificationThesis.sln
 │   │   ├── GestureApp.vcx.proj
 │   │   └── ...
+│   ├── TrainingScript
+│   │   ├── model_training.ipynb
+│   │   ├── model_training.py
+│   │   └── ...
 │   ├── includes
-│   │   └── ...
+│   │   └── ...
 │   ├── model_training.ipynb
 │   ├── model_training.py
 │   └── ...
@@ -101,20 +105,20 @@ This directory consists of the pdf version of the bachelor thesis, text director
 ```
 
 ### src
-The directory contains source codes of the project. Include `GestureClassificationThesis.sln` solution. The solution includes GestureApp project as well as DataSampler project. Both projects are ready to be ran in Debug x64 mode, and Release x64 mode. Default startup project is GestureApp. Switching requires the user to manualy right click DataSampler project and select `Set as Startup Project`.
+The directory contains the source codes of the project. Include `GestureClassificationThesis.sln` solution. The solution includes the GestureApp project as well as the DataSampler project. Both projects are ready to run in Debug x64 mode and Release x64 mode. The default startup project is GestureApp. Switching requires the user to manually right click DataSampler project and select `Set as Startup Project`.
 
-The Dataset directory contains ASLDataset and our custom dataset stored in DataCollection. ASLDataset includes Jupyter notebooks used for finetunning hyperparameters and its sample files.
+The Dataset directory contains ASLDataset and our custom dataset stored in DataCollection. ASLDataset includes Jupyter notebooks used for finetuning hyperparameters and their sample files.
 
-The includes directory has all necessary libraries and API's to debug the solution.
+The includes directory has all necessary libraries and APIs to debug the solution.
 
-The src directory also contains `model_training.ipynb` Jupyter notebook and `model_training.py` script. The Jupyter notebook used mainly for experimental purposes either in local environment or in Google Colab. For model training use its `model_training.py`, which loads user parameteres from configuration file or use default values.
+The src directory also contains `model_training.ipynb` Jupyter notebook and `model_training.py` script. The Jupyter notebook is used mainly for experimental purposes either in the local environment or in Google Colab. For model training, use its `model_training.py`, which loads user parameters from the configuration file or uses default values.
 
 ## Setup
 [Anaconda](https://anaconda.org) package manager is suggested to manage required frameworks.
 It is not needed, but the setup is described with the usage of Anaconda.
 Instalation guide can be found [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
-To create new conda environment and install all dependencies just save following config as ``environment.yml`` or use created one. 
+To create a new conda environment and install all dependencies, just save the following config as ``environment.yml`` or use created one. 
 ```
 name: gestureleap
 channels:

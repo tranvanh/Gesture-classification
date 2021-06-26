@@ -1,4 +1,4 @@
-A recurrent neural network (RNN) is distinguished by its memory, which takes input sequence with no predetermined size. Its past predictions influence currently generated output. Thus for the same input, RNN could produce different results depending on previous inputs in the sequence \cite{rnnDSmedium}.
+Recurrent Neural Network (RNN) is distinguished by its memory, which takes input sequence with no predetermined size. Its past predictions influence currently generated output. Thus for the same input, RNN could produce different results depending on previous inputs in the sequence \cite{rnnDSmedium}.
 
 RNNs features make it commonly used in fields such as speech recognition, image captioning, natural language processing, or language translation. Some of the popular being, for example, Siri, Google Translate, or Google Voice search \cite{ibmrnn}.
 
@@ -21,15 +21,15 @@ The recurrent unit is calculated as follows:
     {h_t = f(W_{x}x_t + W_{h}h_{t-1}+\vec{b_h})}
 \end{equation}
 
-$f$ being the activation function, $W_x,W_h$ are weight matrixes, $x_t$ is the input, and $\vec{b_h}$ is the vector of bias parameters. The hiddent stat $h_t$ at time step $t=0$ is initialized to $(0,0,...,0)$. The output $\hat{y_t}$ is then calculated as:
+$f$ is the activation function, $W_x,W_h$ are weight matrixes, $x_t$ is the input, and $\vec{b_h}$ is the vector of bias parameters. The hiddent stat $h_t$ at time step $t=0$ is initialized to $(0,0,...,0)$. The output $\hat{y_t}$ is then calculated as:
 
 \begin{equation}
     {\hat{y}_t = g(W_{y}h_t + \vec{b_y})}
 \end{equation}
 
-$g$ also being an activation function, usually being softmax to ensure the output is in the desired class range. $W_y$ is the weight matrix, and $\vec{b_y}$ being a vector of biases determined during the learning process.
+$g$ is also an activation function, usually is softmax, to ensure the output is in the desired class range. $W_y$ is the weight matrix, and $\vec{b_y}$ is a vector of biases determined during the learning process.
 
-Training RNNs uses a modified version of the backpropagation algorithm called \textit{backpropagation through time} (BPTT), working by unrolling the RNN \cite{Goodfellow-et-al-2016}, calculating the losses across time steps, then updating the weights with the backpropagation algorithm. More on RNN in \cite{lipton2015critical} by Lipton et al.
+Training RNNs uses a modified version of the backpropagation algorithm called \textit{backpropagation through time} (BPTT), which works by unrolling the RNN \cite{Goodfellow-et-al-2016}, calculating the losses across time steps, then updating the weights with the backpropagation algorithm. More on RNN in \cite{lipton2015critical} by Lipton et al.
 
 
 \subsubsection{Bidirection Recurrent Neural Networks}
