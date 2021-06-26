@@ -18,6 +18,13 @@ Experiments for a single connected sensor were performed with LMC's VRVisualizer
 
 \begin{figure}[ht]
     \centering
+    \includegraphics[width=7cm]{vrvisualizer.png}
+    \caption{VRVisualizer}
+    \label{fig:vrvisualizer}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
     \includegraphics[width=7cm]{setup_1.png}
     \caption{Ilustrative field of view of 1 LMC sensor}
     \label{fig:setup_1}
@@ -38,12 +45,12 @@ The percentage of invalidated gestures was also not too high as most of the disc
 
 \subsection{Two Leap Motion Sensors}
 
-For two sensors, we explored several layouts with different calibrations. We could not utilize VRVisualizer as we did with one LMC sensor. The MultiLeap library does not have a feature of visualizing the merged hand or any visualization during calibration at the moment. We could not accurately evaluate how the merged hand structure looks like during classification or calibration, thus can be our experiments limited in correction when evaluating the accuracy of multiple LMC sensors. We recommend conducting experiments again once the visualizing feature is implemented.
+For two sensors, we explored several layouts with different calibrations. We could not utilize VRVisualizer as we did with one LMC sensor. The MultiLeap library does not have a feature of visualizing the merged hand or any visualization during calibration at the moment. Therefore, we could not accurately evaluate how the merged hand structure looks like during classification or calibration. Thus, our experiments are limited in correction when evaluating the accuracy of multiple LMC sensors. We recommend conducting experiments again once the visualizing feature is implemented.
 
 \subsubsection{Parallel Layout}
 \label{parallel_layout}
 
-The parallel layout, with sensors facing each other, could not be tested. LMC sensors expect to receive its emitted IR signals to return from a hand. Instead, the emitted IR signal is received by the other sensor and vice versa. The behavior will confuse LMC recognition making the sensors think there is a hand presented even when it actually is not. Thus we assume this parallel layout is inappropriate to be a part of any setup with multiple LMC sensors.
+The parallel layout, with sensors facing each other, could not be tested. LMC sensors expect to receive its emitted IR signals to return from a hand. Instead, the emitted IR signal is received by the other sensor and vice versa. The behavior will confuse LMC recognition making the sensors think there is a hand presented even when it is not. Thus we assume this parallel layout is inappropriate to be a part of any setup with multiple LMC sensors.
 
 \begin{figure}[H]
     \centering
@@ -74,9 +81,9 @@ Despite improved performance with various angles, the number of invalidated clas
     \label{fig:confuse_2}
 \end{figure}
 
-The calibration quality significantly affects the prediction accuracy. More specifically, when we tested \textit{pinch} gesture, the measured average accuracy was mere 24.4\%, but when tested again with a new calibration, the accuracy improved up to 83\%, which is already better than referential results of one connected sensor. The calibration could also have an effect on dynamic gestures. While performing experiments, dynamic gestures were not responsive as they were with only one connected sensor. Often times they were not recognized at all, but their responsiveness varied with different calibrations. 
+The calibration quality significantly affects the prediction accuracy. More specifically, when we tested \textit{pinch} gesture, the measured average accuracy was mere 24.4\%, but when tested again with a new calibration, the accuracy improved up to 83\%, which is already better than referential results of one connected sensor. The calibration could also affect dynamic gestures. While performing experiments, dynamic gestures were not responsive as they were with only one connected sensor. Often times they were not recognized at all, but their responsiveness varied with different calibrations. 
 
-The MultiLeap's current most notable issue is an incorrect number of reported hands. Our demo application does not make a prediction when there is more than one hand presented. This feature is conflicting with the current bug of MultiLeap, where it frequently returns two hands instead of one, even though only one is present, which from a user's point of view makes the demo application almost unusable for any accurate consecutive recognition. The issue is known, and its fix is currently in development.
+The MultiLeap's current most notable issue is an incorrect number of reported hands. Our demo application does not make a prediction when there is more than one hand presented. This feature is conflicting with the current bug of MultiLeap, where it frequently returns two hands instead of one, even though only one is present, which from a user's point of view makes the demo application almost unusable for any accurate consecutive recognition. However, the issue is known, and its fix is currently in development.
 
 \subsection{Three Leap Motion Sensors}
 

@@ -33,7 +33,7 @@ The decision on how to update the cell is obtained by multiplying sigmoid output
     {o_t = \sigma(W_{x_o}x_t + W_{h_o}h_{t-1}+\vec{b_o})}
 \end{equation}
 
-Then passing the newly modified cell state into a tanh function, and multiplying its output with the sigmout ouput, we get the hidden state \cite{guideLSTM}.
+Then passing the newly modified cell state into a tanh function and multiplying its output with the sigmoid output, we get the hidden state \cite{guideLSTM}.
 
 \begin{equation}
     {h_t = o_t \odot tanh(c_t)}
@@ -47,32 +47,32 @@ The computation of the output $\hat{y}_t$ proceeds the same way as regular RNN \
 \end{equation}
 
 \begin{figure}[h]
-	\centering
+    \centering
     \includegraphics[width=10cm]{lstm_cell.png}
-	\caption{LSTM cell \cite{lstmcell_img}}
-	\label{fig:lstmCell}
+    \caption{LSTM cell \cite{lstmcell_img}}
+    \label{fig:lstmCell}
 \end{figure}
 
 \subsubsection{Bidirectional Long Short-Term Memory}
 
-Similarly, as previously described in BRNN (1.2.3.1), Bidirectional Long Short-Term Memory (BLSTM) has its hidden state split into two, forward states and backward states. Such modification allows the network to gain context from past and future alike. BLSTM, in comparison with BRNN, handles better the information storage across the timeline with large time gaps from either past or future.
+Similarly, as previously described in BRNN (1.2.3.1), Bidirectional Long Short-Term Memory (BLSTM) has its hidden state split into two, forward states and backward states. Such modification allows the network to gain context from past and future alike. As a result, BLSTM, in comparison with BRNN, handles better the information storage across the timeline with large time gaps from either past or future.
 
 \begin{figure}[h]
-	\centering
+    \centering
     \includegraphics[width=12cm]{lstm_bi.png}
-	\caption{Unrolled structure of BLSTM \cite{matous}}
-	\label{fig:blstm}
+    \caption{Unrolled structure of BLSTM \cite{matous}}
+    \label{fig:blstm}
 \end{figure}
 
 \subsubsection{Deep Long Short-Term Memory}
 
-Deep Long Short-Term Memory (DLSTM), or stacked LSTM, is now considered to be a stable technique for challenging sequence prediction tasks. It was first introduced by Graves, et al. \cite{gravesDLSTM}, where it was found that the depth of the network has greater importance than the number of memory cells in a given layer. DLSTM architecture can be described as an LSTM model consisting of multiple LSTM layers.
+Deep Long Short-Term Memory (DLSTM), or stacked LSTM, is now considered a stable technique for challenging sequence prediction tasks. It was first introduced by Graves et al. \cite{gravesDLSTM}, where it was found that the depth of the network has greater importance than the number of memory cells in a given layer. Thus, DLSTM architecture can be described as an LSTM model consisting of multiple LSTM layers.
 
 \begin{figure}[H]
-	\centering
+    \centering
     \includegraphics[width=3cm]{dlstm.png}
-	\caption{Deep Long Short-Term memory architecture \cite{brownleeDLSTM}}
-	\label{fig:dlstm}
+    \caption{Deep Long Short-Term memory architecture \cite{brownleeDLSTM}}
+    \label{fig:dlstm}
 \end{figure}
 
 The LSTM layer above outputs a sequence rather than a single value for the LSTM layer below \cite{brownleeDLSTM}.

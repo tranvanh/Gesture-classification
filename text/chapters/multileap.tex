@@ -1,20 +1,20 @@
 
-In 2018, developers from UltraLeap had released an experimental build for Leap Motion tracking software, which provided data from all connected LMCs at once. Despite having this feature, the provided tracking information for the same hand was different from each sensor due to different points of origin. This problem was solved by MultiLeap library created by Tomáš Nováček et al. in \cite{tomasMultileap}, which merges the information from all sensors and returns unified stream of data. The library works with same data structures as Leap Motion's API.
+In 2018, developers from UltraLeap had released an experimental build for Leap Motion tracking software, which provided data from all connected LMCs at once. Despite having this feature, the provided tracking information for the same hand was different from each sensor due to different points of origin. This problem was solved by the MultiLeap library created by Tomáš Nováček et al. in \cite{tomasMultileap}, which merges the information from all sensors and returns a unified stream of data. The library works with the same data structures as Leap Motion's API.
 
 \section{Alignment of the tracking data}
 
-To align tracking data, we must first determine the position of LMCs in order to place them in the virtual world. This can be achieved by computing sensor's positions and rotations in relation to other LMCs \cite{tomasMultileap}.
+To align tracking data, we must first determine the position of LMCs to place them in the virtual world. This can be achieved by computing the sensor's positions, and rotations in relation to other LMCs \cite{tomasMultileap}.
 
 \subsection{Data sampling}
 
-The MultiLeap library allows a user to sample data using a semi-automatic sampling process. Each sample consists of 20 points from the hand – the points represent the center of each finger joint. 
+The MultiLeap library allows a user to sample data using a semi-automatic sampling process. Each sample consists of 20 points from the hand –-- the points represent the center of each finger joint. 
 
 The sampling is enabled manually, but data are sampled automatically per every Leap Motion frame, approximately 90 times per second. The general idea of automatic sampling is to calibrate sensors using data from already calibrated devices.
 
-First, one sensor is marked as calibrated. The first marked sensor is either the first connected sensor or one selected by the user. Uncalibrated sensors start acquiring samples if the presented hand is in their field of view and at the same time in the field of view of any calibrated sensor. The pair of samples consists of uncalibrated sensor's original data and fused data from all calibrated sensors, to which is the hand visible. Once the sensor collects enough samples, it begins to compute the optimal translation and rotation of the device. The sensor is then marked as calibrated. The process is repeated until all sensors are calibrated \cite{tomasMultileap}.
+First, one sensor is marked as calibrated. The first marked sensor is either the first connected sensor or one selected by the user. Uncalibrated sensors start acquiring samples if the presented hand is in their field of view and at the same time in the field of view of any calibrated sensor. The pair of samples consists of the uncalibrated sensor's original data and fused data from all calibrated sensors, to which is the hand visible. Once the sensor collects enough samples, it begins to compute the optimal translation and rotation of the device. The sensor is then marked as calibrated. The process is repeated until all sensors are calibrated \cite{tomasMultileap}.
 
 
-Hands will then align automatically, but it is up to the user, performing the calibration, to cover enough space of the tracking area. It is best to have diverse samples for more accurate alignment \cite{tomasMultileap}.
+Hands will then align automatically, but it is up to the user, performing the calibration, to cover enough space of the tracking area. Therefore, it is best to have diverse samples for more accurate alignment \cite{tomasMultileap}.
 
 Considering the tracking data, where the hand is completely still, it will not have the necessary diversity in its samples. The deviation between collected tracking data is too insignificant. If we were to move the hand across the tracking area, having it rotated in various ways in various positions, the deviation of rotations and positions will be more evident, and the calculation of the alignment more precise \cite{tomasMultileap}.
 
@@ -39,7 +39,7 @@ The goal of the Kabsch algorithm is to compute the optimal translation rotation 
 
 Coordinates of the first point are in the first row, the second point in the second row, and the $N$th point in the $N$th row.
 
-The algorithm has two main steps, computing the optimal translation, and computation of the optimal matrix.
+The algorithm has two main steps, computing the optimal translation and computation of the optimal matrix.
 
 The optimal translation can be easily found by being the offset between the averages of two sets of points. As for optimal rotation, we must first calculate the mean center of the points by subtracting the coordinates of the respective centroid from the point coordinates. The centroid $C_P$ for $P$ is computed as follows:
 
@@ -62,23 +62,23 @@ Then, the $3\times3$ cross-variance matrix between the points must be calculated
 At last, we will extract the rotation from the covariance matrix using polar decomposition. The extraction can be done in more iterations, resulting in more accurate rotation calculation but requiring higher computation time in return.
 
 \begin{algorithm}
-	\caption{Kabsch algorithm}
-	\label{alg:devicePositioning}
-	\hspace*{\algorithmicindent} \textbf{Input}: 
-	    \begin{itemize}
-	        \item \textbf{sensors}: List of N collections of samples for N sensors
-	        \item \textbf{iterations}: The number of iterations of the Kabsch algorithm
-	    \end{itemize}
-	\begin{algorithmic}[1]
-		\For {$sensor=2,\ldots,N$}
-		    \State optimalTranslation = getAverage(referenceMatrix) - getAverage(sensorMatrix);
-			\State covarianceMatrix = transpose(sensorMatrix) - referenceMatrix
-			\For {$i=1,\ldots,iterations$}
-		    	\State extractRotation(covarianceMatrix)
-		    \EndFor
-		    \State Translation and rotation of the sensor in the Unity scene
-		\EndFor
-	\end{algorithmic} 
+    \caption{Kabsch algorithm}
+    \label{alg:devicePositioning}
+    \hspace*{\algorithmicindent} \textbf{Input}: 
+        \begin{itemize}
+            \item \textbf{sensors}: List of N collections of samples for N sensors
+            \item \textbf{iterations}: The number of iterations of the Kabsch algorithm
+        \end{itemize}
+    \begin{algorithmic}[1]
+        \For {$sensor=2,\ldots,N$}
+            \State optimalTranslation = getAverage(referenceMatrix) - getAverage(sensorMatrix);
+            \State covarianceMatrix = transpose(sensorMatrix) - referenceMatrix
+            \For {$i=1,\ldots,iterations$}
+                \State extractRotation(covarianceMatrix)
+            \EndFor
+            \State Translation and rotation of the sensor in the Unity scene
+        \EndFor
+    \end{algorithmic} 
 \end{algorithm}
 
 \section{Data fusion}
@@ -91,4 +91,4 @@ If multiple sensors detect the hand, the fusion algorithm is used. In most cases
 
 The function transfers the angle, in radians, between the palm normal and the sensor's normal to the corresponding confidence level \cite{tomasMultileap}.
 
-The confidence level is used to give weight to data from the sensor which detects the hand better, making the tracking more precise despite faulty data coming from other sensors.
+The confidence level is used to give weight to data from the sensor, which detects the hand better, making the tracking more precise despite faulty data coming from other sensors.
