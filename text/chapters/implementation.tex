@@ -8,7 +8,7 @@ Among many publicly available datasets for gesture recognition are only a few co
 
 \subsection{SHREC 2017 Dataset}
 
-The SHREC dataset contains sequences of 14 dynamic hand gestures. Each gesture was performed between 1 and 10 times by 28 participants in two ways, using one finger and the whole hand. All participants were right-handed. The length of sample gestures varies between 20 to 170 frames, making some samples too short. The variation of frames makes it too inconsistent for our usage in real-time deployment and, as such, deemed unsuitable..
+The SHREC dataset contains sequences of 14 dynamic hand gestures. Each gesture was performed between 1 and 10 times by 28 participants in two ways, using one finger and the whole hand. All participants were right-handed. The length of sample gestures varies between 20 to 170 frames. The variation of frames makes it too inconsistent for our usage in real-time deployment and, as such, deemed unsuitable. Some samples can be too short and must be thrown away. Some can be too long, and if we were to shorten it, we might lose the gesture's key features.
 
 \subsection{ASL Dataset}
 
@@ -21,7 +21,7 @@ After further inspection of the ASL dataset, we have discovered possible mislabe
 \label{data_sampling}
 By not using ASL Dataset, we have lost a set of static gestures. Also, we want to have the ability to provide the training with our own sets of gestures and not to be bound only to those publicly available. For such purposes, we had created a simple interactive data sampler in the form of a console application.
 
-The sampler saves each sample in .txt format, one line by timestep $T$, frame yield by LMC, each line containing a set of features. Features were selected and computed as previously described in section \ref{sec:feature_extraction}. The order of features in a line $x_t$, at time $t$ is as follows.
+The sampler saves each sample in .txt format, one line per timestep $T$, frame yield by LMC. Each line contains a set of features. Features were selected and computed as previously described in section \ref{sec:feature_extraction}. The order of features in a line $x_t$, at time $t$ is as follows.
 
 
 \begin{equation}
@@ -59,7 +59,7 @@ The recording is initiated by key command, but the data collection does not star
     
     The method is recommended for sampling dynamic gestures. We attempt to capture the most important part of a dynamic gesture, its movement. 
 
-    The most challenging part of creating a dataset is when we do the sampling itself. We want to keep in mind the variety of samples, meaning angles, positions, and additionally regarding dynamic gestures, various speeds, and starting positions. Also, the factor of overlapping characteristics of gestures must be taken into consideration. For example, an open hand and open-handed swipe right may share some similar sequence of frames. Despite introducing sampling specifically for dynamic gestures, it can still be challenging to create a diverse enough dataset, which still holds key properties of the gesture and will enforce the model to learn its characteristics.
+    The most challenging part of creating a dataset is when we do the sampling itself. We want to keep in mind the variety of samples, meaning angles, positions, and additionally regarding dynamic gestures, various speeds, and starting positions. Also, the factor of overlapping characteristics of gestures must be taken into consideration. For example, an open hand and open-handed swipe right may share some similar sequence of frames. Despite introducing sampling specifically for dynamic gestures, it can still be challenging to create a dataset, which is diverse enough to hold key properties of the gesture and will enforce the model to learn its characteristics.
 
     We created a dataset, which consists of 7 static gestures (fist, number 1-pointing, number 2-peace sign, number 3, number 4, number 5-open fist, pinch) and 2 dynamic gestures (swipe right, swipe left), each of average 429 samples performed by both hands, a total of 3861 samples. 
 
@@ -102,7 +102,7 @@ The recording is initiated by key command, but the data collection does not star
 
 
     
-    All gestures were sampled by one LMC sensor, which meets its limitation and is unable to create correct hand joint alignments at some specific angles, as an example \textit{number 1} pointing towards the sensor. Due to this fact, some gestures can be lacking in samples with more intricate angles. We do not recommend using our dataset for any benchmarking as the gesture set is not complex enough for any model performance evaluation, and another factor being it was sampled only by one user, which should be further expanded in future works. Its sole purpose is to have a working gesture set for real-time recognition. 
+    All gestures were sampled by one LMC sensor, which meets its limitation and is unable to create correct hand joint alignments at some specific angles, as an example \textit{number 1} pointing towards the sensor. Due to this fact, some gestures can be lacking in samples with more intricate angles. We do not recommend using our dataset for any benchmarking as the gesture set is not complex enough for any model performance evaluation. Another factor is that it was sampled only by one user, which should be further expanded in future works. Its sole purpose is to have a working gesture set for real-time recognition. 
 
 \end{enumerate}
 
@@ -110,7 +110,7 @@ The recording is initiated by key command, but the data collection does not star
 \section{Model Training}
 \label{sec:model_training}
 
-We selected Python to be our primary language for training the ANN mode along with the web-based interactive development environment Jupyter Notebook. One of the main reasons to pick Python over other available languages was its wide range of libraries and scientific packages supporting machine learning tasks. Most importantly, Keras, a high-level deep learning API integrated with TensorFlow, enabling the user to create and train model structures in very few steps.
+We selected Python to be our primary language for training the ANN mode along with the web-based interactive development environment Jupyter Notebook. One of the main reasons to pick Python over other available languages was its wide range of libraries and scientific packages supporting machine learning tasks. Most importantly, Keras, a high-level deep learning API integrated with TensorFlow, enables the user to create and train model structures in very few steps.
 
 ASL Dataset was used to benchmark the model and further analyzing optimal parameters. For the purpose of real-time recognition, we trained the model on our original dataset described at the end of section \ref{data_sampling}.
 
@@ -132,7 +132,7 @@ It is unclear whether the model would perform better with more stacked LSTM laye
 
 \subsection{Two-Layered Bidirectional LSTM architecture}
 
-After an unsuccessful attempt to utilize DLSTM, we turned over to the two-layered bidirectional LSTM architecture proposed in \cite{bidirect_dynam}. The proposed architecture was meant and trained on dynamic gestures only, not knowing how it will perform on static gestures. On the other hand, static gestures can be treated as a special type of dynamic gesture, having one frame stretched out to the desired number of timesteps. Not to mention our dataset was constructed in a way where static gestures have a slight difference in coordinates between $t$ and $t+1$, making it possible to look at the static gesture as a very slow type of dynamic gesture.
+After an unsuccessful attempt to utilize DLSTM, we turned over to the two-layered bidirectional LSTM architecture proposed in \cite{bidirect_dynam}. The proposed architecture was meant and trained on dynamic gestures only, not knowing how it will perform on static gestures. On the other hand, static gestures can be treated as a special type of dynamic gesture, having one frame stretched out to the desired number of timesteps. Not to mention our dataset was constructed in a way where static gestures have a slight difference in coordinates between $t$ and $t+1$, which makes it possible to look at the static gesture as a very slow type of dynamic gesture.
 
 \subsubsection{Selection of the Optimal Dropout Rate}
 
@@ -214,5 +214,5 @@ The basic idea is to have a window of fixed size $T$, which slides through our d
 
 For each window, we then calculate features for classification and output the prediction of the captured portion. Features must be preprocessed exactly the same as they were for model training, in our case, same as described in section \ref{sec:feature_extraction}. 
 
-The window slides by 10 frame, in other words, throws away oldest frames and adds in newest acquired. The sliding rate should be further tuned for optimal value. If we throw away too many frames, we risk leaving some gestures unclassified. On the other hand, sliding by one frame can be demanding on hardware, where weaker computer builds may not keep up, and the prediction may stutter.
+The window slides by 10 frame, in other words, throws away the oldest frames and adds in the newest acquired. The sliding rate should be further tuned for optimal value. If we throw away too many frames, we risk leaving some gestures unclassified. On the other hand, sliding by one frame can be demanding on hardware, where weaker computer builds may not keep up, and the prediction may stutter.
 
