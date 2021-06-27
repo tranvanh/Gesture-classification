@@ -1,4 +1,0 @@
-Source: guetzli
-Version: 2018-07-30
-Description: Perceptual JPEG encoder
-Build-Depends: libpng, butteraugli
