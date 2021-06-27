@@ -1,5 +1,4 @@
-﻿  Skipping vcpkg. (no packages)
-  ConfigManager.cpp
+﻿  ConfigManager.cpp
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\GestureLeap\ConfigManager.cpp(25,5): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\GestureLeap\ConfigManager.cpp(34,5): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\tranv\source\repos\tranvanh\Gesture-classification\src\GestureApp\GestureLeap\ConfigManager.cpp(70,23): warning C4018: '<': signed/unsigned mismatch
