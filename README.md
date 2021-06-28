@@ -13,7 +13,7 @@ The application loads its configuration from `gestureLeapConfig.json` in the exe
 
 The user is on startup asked to enter gesture type, must be a numeric value. Samples are saved to `<dataset directory>/<gesture type>/<index>.txt`. The index value begins from 0, but can be changed in application using `reinit <gesture type> <index>` command. Call `help` command to get the list of available commands.
 
-If you receive error `Opening a file`, try disabling antivirus
+If you receive `Error opening a file`, try disabling antivirus
 #### Available functionalities
 * help - *list of commands*
 * close - *close application*
