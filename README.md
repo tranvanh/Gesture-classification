@@ -25,6 +25,8 @@ If you receive error `Opening a file`, try disabling antivirus
 
 ## model_training.py
 
+Follow *Setup* instructions down below before running.
+
 The Python script serves for model training on custom datasets. Run `python model_training.py`
 
 The script loads its configuration from `gestureLeapConfig.json` in the execution folder. The user can change `dataset_directory`, `model_directory`, `epoch`, `dynamic_timestep`, `gpu` values, or use default values. If the configuration file is not found, it gets created with default values. Dataset directory must follow structure defined by DataSampler application `<dataset_directory>/<gesture type>/<index>.txt`. Names of gesture types must be numeric values. The `model_directory` is the location where the trained model will be saved, must exist.
