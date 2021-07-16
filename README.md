@@ -311,4 +311,4 @@ dependencies:
 
 Run ``conda env create -f environment.yml``, and after the environment setup is complete, run ``conda activate gestureleap`` to activate it. 
 
-Remove environment by `conda remove --name gestureleap --all`
+Remove environment by `conda remove --name gestureleap --all`, `conda env remove --name myenv`
